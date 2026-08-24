@@ -607,48 +607,51 @@ Assim, atualizar uma biblioteca na pesquisa de mestrado não quebra o script do
 escritório.
 :::
 
-## Baixando o material do curso
+## Criando o seu projeto
 
 ::: {.passos}
 ::: {.passo}
-Abra o PowerShell (Windows) ou o Terminal (Mac e Linux).
+No GitHub, abra o **modelo** do curso e clique em `Use this template`.
 :::
 ::: {.passo}
-Vá até a pasta onde você guarda seus projetos.
+Dê um nome ao seu repositório. Ele é **seu**, e serve de portfólio.
 :::
 ::: {.passo}
-**Clone** o repositório do curso, com `git clone` seguido do endereço.
+Clone **o seu** repositório com `git clone`.
 :::
 ::: {.passo}
 Entre na pasta e rode `uv sync`, que monta o ambiente com tudo instalado.
 :::
+::: {.passo}
+Baixe o notebook da aula com um comando `curl`.
+:::
 :::
 
 ::: {.aviso-pratica}
-Os comandos exatos estão no site do curso, prontos para copiar.
+Os comandos exatos estão no site do curso, prontos para copiar. Só há **uma
+pasta**: a sua.
 :::
 
-## Clonar, e não baixar o zip
+## O repositório é seu
 
 ::: {.colunas}
 ::: {.coluna}
-### Com `git clone`
+### Por que não clonar o repo do curso
 
-Antes de cada aula, um comando (`git pull`) traz tudo o que mudou.
+Porque ele é nosso. Você não consegue salvar nada nele, e toda atualização
+nossa entraria em conflito com o que você escreveu.
 :::
 
 ::: {.coluna}
-### Com o botão "Download ZIP"
+### O que você ganha assim
 
-Antes de cada aula, você baixa tudo de novo, descompacta, e tenta lembrar em qual
-pasta estava o seu notebook editado.
+Um repositório com o seu nome, no seu GitHub, onde `git push` funciona desde o
+primeiro dia. No fim do curso, ele é a prova do que você aprendeu.
 :::
 :::
 
 ::: {.aviso-pratica}
-**Dica que evita dor de cabeça:** trabalhe sempre em uma **cópia** do notebook,
-com o seu nome no arquivo. Assim o `git pull` nunca conflita com o que você
-escreveu.
+Ao final de cada aula: `git add .`, `git commit -m "aula 1"` e `git push`.
 :::
 
 ## Abrindo o notebook
@@ -870,6 +873,32 @@ apareceu.
 :::
 :::
 
+## O que a prática de hoje termina fazendo
+
+Você grava 30 segundos lendo um trecho de uma decisão em voz alta, e cinco
+linhas de Python devolvem o texto transcrito.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Roda no seu computador**]{.titulo}
+O áudio não sai da sua máquina, e não é preciso chave de acesso nem conta em
+serviço nenhum.
+:::
+
+::: {.cartao}
+[**Usa tudo o que vimos**]{.titulo}
+Módulo, função, argumento nomeado, objeto, nome e método, na mesma chamada.
+:::
+
+::: {.cartao}
+[**E erra**]{.titulo}
+O modelo pequeno erra termos jurídicos. Encontrar esses erros é o exercício
+final da aula.
+:::
+:::
+
 ## Mão na massa
 
 ::: {.aviso-pratica}
@@ -891,7 +920,7 @@ Atributos, métodos e módulos
 :::
 ::: {.cartao}
 [**Parte C**]{.titulo}
-Lendo um número CNJ de verdade
+Transcrever um áudio seu e conferir o que a IA entendeu
 :::
 :::
 
