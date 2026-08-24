@@ -14,25 +14,28 @@ format:
 
 ::: {.agenda}
 ::: {.bloco}
-[00:00]{.tempo} Abertura, combinados e o mapa do curso
+[00:00]{.tempo} Abertura e combinados
 :::
 ::: {.bloco}
-[00:10]{.tempo} Por que ainda programar na era da IA
+[00:08]{.tempo} Por que programar: os três argumentos e o que isso muda no Direito
 :::
 ::: {.bloco}
-[00:55]{.tempo} Primeiros conceitos: objetos, atributos, métodos e módulos
+[00:40]{.tempo} Mão na massa no navegador, até a transcrição
 :::
 ::: {.bloco}
-[01:15]{.tempo} Prática no navegador, todo mundo junto
+[01:15]{.tempo} Intervalo
 :::
 ::: {.bloco}
-[01:50]{.tempo} Intervalo
+[01:25]{.tempo} Fim do notebook
 :::
 ::: {.bloco}
-[02:05]{.tempo} Levando o mesmo notebook para o seu computador
+[01:40]{.tempo} Os conceitos, agora com nome
 :::
 ::: {.bloco}
-[02:45]{.tempo} Fechamento e o que fazer até o próximo encontro
+[01:50]{.tempo} Criando o seu projeto com uv, do zero
+:::
+::: {.bloco}
+[02:25]{.tempo} Fechamento
 :::
 :::
 
@@ -319,18 +322,18 @@ meses depois, sem lembrar do que fez.
 
 ::: {.grade .grade-3}
 ::: {.cartao}
-[**O parecer contestado**]{.titulo}
-A parte contrária questiona o número. Você reexecuta a análise e mostra de onde
-ele veio.
+[**Transparência**]{.titulo}
+A parte contrária questiona o número. Você reexecuta a análise na frente de quem
+perguntou e mostra de onde ele veio.
 :::
 
 ::: {.cartao}
-[**O dado que atualizou**]{.titulo}
+[**Atualização**]{.titulo}
 Chegaram mais seis meses de decisões. Você roda de novo, e não refaz a pesquisa.
 :::
 
 ::: {.cartao}
-[**A pesquisa que volta**]{.titulo}
+[**Registro**]{.titulo}
 Você retoma o projeto um ano depois e o arquivo explica o que o seu "eu" antigo
 fez, sem depender da memória.
 :::
@@ -373,14 +376,23 @@ há licença por assento, nem renovação anual, nem limite de alunos.
 Você pode abrir qualquer ferramenta que usar e ver o que ela faz por dentro. Um
 resultado que depende de uma caixa preta comercial é mais difícil de defender.
 :::
+
+::: {.coluna}
+### Coletivo
+
+Ferramenta aberta é construída e corrigida por muita gente. Você parte do que a
+comunidade já fez, em vez de começar do zero.
+:::
 :::
 
 <span class="espaco"></span>
 
 ::: {.cartao}
-[**E independente**]{.titulo}
-Ferramenta aberta não é descontinuada por decisão de um fornecedor, não muda de
-preço no meio da pesquisa e não deixa de funcionar quando o convênio acaba.
+[**Feito aqui do lado**]{.titulo}
+`juscraper` (dados de tribunais), `juscraper-app` (busca de jurisprudência no
+navegador), `labdados` (OCR e transcrição) e o QualiLab (análise qualitativa,
+também no navegador) são abertos. Dá para ler o código, abrir um *issue*, propor
+uma correção. Vários deles nasceram de uma dúvida de pesquisa como as suas.
 :::
 
 # E o que isso tem a ver com o Direito? {.secao background-color="#023A78"}
@@ -530,7 +542,93 @@ você continua pelo Colab e a gente resolve na monitoria. Até o Encontro 6, qua
 entrarmos em agentes de IA, o ambiente local passa de preferência a requisito.
 :::
 
-# Primeiros conceitos {.secao background-color="#023A78"}
+## O que a prática de hoje termina fazendo
+
+Você grava 30 segundos lendo um trecho de uma decisão em voz alta, e cinco linhas
+de Python devolvem o texto transcrito.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Usa tudo o que vimos**]{.titulo}
+Módulo, função, argumento nomeado, objeto, nome e método, na mesma chamada.
+:::
+
+::: {.cartao}
+[**Sem chave e sem servidor**]{.titulo}
+O modelo roda na máquina em que o notebook está aberto. Não é preciso conta em
+serviço nenhum.
+:::
+
+::: {.cartao}
+[**E erra**]{.titulo}
+O modelo pequeno erra termos jurídicos. Encontrar esses erros é o exercício
+final da aula.
+:::
+:::
+
+## Transcrever serve para quê
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Sessões de julgamento**]{.titulo}
+As plenárias do STF são horas de vídeo por semana. Transcritas, viram texto
+pesquisável: dá para procurar um termo, contar quantas vezes um argumento
+aparece, acompanhar um tema ao longo de anos.
+:::
+
+::: {.cartao}
+[**Entrevistas de pesquisa**]{.titulo}
+Uma pesquisa qualitativa com 40 entrevistas de uma hora custa semanas de
+transcrição manual, ou alguns minutos de processamento.
+:::
+
+::: {.cartao}
+[**Audiências e depoimentos**]{.titulo}
+A gravação vira texto para conferência, citação e análise, em vez de ficar
+parada em um arquivo de áudio que ninguém reabre.
+:::
+
+::: {.cartao}
+[**Sustentações orais**]{.titulo}
+O mesmo, para acompanhar teses e argumentos de forma sistemática, e não caso a
+caso.
+:::
+:::
+
+## Mão na massa
+
+::: {.aviso-pratica}
+Abra o notebook do Encontro 1 **no Colab**, pelo link da página do curso. Um
+clique, sem instalar nada.
+
+No Colab, use `Arquivo` e depois `Salvar uma cópia no Drive`, senão o que você
+escrever se perde ao fechar a aba.
+:::
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Parte A**]{.titulo}
+O notebook, objetos e nomes
+:::
+::: {.cartao}
+[**Parte B**]{.titulo}
+Atributos, métodos e módulos
+:::
+::: {.cartao}
+[**Parte C**]{.titulo}
+Transcrever um áudio seu e conferir o que a IA entendeu
+:::
+:::
+
+::: {.fonte}
+Os slides continuam aqui, e voltamos a eles depois do intervalo. Agora é teclado.
+:::
+
+# Os conceitos, agora com nome {.secao background-color="#023A78"}
 
 ## O notebook
 
@@ -725,88 +823,6 @@ apareceu.
 :::
 :::
 
-## O que a prática de hoje termina fazendo
-
-Você grava 30 segundos lendo um trecho de uma decisão em voz alta, e cinco linhas
-de Python devolvem o texto transcrito.
-
-<span class="espaco"></span>
-
-::: {.grade .grade-3}
-::: {.cartao}
-[**Usa tudo o que vimos**]{.titulo}
-Módulo, função, argumento nomeado, objeto, nome e método, na mesma chamada.
-:::
-
-::: {.cartao}
-[**Sem chave e sem servidor**]{.titulo}
-O modelo roda na máquina em que o notebook está aberto. Não é preciso conta em
-serviço nenhum.
-:::
-
-::: {.cartao}
-[**E erra**]{.titulo}
-O modelo pequeno erra termos jurídicos. Encontrar esses erros é o exercício
-final da aula.
-:::
-:::
-
-## Transcrever serve para quê
-
-::: {.grade .grade-2}
-::: {.cartao}
-[**Sessões de julgamento**]{.titulo}
-As plenárias do STF são horas de vídeo por semana. Transcritas, viram texto
-pesquisável: dá para procurar um termo, contar quantas vezes um argumento
-aparece, acompanhar um tema ao longo de anos.
-:::
-
-::: {.cartao}
-[**Entrevistas de pesquisa**]{.titulo}
-Uma pesquisa qualitativa com 40 entrevistas de uma hora custa semanas de
-transcrição manual, ou alguns minutos de processamento.
-:::
-
-::: {.cartao}
-[**Audiências e depoimentos**]{.titulo}
-A gravação vira texto para conferência, citação e análise, em vez de ficar
-parada em um arquivo de áudio que ninguém reabre.
-:::
-
-::: {.cartao}
-[**Sustentações orais**]{.titulo}
-O mesmo, para acompanhar teses e argumentos de forma sistemática, e não caso a
-caso.
-:::
-:::
-
-## Mão na massa
-
-::: {.aviso-pratica}
-Abra o notebook do Encontro 1 **no Colab**, pelo link da página do curso. Um
-clique, sem instalar nada.
-
-No Colab, use `Arquivo` e depois `Salvar uma cópia no Drive`, senão o que você
-escrever se perde ao fechar a aba.
-:::
-
-<span class="espaco"></span>
-
-::: {.grade .grade-3}
-::: {.cartao}
-[**Parte A**]{.titulo}
-O notebook, objetos e nomes
-:::
-::: {.cartao}
-[**Parte B**]{.titulo}
-Atributos, métodos e módulos
-:::
-::: {.cartao}
-[**Parte C**]{.titulo}
-Transcrever um áudio seu e conferir o que a IA entendeu
-:::
-:::
-
 # Levando para o seu computador {.secao background-color="#023A78"}
 
 ## Quatro ferramentas
@@ -886,74 +902,78 @@ Assim, atualizar uma biblioteca na pesquisa de mestrado não quebra o script do
 escritório.
 :::
 
-## Criando o seu projeto
+## Criando o seu projeto, do zero
 
 ::: {.passos}
 ::: {.passo}
-No GitHub, abra o **modelo** do curso e clique em `Use this template`.
+`uv init programacao-direito` cria a pasta do projeto, já com um repositório Git
+dentro.
 :::
 ::: {.passo}
-Dê um nome ao seu repositório. Ele é **seu**, e serve de portfólio.
+`cd programacao-direito` entra na pasta.
 :::
 ::: {.passo}
-Clone **o seu** repositório com `git clone`.
+`uv add jupyter "labdados[transcricao]"` instala o que a aula usa e anota isso no
+`pyproject.toml`.
 :::
 ::: {.passo}
-Entre na pasta e rode `uv sync`, que monta o ambiente com tudo instalado.
+No Colab, `Arquivo` e depois `Fazer download` do `.ipynb`. Salve o arquivo dentro
+da pasta do projeto.
 :::
 :::
 
 ::: {.aviso-pratica}
-O notebook da aula **já vem dentro** do repositório: é o mesmo que você acabou de
-usar no Colab. Os comandos exatos estão no site do curso, prontos para copiar. Só
-há **uma pasta**: a sua.
+Três comandos e um download. Repare que **nada disso é específico deste curso**:
+é assim que se começa qualquer projeto em Python.
 :::
 
-## O repositório é seu
-
-::: {.colunas}
-::: {.coluna}
-### Por que não clonar o repo do curso
-
-Porque ele é nosso. Você não consegue salvar nada nele, e toda atualização
-nossa entraria em conflito com o que você escreveu.
-:::
-
-::: {.coluna}
-### O que você ganha assim
-
-Um repositório com o seu nome, no seu GitHub, onde `git push` funciona desde o
-primeiro dia. No fim do curso, ele é a prova do que você aprendeu.
-:::
-:::
-
-::: {.aviso-pratica}
-Ao final de cada aula: `git add .`, `git commit -m "aula 1"` e `git push`.
-:::
-
-## Abrindo o notebook
+## Abrindo no VS Code
 
 ::: {.passos}
 ::: {.passo}
-No VS Code: `File` e depois `Open Folder...`, escolhendo a pasta do curso.
+`File` e depois `Open Folder...`, escolhendo a pasta do projeto.
 :::
 ::: {.passo}
 Instale as extensões **Python** e **Jupyter**, ambas da Microsoft.
 :::
 ::: {.passo}
-Abra `aula-01.ipynb`, que já está na pasta.
+Abra o notebook que você baixou do Colab.
 :::
 ::: {.passo}
 Clique em `Select Kernel` e escolha o `.venv` do projeto.
 :::
 ::: {.passo}
-Refaça a Parte C, agora no seu computador.
+Refaça a Parte C, agora na sua máquina.
 :::
 :::
 
 ::: {.centro}
-[É o mesmo notebook, o mesmo código e o mesmo resultado. O que mudou é de quem é
-a máquina.]{.destaque}
+[O mesmo notebook, o mesmo código, o mesmo resultado. O que mudou é de quem é a
+máquina.]{.destaque}
+:::
+
+## Subindo para o GitHub
+
+::: {.passos}
+::: {.passo}
+No GitHub, crie um repositório **vazio**, sem README e sem licença.
+:::
+::: {.passo}
+`git branch -M main` renomeia a branch que o `uv` criou, para bater com o nome
+que o GitHub usa.
+:::
+::: {.passo}
+`git add .` e `git commit -m "aula 1"` registram o estado atual do projeto.
+:::
+::: {.passo}
+`git remote add origin` com o endereço do seu repositório, e `git push -u origin
+main`.
+:::
+:::
+
+::: {.aviso-pratica}
+A partir daqui o repositório é seu. É o começo de um portfólio: ao fim do curso,
+ele mostra o que você fez, e não só o que você assistiu.
 :::
 
 # Fechamento {.secao background-color="#023A78"}
@@ -981,8 +1001,8 @@ pânico.
 
 ::: {.cartao}
 [**O hábito**]{.titulo}
-Antes de cada aula: `git pull`. Durante a aula: trabalhar em uma cópia sua do
-notebook.
+Ao fim de cada aula: `git add`, `git commit` e `git push`. O projeto cresce junto
+com o curso.
 :::
 :::
 
@@ -998,8 +1018,8 @@ Se você usou o Colab hoje, tente instalar o ambiente local com calma, seguindo 
 tutorial do site.
 :::
 ::: {.passo}
-Crie uma conta no GitHub, se ainda não tem. No Encontro 2 faremos *fork* e
-*clone*.
+Se o seu projeto ainda não subiu para o GitHub, termine isso em casa. No Encontro
+2 faremos *fork* e *clone*.
 :::
 ::: {.passo}
 Abra um `issue` no repositório com qualquer erro que você não conseguiu resolver.

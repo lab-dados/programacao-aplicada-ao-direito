@@ -1,7 +1,7 @@
 # Programação Aplicada ao Direito
 
 Curso de programação em Python do **LabDados**, FGV Direito SP: seis encontros de
-3 horas sobre os fundamentos da linguagem, seguidos de quatro workshops temáticos
+2h30 sobre os fundamentos da linguagem, seguidos de quatro workshops temáticos
 sobre dados judiciais, tratamento de dados e uso de modelos de linguagem.
 
 Página do curso: <https://lab-dados.github.io/programacao-aplicada-ao-direito/>
@@ -41,8 +41,8 @@ Windows e do Mac serve, e um áudio de WhatsApp também.
 
 ## Instalando no seu computador
 
-Fazemos isso juntos na segunda metade da primeira aula. Se você quiser adiantar
-em casa, melhor: o passo 2 baixa cerca de 400 MB.
+Fazemos isso juntos na última parte da primeira aula. Se você quiser adiantar em
+casa, melhor: o passo 2 baixa cerca de 400 MB.
 
 ### 1. Instale as ferramentas
 
@@ -70,39 +70,45 @@ Para conferir, execute em uma janela nova:
 | `git --help` | Lista de comandos e opções do Git |
 | `uv python list` | Uma instalação do Python 3.13 na listagem |
 
-### 2. Crie o seu repositório
+### 2. Crie o seu projeto
 
-Você vai trabalhar em um repositório **seu**, que serve de portfólio, e que já
-vem com o notebook da aula dentro.
-
-1. Crie uma conta no [GitHub](https://github.com/), se ainda não tiver.
-2. Abra o modelo
-   [`lab-dados/projeto-programacao-direito`](https://github.com/lab-dados/projeto-programacao-direito)
-   e clique em **Use this template**, depois em **Create a new repository**.
-   Sugestão de nome: `programacao-direito`.
-3. Clone o repositório que você acabou de criar e monte o ambiente:
+O `uv init` cria a pasta do projeto já com um repositório Git dentro, e o
+`uv add` instala as bibliotecas e anota no `pyproject.toml` de quais o projeto
+depende.
 
 ```bash
-git clone https://github.com/SEU-USUARIO/programacao-direito.git
+uv init programacao-direito
 cd programacao-direito
-uv sync
+uv add jupyter "labdados[transcricao]"
 ```
+
+Depois, baixe do Colab a sua cópia do notebook (`Arquivo`, depois `Fazer
+download`, `.ipynb`) e salve dentro da pasta do projeto.
 
 ### 3. Abra no VS Code
 
 1. Abra a pasta do projeto no VS Code (`File` e depois `Open Folder...`).
 2. Instale as extensões **Python** e **Jupyter**, ambas da Microsoft.
-3. Abra `aula-01.ipynb`, que já está na pasta. É o mesmo notebook do Colab.
+3. Abra o notebook que você baixou do Colab.
 4. Clique em `Select Kernel` e escolha o `.venv` do projeto.
-5. Execute a primeira célula com `Shift+Enter`.
+5. Refaça a Parte C, agora na sua máquina.
 
-Ao final de cada aula, salve o seu trabalho:
+### 4. Suba para o GitHub
+
+Crie um repositório **vazio** no GitHub, sem README e sem licença. Depois, na
+pasta do projeto:
 
 ```bash
+git branch -M main
 git add .
 git commit -m "aula 1"
-git push
+git remote add origin https://github.com/SEU-USUARIO/programacao-direito.git
+git push -u origin main
 ```
+
+O `git branch -M main` renomeia a branch que o `uv` criou (`master`) para o nome
+que o GitHub usa. Repita `git add`, `git commit` e `git push` ao fim de cada
+aula: no fim do curso, o repositório mostra o que você fez.
 
 Dúvidas e erros podem virar
 [issues](https://github.com/lab-dados/programacao-aplicada-ao-direito/issues).
@@ -122,10 +128,10 @@ A pasta `_extensions/fgv/` contém o tema Quarto com as cores e a tipografia do
 manual de identidade visual da FGV. Extensões do Quarto precisam ficar
 versionadas no repositório para que a publicação automática funcione.
 
-O modelo de projeto dos alunos fica em
-[`lab-dados/projeto-programacao-direito`](https://github.com/lab-dados/projeto-programacao-direito)
-e traz uma cópia de `aulas/01-introducao/notebook.ipynb` como `aula-01.ipynb`.
-**Ao alterar o notebook aqui, copie a versão nova para lá.**
+Existe um modelo de projeto em
+[`lab-dados/projeto-programacao-direito`](https://github.com/lab-dados/projeto-programacao-direito),
+que **não está em uso**: no Encontro 1 os alunos criam o projeto do zero com
+`uv init`, para ver de onde cada arquivo vem.
 
 O modelo de transcrição usado no Encontro 1 é baixado pelo próprio `labdados`
 (a partir da versão 0.9), que o serve de uma release sua em vez do Hugging Face.

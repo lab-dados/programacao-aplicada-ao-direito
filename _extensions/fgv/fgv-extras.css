@@ -100,6 +100,13 @@
 
 .reveal .coluna { flex: 1; min-width: 0; }
 
+/* Quando a coluna tem titulo (### no qmd), o Quarto emite <section> em vez de
+   <div>, e o reveal marca esses elementos como slides ("future") e esconde os
+   excedentes: com tres colunas, a terceira sumia. Coluna nunca e slide, entao
+   forcamos a exibicao. O !important e necessario porque o reveal escreve
+   display inline. */
+.reveal .colunas > .coluna { display: block !important; }
+
 /* ------------------------------------------------ comparacao codigo x GUI */
 
 .reveal .comparacao {
