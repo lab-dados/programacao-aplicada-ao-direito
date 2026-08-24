@@ -17,22 +17,22 @@ format:
 [00:00]{.tempo} Abertura, combinados e o mapa do curso
 :::
 ::: {.bloco}
-[00:15]{.tempo} Por que ainda programar na era da IA
+[00:10]{.tempo} Por que ainda programar na era da IA
 :::
 ::: {.bloco}
-[01:00]{.tempo} Duas estradas: navegador ou computador
+[00:55]{.tempo} Primeiros conceitos: objetos, atributos, métodos e módulos
 :::
 ::: {.bloco}
-[01:20]{.tempo} Intervalo
+[01:15]{.tempo} Prática no navegador, todo mundo junto
 :::
 ::: {.bloco}
-[01:35]{.tempo} Preparando o ambiente: uv, Git, VS Code e GitHub
+[01:50]{.tempo} Intervalo
 :::
 ::: {.bloco}
-[02:05]{.tempo} Primeiros conceitos: objetos, atributos, métodos e módulos
+[02:05]{.tempo} Levando o mesmo notebook para o seu computador
 :::
 ::: {.bloco}
-[02:50]{.tempo} Fechamento e o que fazer até o próximo encontro
+[02:45]{.tempo} Fechamento e o que fazer até o próximo encontro
 :::
 :::
 
@@ -472,7 +472,9 @@ verdade e agentes de IA trabalhando sobre eles.]{.chegada}
 :::::
 
 ::: {.atalho}
-As duas se encontram. Dá para começar em uma e mudar para a outra quando quiser.
+**Hoje fazemos as duas, nessa ordem.** A prática de daqui a pouco é na estrada 1,
+para que ninguém fique parado. Depois do intervalo, levamos o mesmo notebook para
+a estrada 2.
 :::
 
 ## Por que a estrada 2 costuma dar trabalho
@@ -516,166 +518,16 @@ pesquisa de verdade e libera as ferramentas de IA mais interessantes.
 :::
 
 ::: {.cartao}
-[**Sem deixar ninguém parado**]{.titulo}
-Todo notebook abre no Colab. Se a instalação travar hoje, você acompanha a aula
-pelo navegador e a gente resolve o resto com calma.
+[**Começar pelo navegador**]{.titulo}
+A prática de hoje é no Colab, com um clique, para que a aula não dependa de
+nenhuma instalação ter dado certo.
 :::
 :::
 
 ::: {.aviso-pratica}
-**O convite fica aberto.** Quem começar pelo Colab pode tentar a instalação de
-novo a qualquer momento até o Encontro 6, quando entrarmos em agentes de IA e o
-ambiente local passa de preferência a requisito.
-:::
-
-# Preparando o ambiente {.secao background-color="#023A78"}
-
-## Quatro ferramentas
-
-::: {.grade .grade-2}
-::: {.cartao}
-[**uv**]{.titulo}
-Gerencia as versões do Python e as bibliotecas de cada projeto.
-:::
-
-::: {.cartao}
-[**Python 3.13**]{.titulo}
-A linguagem. Instalada pelo próprio `uv`, sem passar pelo instalador oficial.
-:::
-
-::: {.cartao}
-[**Git e GitHub**]{.titulo}
-Git guarda o histórico do projeto no seu computador. GitHub é onde esse histórico
-fica publicado e compartilhado.
-:::
-
-::: {.cartao}
-[**Visual Studio Code**]{.titulo}
-O editor. É onde você abre a pasta do projeto, escreve código e executa
-notebooks.
-:::
-:::
-
-## Projeto = pasta = repositório
-
-Ao longo do curso, "projeto" quer dizer sempre a mesma coisa: **uma pasta**.
-
-::: {.projeto}
-[minha-pesquisa/]{.pasta}
-[.venv/]{.venv} [notebooks/]{.venv} [dados/]{.venv} [resultados/]{.venv} [.git/]{.venv}
-:::
-
-<span class="espaco"></span>
-
-::: {.grade .grade-3}
-::: {.cartao}
-[**A pasta**]{.titulo}
-Tudo do projeto mora nela: notebooks, dados, resultados e o ambiente.
-:::
-
-::: {.cartao}
-[**O repositório**]{.titulo}
-É a mesma pasta, com histórico. O Git registra o que mudou, quando e por quê.
-:::
-
-::: {.cartao}
-[**O ambiente**]{.titulo}
-O `.venv` também fica dentro dela. Trocar de projeto é trocar de pasta.
-:::
-:::
-
-## Um ambiente virtual por projeto
-
-::: {.projetos}
-::: {.projeto}
-[pesquisa-mestrado/]{.pasta}
-Cada projeto declara de quais bibliotecas precisa e em quais versões.
-
-[.venv]{.venv} [pandas 2.2]{.venv}
-:::
-
-::: {.projeto}
-[relatorio-escritorio/]{.pasta}
-O ambiente fica dentro da pasta do projeto, isolado de todo o resto.
-
-[.venv]{.venv} [pandas 1.5]{.venv}
-:::
-:::
-
-::: {.fonte}
-Assim, atualizar uma biblioteca na pesquisa de mestrado não quebra o script do
-escritório.
-:::
-
-## Criando o seu projeto
-
-::: {.passos}
-::: {.passo}
-No GitHub, abra o **modelo** do curso e clique em `Use this template`.
-:::
-::: {.passo}
-Dê um nome ao seu repositório. Ele é **seu**, e serve de portfólio.
-:::
-::: {.passo}
-Clone **o seu** repositório com `git clone`.
-:::
-::: {.passo}
-Entre na pasta e rode `uv sync`, que monta o ambiente com tudo instalado.
-:::
-::: {.passo}
-Baixe o notebook da aula com um comando `curl`.
-:::
-:::
-
-::: {.aviso-pratica}
-Os comandos exatos estão no site do curso, prontos para copiar. Só há **uma
-pasta**: a sua.
-:::
-
-## O repositório é seu
-
-::: {.colunas}
-::: {.coluna}
-### Por que não clonar o repo do curso
-
-Porque ele é nosso. Você não consegue salvar nada nele, e toda atualização
-nossa entraria em conflito com o que você escreveu.
-:::
-
-::: {.coluna}
-### O que você ganha assim
-
-Um repositório com o seu nome, no seu GitHub, onde `git push` funciona desde o
-primeiro dia. No fim do curso, ele é a prova do que você aprendeu.
-:::
-:::
-
-::: {.aviso-pratica}
-Ao final de cada aula: `git add .`, `git commit -m "aula 1"` e `git push`.
-:::
-
-## Abrindo o notebook
-
-::: {.passos}
-::: {.passo}
-No VS Code: `File` e depois `Open Folder...`, escolhendo a pasta do curso.
-:::
-::: {.passo}
-Instale as extensões **Python** e **Jupyter**, ambas da Microsoft.
-:::
-::: {.passo}
-Abra o notebook do Encontro 1.
-:::
-::: {.passo}
-Clique em `Select Kernel` e escolha o `.venv` do projeto.
-:::
-::: {.passo}
-Execute a primeira célula com `Shift+Enter`.
-:::
-:::
-
-::: {.centro}
-[Se apareceu a versão do Python, está tudo pronto.]{.destaque}
+**O convite fica aberto.** Se a instalação depois do intervalo não sair hoje,
+você continua pelo Colab e a gente resolve na monitoria. Até o Encontro 6, quando
+entrarmos em agentes de IA, o ambiente local passa de preferência a requisito.
 :::
 
 # Primeiros conceitos {.secao background-color="#023A78"}
@@ -875,21 +727,21 @@ apareceu.
 
 ## O que a prática de hoje termina fazendo
 
-Você grava 30 segundos lendo um trecho de uma decisão em voz alta, e cinco
-linhas de Python devolvem o texto transcrito.
+Você grava 30 segundos lendo um trecho de uma decisão em voz alta, e cinco linhas
+de Python devolvem o texto transcrito.
 
 <span class="espaco"></span>
 
 ::: {.grade .grade-3}
 ::: {.cartao}
-[**Roda no seu computador**]{.titulo}
-O áudio não sai da sua máquina, e não é preciso chave de acesso nem conta em
-serviço nenhum.
+[**Usa tudo o que vimos**]{.titulo}
+Módulo, função, argumento nomeado, objeto, nome e método, na mesma chamada.
 :::
 
 ::: {.cartao}
-[**Usa tudo o que vimos**]{.titulo}
-Módulo, função, argumento nomeado, objeto, nome e método, na mesma chamada.
+[**Sem chave e sem servidor**]{.titulo}
+O modelo roda na máquina em que o notebook está aberto. Não é preciso conta em
+serviço nenhum.
 :::
 
 ::: {.cartao}
@@ -899,12 +751,43 @@ final da aula.
 :::
 :::
 
+## Transcrever serve para quê
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Sessões de julgamento**]{.titulo}
+As plenárias do STF são horas de vídeo por semana. Transcritas, viram texto
+pesquisável: dá para procurar um termo, contar quantas vezes um argumento
+aparece, acompanhar um tema ao longo de anos.
+:::
+
+::: {.cartao}
+[**Entrevistas de pesquisa**]{.titulo}
+Uma pesquisa qualitativa com 40 entrevistas de uma hora custa semanas de
+transcrição manual, ou alguns minutos de processamento.
+:::
+
+::: {.cartao}
+[**Audiências e depoimentos**]{.titulo}
+A gravação vira texto para conferência, citação e análise, em vez de ficar
+parada em um arquivo de áudio que ninguém reabre.
+:::
+
+::: {.cartao}
+[**Sustentações orais**]{.titulo}
+O mesmo, para acompanhar teses e argumentos de forma sistemática, e não caso a
+caso.
+:::
+:::
+
 ## Mão na massa
 
 ::: {.aviso-pratica}
-Abra o notebook do Encontro 1, no VS Code ou no Colab.
+Abra o notebook do Encontro 1 **no Colab**, pelo link da página do curso. Um
+clique, sem instalar nada.
 
-Vamos fazer os exercícios juntos, em blocos. Levante a mão sempre que travar.
+No Colab, use `Arquivo` e depois `Salvar uma cópia no Drive`, senão o que você
+escrever se perde ao fechar a aba.
 :::
 
 <span class="espaco"></span>
@@ -924,6 +807,155 @@ Transcrever um áudio seu e conferir o que a IA entendeu
 :::
 :::
 
+# Levando para o seu computador {.secao background-color="#023A78"}
+
+## Quatro ferramentas
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**uv**]{.titulo}
+Gerencia as versões do Python e as bibliotecas de cada projeto.
+:::
+
+::: {.cartao}
+[**Python 3.13**]{.titulo}
+A linguagem. Instalada pelo próprio `uv`, sem passar pelo instalador oficial.
+:::
+
+::: {.cartao}
+[**Git e GitHub**]{.titulo}
+Git guarda o histórico do projeto no seu computador. GitHub é onde esse histórico
+fica publicado e compartilhado.
+:::
+
+::: {.cartao}
+[**Visual Studio Code**]{.titulo}
+O editor. É onde você abre a pasta do projeto, escreve código e executa
+notebooks.
+:::
+:::
+
+## Projeto = pasta = repositório
+
+Ao longo do curso, "projeto" quer dizer sempre a mesma coisa: **uma pasta**.
+
+::: {.projeto}
+[minha-pesquisa/]{.pasta}
+[.venv/]{.venv} [notebooks/]{.venv} [dados/]{.venv} [resultados/]{.venv} [.git/]{.venv}
+:::
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**A pasta**]{.titulo}
+Tudo do projeto mora nela: notebooks, dados, resultados e o ambiente.
+:::
+
+::: {.cartao}
+[**O repositório**]{.titulo}
+É a mesma pasta, com histórico. O Git registra o que mudou, quando e por quê.
+:::
+
+::: {.cartao}
+[**O ambiente**]{.titulo}
+O `.venv` também fica dentro dela. Trocar de projeto é trocar de pasta.
+:::
+:::
+
+## Um ambiente virtual por projeto
+
+::: {.projetos}
+::: {.projeto}
+[pesquisa-mestrado/]{.pasta}
+Cada projeto declara de quais bibliotecas precisa e em quais versões.
+
+[.venv]{.venv} [pandas 2.2]{.venv}
+:::
+
+::: {.projeto}
+[relatorio-escritorio/]{.pasta}
+O ambiente fica dentro da pasta do projeto, isolado de todo o resto.
+
+[.venv]{.venv} [pandas 1.5]{.venv}
+:::
+:::
+
+::: {.fonte}
+Assim, atualizar uma biblioteca na pesquisa de mestrado não quebra o script do
+escritório.
+:::
+
+## Criando o seu projeto
+
+::: {.passos}
+::: {.passo}
+No GitHub, abra o **modelo** do curso e clique em `Use this template`.
+:::
+::: {.passo}
+Dê um nome ao seu repositório. Ele é **seu**, e serve de portfólio.
+:::
+::: {.passo}
+Clone **o seu** repositório com `git clone`.
+:::
+::: {.passo}
+Entre na pasta e rode `uv sync`, que monta o ambiente com tudo instalado.
+:::
+:::
+
+::: {.aviso-pratica}
+O notebook da aula **já vem dentro** do repositório: é o mesmo que você acabou de
+usar no Colab. Os comandos exatos estão no site do curso, prontos para copiar. Só
+há **uma pasta**: a sua.
+:::
+
+## O repositório é seu
+
+::: {.colunas}
+::: {.coluna}
+### Por que não clonar o repo do curso
+
+Porque ele é nosso. Você não consegue salvar nada nele, e toda atualização
+nossa entraria em conflito com o que você escreveu.
+:::
+
+::: {.coluna}
+### O que você ganha assim
+
+Um repositório com o seu nome, no seu GitHub, onde `git push` funciona desde o
+primeiro dia. No fim do curso, ele é a prova do que você aprendeu.
+:::
+:::
+
+::: {.aviso-pratica}
+Ao final de cada aula: `git add .`, `git commit -m "aula 1"` e `git push`.
+:::
+
+## Abrindo o notebook
+
+::: {.passos}
+::: {.passo}
+No VS Code: `File` e depois `Open Folder...`, escolhendo a pasta do curso.
+:::
+::: {.passo}
+Instale as extensões **Python** e **Jupyter**, ambas da Microsoft.
+:::
+::: {.passo}
+Abra `aula-01.ipynb`, que já está na pasta.
+:::
+::: {.passo}
+Clique em `Select Kernel` e escolha o `.venv` do projeto.
+:::
+::: {.passo}
+Refaça a Parte C, agora no seu computador.
+:::
+:::
+
+::: {.centro}
+[É o mesmo notebook, o mesmo código e o mesmo resultado. O que mudou é de quem é
+a máquina.]{.destaque}
+:::
+
 # Fechamento {.secao background-color="#023A78"}
 
 ## O que fica do encontro 1
@@ -937,8 +969,8 @@ código é texto, é reprodutível e é aberto.
 
 ::: {.cartao}
 [**O ambiente**]{.titulo}
-`uv`, Git, VS Code e Python instalados, repositório clonado, notebook rodando com
-o kernel do projeto. Ou o Colab aberto, sem culpa.
+O notebook rodou no Colab para todo mundo. Quem conseguiu instalar já tem o
+repositório próprio rodando também.
 :::
 
 ::: {.cartao}
