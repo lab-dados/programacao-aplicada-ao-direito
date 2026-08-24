@@ -1,0 +1,52 @@
+title: FGV
+author: LabDados FGV Direito SP
+version: 1.1.0
+quarto-required: ">=1.9.0"
+contributes:
+  formats:
+    typst:
+      papersize: a4
+      mainfont: Arial
+      monofont: JetBrains Mono
+      fontsize: 10.5pt
+      toc: false
+      number-sections: true
+      section-numbering: "1."
+      lang: pt
+      highlight-style: none
+      margin:
+        x: 2.4cm
+        top: 2.4cm
+        bottom: 2.2cm
+      template-partials:
+        - typst-template.typ
+        - typst-show.typ
+    revealjs:
+      theme:
+        - default
+        - fgv.scss
+      css: fgv-extras.css
+      slide-number: c/t
+      show-slide-number: all
+      transition: fade
+      transition-speed: fast
+      progress: true
+      history: true
+      hash-type: number
+      controls: true
+      touch: true
+      center: false
+      width: 1280
+      height: 720
+      margin: 0.06
+      min-scale: 0.2
+      max-scale: 2.0
+      highlight-style: github
+      code-line-numbers: true
+      code-copy: true
+      code-overflow: wrap
+      link-external-newwindow: true
+      lang: pt
+      menu:
+        side: right
+        numbers: true

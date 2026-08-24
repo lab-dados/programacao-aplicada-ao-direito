@@ -1,0 +1,119 @@
+---
+title: "Materiais e referências"
+subtitle: "Como usar o repositório, comandos de bolso e leituras"
+---
+
+## Como o repositório está organizado
+
+```
+programacao-aplicada-ao-direito/
+├── aulas/
+│   └── 01-introducao/
+│       ├── slides.qmd        slides do encontro
+│       ├── notebook-01.ipynb notebook da aula
+│       └── gabarito-01.ipynb notebook com as soluções
+├── workshops/                workshops de aprofundamento
+├── dados/                    bases pequenas usadas nos exercícios
+├── pdf/                      versão em PDF do tutorial de instalação
+├── pyproject.toml            dependências do curso (uv)
+└── _quarto.yml               configuração do site
+```
+
+Os slides são escritos em [Quarto](https://quarto.org) e publicados
+automaticamente neste site a cada atualização do repositório.
+
+## Comandos de bolso
+
+### uv
+
+| Comando | O que faz |
+|:---|:---|
+| `uv sync` | Cria o `.venv` e instala tudo que o curso usa |
+| `uv add pandas` | Acrescenta uma biblioteca ao projeto |
+| `uv run python` | Abre o Python do ambiente do projeto |
+| `uv run jupyter lab` | Abre o Jupyter Lab no ambiente do projeto |
+| `uv python list` | Mostra as versões de Python instaladas |
+
+: Comandos do uv {tbl-colwidths="[38,62]"}
+
+### Git
+
+| Comando | O que faz |
+|:---|:---|
+| `git clone <url>` | Baixa um repositório pela primeira vez |
+| `git pull` | Traz as atualizações do repositório |
+| `git status` | Mostra o que mudou desde o último commit |
+| `git add .` e `git commit -m "msg"` | Registra suas mudanças |
+| `git push` | Envia suas mudanças para o GitHub |
+
+: Comandos do Git {tbl-colwidths="[38,62]"}
+
+::: {.callout-warning title="Antes de cada aula, rode `git pull`"}
+O material é atualizado com frequência. Se você editou um notebook do curso e o
+`git pull` reclamar de conflito, o caminho mais simples é trabalhar sempre em uma
+**cópia** do notebook, por exemplo `notebook-01-meu.ipynb`, que o Git do curso não
+controla.
+:::
+
+## Atalhos do Jupyter e do VS Code
+
+| Atalho | Ação |
+|:---|:---|
+| `Shift+Enter` | Executa a célula e vai para a próxima |
+| `Ctrl+Enter` | Executa a célula e permanece nela |
+| `Esc` e depois `A` | Cria uma célula acima |
+| `Esc` e depois `B` | Cria uma célula abaixo |
+| `Esc` e depois `D D` | Apaga a célula |
+| `Esc` e depois `M` | Transforma a célula em texto (Markdown) |
+| `Esc` e depois `Y` | Transforma a célula em código |
+
+: Atalhos úteis {tbl-colwidths="[32,68]"}
+
+## Ferramentas do LabDados
+
+- [`juscraper`](https://github.com/jtrecenti/juscraper): acesso automatizado a
+  dados de processos judiciais brasileiros, usado a partir do Workshop 1.
+- [`juscraper-app`](https://github.com/lab-dados/juscraper-app): busca de
+  jurisprudência direto no navegador, sem instalar nada.
+- [`labdados-sdk`](https://github.com/lab-dados/labdados-sdk): OCR, transcrição e
+  estruturação de documentos com modelos de linguagem.
+
+## Para ir além
+
+**Python**
+
+- [Think Python](https://allendowney.github.io/ThinkPython/), de Allen Downey.
+  Livre e em inglês, é a melhor introdução conceitual à linguagem.
+- [Documentação oficial do Python em português](https://docs.python.org/pt-br/3/).
+- [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/),
+  de Al Sweigart, para automação de tarefas do dia a dia.
+
+**Dados**
+
+- [Python for Data Analysis](https://wesmckinney.com/book/), de Wes McKinney,
+  criador do `pandas`.
+- [Documentação do pandas](https://pandas.pydata.org/docs/).
+
+**Pesquisa empírica em Direito**
+
+- [Introdução à pesquisa empírica em Direito](https://abj.org.br/), materiais da
+  Associação Brasileira de Jurimetria.
+- [Datajud, base nacional de dados do Poder Judiciário](https://www.cnj.jus.br/sistemas/datajud/).
+
+**Ferramentas de IA**
+
+- [Documentação do Claude Code](https://docs.claude.com/en/docs/claude-code).
+- [Google Colab](https://colab.research.google.com/), para rodar notebooks no
+  navegador.
+
+## Como pedir ajuda
+
+Uma boa pergunta economiza horas. Ao pedir ajuda, inclua sempre:
+
+1. O que você queria fazer.
+2. O código que você executou, copiado como texto (não como imagem da tela).
+3. A mensagem de erro completa, também como texto.
+4. O que você já tentou.
+
+Dúvidas sobre o material podem virar
+[issues no repositório](https://github.com/lab-dados/programacao-aplicada-ao-direito/issues).

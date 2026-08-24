@@ -1,0 +1,278 @@
+/*-- scss:defaults --*/
+
+// Paleta FGV (Manual de Identidade Visual)
+// Pantone 281 C - CMYK 100/72/0/32 - RGB 28/47/103
+$fgv-azul:        #023a78;   // azul institucional (assinatura)
+$fgv-azul-claro:  #0791d3;   // azul de apoio
+$fgv-azul-281:    #1c2f67;   // Pantone 281 C
+$fgv-tinta:       #22303d;
+$fgv-cinza:       #5b6b7c;
+$fgv-borda:       #d3dee9;
+$fgv-neve:        #f5f8fb;
+$fgv-gelo:        #edf2f7;
+$fgv-destaque:    #c8952a;   // ocre de apoio, usado com parcimonia
+
+// Tipografia: Arial para texto (recomendacao do manual),
+// JetBrains Mono para codigo.
+$font-family-sans-serif: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif !default;
+$font-family-monospace: "JetBrains Mono", "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace !default;
+
+$presentation-font-size-root: 30px;
+$presentation-line-height: 1.35;
+$presentation-h1-font-size: 1.95em;
+$presentation-h2-font-size: 1.35em;
+$presentation-h3-font-size: 1.05em;
+$presentation-heading-font: $font-family-sans-serif;
+$presentation-heading-color: $fgv-azul;
+$presentation-heading-font-weight: 700;
+$presentation-title-slide-text-align: left;
+
+$body-bg: #ffffff;
+$body-color: $fgv-tinta;
+$link-color: $fgv-azul-claro;
+$link-color-hover: $fgv-azul;
+$selection-bg: rgba(7, 145, 211, 0.25);
+
+$code-block-font-size: 0.72em;
+$code-block-bg: $fgv-neve;
+$code-block-border-color: $fgv-borda;
+$code-color: $fgv-azul-281;
+
+/*-- scss:mixins --*/
+
+@mixin faixa-marca {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    $fgv-azul 0%,
+    $fgv-azul 55%,
+    $fgv-azul-claro 55%,
+    $fgv-azul-claro 100%
+  );
+}
+
+/*-- scss:rules --*/
+
+.reveal {
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
+// Faixa institucional no topo da area do slide.
+// Fica no container .slides (e nao em cada section) para que a posicao nao
+// dependa de o slide estar centralizado verticalmente ou nao.
+.reveal .slides::before {
+  @include faixa-marca;
+  top: 0;
+  z-index: 12;
+  pointer-events: none;
+}
+
+// Em slides de secao (fundo azul), a faixa inverte para manter contraste.
+.reveal.has-dark-background .slides::before {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 55%,
+    $fgv-azul-claro 55%,
+    $fgv-azul-claro 100%
+  );
+}
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+
+.reveal h2 {
+  border-bottom: 2px solid $fgv-borda;
+  padding-bottom: 0.25em;
+  margin-bottom: 0.7em;
+}
+
+.reveal h3 {
+  color: $fgv-azul-281;
+}
+
+// ---------------------------------------------------------------- capa
+#title-slide {
+  text-align: left;
+}
+
+#title-slide .title,
+#title-slide h1 {
+  color: $fgv-azul;
+  font-size: 2.1em;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.15em;
+}
+
+#title-slide .subtitle {
+  color: $fgv-cinza;
+  font-size: 1.05em;
+  font-weight: 400;
+  margin-bottom: 1.2em;
+}
+
+#title-slide .quarto-title-authors,
+#title-slide .author,
+#title-slide .date,
+#title-slide .institute {
+  color: $fgv-azul-281;
+  font-size: 0.72em;
+  text-align: left;
+}
+
+#title-slide .date {
+  color: $fgv-cinza;
+}
+
+// -------------------------------------------------------------- secoes
+.reveal section.secao h1,
+.reveal section.secao h2,
+.reveal section.secao h3 {
+  color: #ffffff;
+  border-bottom: none;
+}
+
+.reveal section.secao p,
+.reveal section.secao li,
+.reveal section.secao strong {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+// --------------------------------------------------------------- texto
+.reveal .destaque {
+  color: $fgv-azul-claro;
+  font-weight: 700;
+}
+
+.reveal strong {
+  color: $fgv-azul-281;
+}
+
+.reveal blockquote {
+  border-left: 4px solid $fgv-azul-claro;
+  background: $fgv-neve;
+  padding: 0.7em 1em;
+  font-style: normal;
+  box-shadow: none;
+  width: 100%;
+  margin: 0.6em 0;
+}
+
+.reveal blockquote cite,
+.reveal .fonte {
+  display: block;
+  color: $fgv-cinza;
+  font-size: 0.62em;
+  margin-top: 0.5em;
+}
+
+.reveal ul,
+.reveal ol {
+  margin-left: 0.9em;
+}
+
+.reveal li {
+  margin-bottom: 0.35em;
+}
+
+.reveal li::marker {
+  color: $fgv-azul-claro;
+}
+
+// -------------------------------------------------------------- codigo
+.reveal pre.sourceCode {
+  border: 1px solid $fgv-borda;
+  border-left: 4px solid $fgv-azul-claro;
+  border-radius: 4px;
+  box-shadow: none;
+  background: $fgv-neve;
+}
+
+.reveal code {
+  font-family: $font-family-monospace;
+}
+
+.reveal p code,
+.reveal li code,
+.reveal td code {
+  color: $fgv-azul-281;
+  background: $fgv-gelo;
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+  font-size: 0.88em;
+}
+
+// -------------------------------------------------------------- tabelas
+.reveal table {
+  font-size: 0.8em;
+  border-collapse: collapse;
+}
+
+.reveal table th {
+  background: $fgv-azul;
+  color: #ffffff;
+  font-weight: 700;
+  border: none;
+  padding: 0.4em 0.7em;
+}
+
+.reveal table td {
+  border-bottom: 1px solid $fgv-borda;
+  padding: 0.35em 0.7em;
+}
+
+.reveal table tbody tr:nth-child(even) {
+  background: $fgv-neve;
+}
+
+// ------------------------------------------------------------- callouts
+.reveal div.callout {
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.reveal div.callout.callout-style-default .callout-title {
+  font-size: 1em;
+  padding: 0.2em 0.5em;
+}
+
+// -------------------------------------------------------------- rodape
+.reveal .slide-number {
+  background: transparent;
+  color: $fgv-cinza;
+  font-size: 0.55em;
+  font-family: $font-family-sans-serif;
+}
+
+.reveal .footer {
+  color: $fgv-cinza;
+  font-size: 0.5em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.reveal .progress {
+  color: $fgv-azul-claro;
+  height: 4px;
+}
+
+// Em slides de secao (fundo escuro), rodape e numeracao clareiam.
+.reveal.has-dark-background .footer,
+.reveal.has-dark-background .slide-number {
+  color: rgba(255, 255, 255, 0.62);
+}

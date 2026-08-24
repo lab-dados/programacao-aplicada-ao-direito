@@ -1,0 +1,138 @@
+Todos os comandos deste tutorial são executados no **PowerShell**. Para abri-lo,
+pressione a tecla `Windows`, digite `PowerShell` e abra o aplicativo. Siga as
+etapas na ordem apresentada.
+
+# Verifique o WinGet
+
+O WinGet é o gerenciador de pacotes do Windows e será usado para instalar as
+ferramentas. Execute:
+
+```powershell
+winget --version
+```
+
+**Resultado esperado:** o número da versão, algo como `v1.9.25200`.
+
+::: {.callout-warning title="Se o comando não for reconhecido"}
+Instale ou atualize o aplicativo **Instalador de Aplicativo** pela Microsoft
+Store e abra uma nova janela do PowerShell.
+[Documentação oficial do WinGet](https://learn.microsoft.com/pt-br/windows/package-manager/winget/)
+:::
+
+# Instale o uv
+
+O `uv` gerencia as versões do Python e os ambientes de desenvolvimento.
+
+```powershell
+winget install --id=astral-sh.uv -e
+```
+
+Abra uma nova janela do PowerShell e execute:
+
+```powershell
+uv --help
+```
+
+**Resultado esperado:** a lista de comandos e opções do `uv`.
+
+# Instale o Git
+
+O Git é usado para o controle de versão dos projetos.
+
+```powershell
+winget install --id Git.Git -e --source winget
+```
+
+Abra uma nova janela do PowerShell e execute:
+
+```powershell
+git --help
+```
+
+**Resultado esperado:** a lista de comandos e opções do Git.
+
+# Instale o Visual Studio Code
+
+O Visual Studio Code é o editor usado para escrever e executar os programas.
+
+```powershell
+winget install --id Microsoft.VisualStudioCode -e
+```
+
+Depois da instalação, abra o Visual Studio Code pelo menu Iniciar.
+
+# Instale o Python 3.13
+
+O próprio `uv` baixa e gerencia as versões do Python.
+
+```powershell
+uv python install 3.13
+```
+
+Para conferir:
+
+```powershell
+uv python list
+```
+
+**Resultado esperado:** uma instalação do Python 3.13 na listagem.
+
+# Verificação final
+
+Execute os comandos abaixo em uma janela nova do PowerShell e confirme cada
+resultado. Confirme também que o Visual Studio Code abre pelo menu Iniciar.
+
+| Comando | Resultado esperado |
+|:---------------------|:--------------------------------------------|
+| `winget --version` | Número da versão do WinGet |
+| `uv --help` | Lista de comandos e opções do uv |
+| `git --help` | Lista de comandos e opções do Git |
+| `uv python list` | Uma instalação do Python 3.13 na listagem |
+
+: Comandos de conferência do ambiente {#tbl-check tbl-colwidths="[30,70]"}
+
+::: {.callout-note title="Não usa Windows?"}
+Use os instaladores oficiais:
+[uv](https://docs.astral.sh/uv/getting-started/installation/),
+[Git](https://git-scm.com/downloads/) e
+[Visual Studio Code](https://code.visualstudio.com/download).
+Depois do uv instalado, os demais comandos são iguais nos três sistemas.
+:::
+
+# Baixe os materiais do curso
+
+Com o Git instalado, clone o repositório do curso em uma pasta de sua escolha
+(por exemplo, `Documentos`):
+
+```powershell
+git clone https://github.com/lab-dados/programacao-aplicada-ao-direito.git
+cd programacao-aplicada-ao-direito
+```
+
+Em seguida, crie o ambiente virtual e instale as bibliotecas do curso:
+
+```powershell
+uv sync
+```
+
+**Resultado esperado:** uma pasta `.venv` criada dentro do projeto e a mensagem
+de instalação dos pacotes.
+
+# Extensões do Visual Studio Code
+
+Abra a pasta do curso no Visual Studio Code (menu `File` e depois `Open
+Folder...`) e instale as duas extensões abaixo pelo painel de extensões
+(`Ctrl+Shift+X`):
+
+- **Python**, da Microsoft.
+- **Jupyter**, da Microsoft.
+
+Depois, abra o arquivo `aulas/01-introducao/notebook-01.ipynb`, clique em
+`Select Kernel` no canto superior direito e escolha o ambiente `.venv` do
+projeto. Execute a primeira célula com `Shift+Enter`.
+
+::: {.callout-tip title="Deu tudo certo?"}
+Se a primeira célula do notebook imprimir a versão do Python, seu ambiente está
+pronto. Se algo falhar, traga a mensagem de erro para o primeiro encontro: ler
+mensagens de erro é parte do curso.
+:::

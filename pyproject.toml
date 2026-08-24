@@ -1,0 +1,23 @@
+[project]
+name = "programacao-aplicada-ao-direito"
+version = "2026.1.0"
+description = "Materiais do curso Programacao Aplicada ao Direito - LabDados / FGV Direito SP"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "ipykernel>=6.29",
+    "jupyter>=1.1",
+    "matplotlib>=3.9",
+    "pandas>=2.2",
+    "requests>=2.32",
+]
+
+[dependency-groups]
+# Instaladas a partir do Encontro 5 / Workshops.
+dados = [
+    "juscraper>=0.3",
+    "openpyxl>=3.1",
+]
+
+[tool.uv]
+package = false

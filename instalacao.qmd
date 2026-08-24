@@ -1,0 +1,10 @@
+---
+title: "Preparação do ambiente"
+subtitle: "Instalação do uv, Git, Visual Studio Code e Python 3.13"
+---
+
+Antes do primeiro encontro, deixe o computador pronto. O processo leva cerca de
+20 minutos. Há também uma [versão em PDF](pdf/tutorial-instalacao.pdf) deste
+tutorial, para imprimir ou consultar sem internet.
+
+{{< include _includes/instalacao-conteudo.qmd >}}

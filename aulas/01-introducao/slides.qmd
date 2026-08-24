@@ -1,0 +1,1004 @@
+---
+title: "Por que programar?"
+subtitle: "Encontro 1 · Programação Aplicada ao Direito"
+author: "LabDados · FGV Direito SP"
+date: today
+date-format: long
+format:
+  fgv-revealjs:
+    footer: "Programação Aplicada ao Direito · Encontro 1"
+    output-file: slides.html
+---
+
+## Agenda do encontro
+
+::: {.agenda}
+::: {.bloco}
+[00:00]{.tempo} Abertura, combinados e o mapa do curso
+:::
+::: {.bloco}
+[00:15]{.tempo} Por que ainda programar na era da IA
+:::
+::: {.bloco}
+[01:00]{.tempo} Duas estradas: navegador ou computador
+:::
+::: {.bloco}
+[01:20]{.tempo} Intervalo
+:::
+::: {.bloco}
+[01:35]{.tempo} Preparando o ambiente: uv, Git, VS Code e GitHub
+:::
+::: {.bloco}
+[02:05]{.tempo} Primeiros conceitos: objetos, atributos, métodos e módulos
+:::
+::: {.bloco}
+[02:50]{.tempo} Fechamento e o que fazer até o próximo encontro
+:::
+:::
+
+## O curso em dois blocos
+
+::: {.colunas}
+::: {.coluna}
+### Curso base
+
+1. **Por que programar** e preparação do ambiente
+2. Tipos básicos e funções
+3. Condicionais, loops, listas e dicionários
+4. Objetos, classes e herança
+5. Manipulação de dados com `pandas`
+6. Conceitos de IA e engenharia de contexto
+:::
+
+::: {.coluna}
+### Workshops
+
+1. Dados judiciais com `juscraper`
+2. Tratamento de dados e engenharia de variáveis
+3. Leitura de decisões com LLMs
+4. Análises e visualizações
+
+[Cada encontro tem 3 horas: metade exposição, metade prática em notebook.]{.menor}
+:::
+:::
+
+## Combinados
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Pergunte na hora**]{.titulo}
+Se você travou, provavelmente metade da turma travou também. Interromper é
+esperado.
+:::
+
+::: {.cartao}
+[**Ninguém decora sintaxe**]{.titulo}
+Consultar documentação, notas antigas e IA faz parte do trabalho. O que não vale
+é usar sem entender.
+:::
+
+::: {.cartao}
+[**Erro não é fracasso**]{.titulo}
+Programar é, em boa medida, ler mensagens de erro. Vamos praticar isso desde
+hoje.
+:::
+
+::: {.cartao}
+[**Exercício não é prova**]{.titulo}
+Nada precisa ser entregue. Os exercícios existem para gerar dúvidas enquanto
+ainda há alguém aqui para respondê-las.
+:::
+:::
+
+# Por que programar? {.secao background-color="#023A78"}
+
+## Duas perguntas parecidas
+
+::: {.pergunta}
+Todo profissional do Direito deveria **ser programador**?
+:::
+
+. . .
+
+::: {.centro}
+[NÃO]{.resposta .resposta-nao}
+:::
+
+. . .
+
+<span class="espaco"></span>
+
+::: {.pergunta}
+Todo profissional do Direito deveria **saber programar**?
+:::
+
+. . .
+
+::: {.centro}
+[SIM]{.resposta .resposta-sim}
+:::
+
+## A diferença entre as duas perguntas
+
+::: {.colunas}
+::: {.coluna}
+### Ser programador
+
+É uma profissão. Exige arquitetura de sistemas, testes, segurança, trabalho em
+equipe sobre bases de código enormes.
+
+[Não é o que estamos propondo aqui.]{.menor}
+:::
+
+::: {.coluna}
+### Saber programar
+
+É uma **alfabetização**. É conseguir ler o que um código faz, escrever vinte
+linhas que resolvem o seu problema e desconfiar de um resultado que não fecha.
+
+[É exatamente o que faremos neste curso.]{.menor}
+:::
+:::
+
+. . .
+
+> Ninguém exige que uma advogada seja escritora profissional. Mas exige-se que
+> ela saiba escrever. Com código, a lógica é a mesma.
+
+## "Mas a IA não escreve o código por mim?"
+
+::: {.grande}
+Escreve. E é justamente por isso que você precisa saber ler.
+:::
+
+. . .
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Mais código, não menos**]{.titulo}
+Quando escrever código fica barato, o mundo produz muito mais código. Quem
+consegue ler ganha alcance; quem não consegue, vira refém.
+:::
+
+::: {.cartao}
+[**O erro é plausível**]{.titulo}
+Um modelo de linguagem erra com boa redação. O código roda, o número aparece e a
+tabela fica bonita. Só que está errado.
+:::
+
+::: {.cartao}
+[**A responsabilidade é sua**]{.titulo}
+No processo, quem assina a petição é você. Não existe "o modelo calculou errado"
+como tese de defesa.
+:::
+:::
+
+## O que a IA mudou, e o que não mudou
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[Ficou mais fácil]{.titulo}
+
+- Escrever a primeira versão do código
+- Traduzir uma ideia em comandos
+- Lembrar sintaxe e nomes de funções
+- Explicar um código alheio
+:::
+
+::: {.lado .lado-ruim}
+[Continua com você]{.titulo}
+
+- Formular a pergunta certa
+- Saber se o dado responde a pergunta
+- Perceber que o resultado não faz sentido
+- Assinar embaixo
+:::
+:::
+
+. . .
+
+::: {.centro}
+[Programar deixou de ser sobre **digitar** e passou a ser sobre **julgar**.]{.grande}
+:::
+
+# Três argumentos a favor do código {.secao background-color="#023A78"}
+
+## Três argumentos
+
+::: {.grade .grade-3}
+::: {.cartao}
+[1]{.numero}
+[**Código é texto**]{.titulo}
+Dá para versionar, comparar, comentar, buscar e mandar por e-mail.
+:::
+
+::: {.cartao}
+[2]{.numero}
+[**Código é reprodutível**]{.titulo}
+A mesma entrada produz a mesma saída, hoje e daqui a cinco anos.
+:::
+
+::: {.cartao}
+[3]{.numero}
+[**Código é aberto**]{.titulo}
+Gratuito, auditável e independente de fornecedor.
+:::
+:::
+
+. . .
+
+<span class="espaco"></span>
+
+::: {.centro}
+[Nenhum dos três é sobre velocidade. Os três são sobre **confiança**.]{.grande}
+:::
+
+## Argumento 1: código é texto
+
+::: {.grande}
+Um clique não deixa rastro. Uma linha de texto deixa.
+:::
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Cabe em qualquer lugar**]{.titulo}
+Em um e-mail, em um anexo, em uma nota de rodapé, em um apêndice metodológico.
+:::
+
+::: {.cartao}
+[**Aceita explicação**]{.titulo}
+Cada escolha pode vir acompanhada do motivo, escrito ali do lado.
+:::
+
+::: {.cartao}
+[**Pode ser buscado**]{.titulo}
+"Onde mesmo eu filtrei por comarca?" tem resposta em dois segundos.
+:::
+
+::: {.cartao}
+[**Pode ser revisado**]{.titulo}
+Outra pessoa lê linha a linha, como leria uma petição.
+:::
+:::
+
+## Texto é comparável
+
+O que mudou entre a versão de ontem e a de hoje:
+
+:::: {.diff}
+::: {.linha .igual}
+[ ]{.sinal} Abrir a base de processos do tribunal
+:::
+::: {.linha .removida}
+[-]{.sinal} Manter só o assunto "Saúde"
+:::
+::: {.linha .incluida}
+[+]{.sinal} Manter os assuntos "Saúde" **ou** "Saúde Pública"
+:::
+::: {.linha .igual}
+[ ]{.sinal} Contar os processos por comarca e por ano
+:::
+::::
+
+. . .
+
+::: {.centro}
+[Uma linha de diferença explica por que o número da tabela 3 mudou de 1.482 para
+2.117.]{.grande}
+:::
+
+## O contraste com a interface gráfica
+
+::: {.comparacao}
+::: {.lado .lado-ruim}
+[Planilha e cliques]{.titulo}
+
+- "Ordenei, filtrei, arrastei a fórmula, colei especial"
+- O histórico não existe
+- Reproduzir significa refazer, na mesma ordem, na sexta-feira à noite
+- Explicar para outra pessoa significa gravar a tela
+:::
+
+::: {.lado .lado-bom}
+[Código]{.titulo}
+
+- As mesmas dez linhas, sempre
+- O histórico é o próprio arquivo
+- Reproduzir significa executar de novo
+- Explicar significa mandar o arquivo
+:::
+:::
+
+::: {.fonte}
+Interfaces gráficas são ótimas para explorar. O problema começa quando o
+resultado precisa virar prova, artigo ou política pública.
+:::
+
+## Argumento 2: código é reprodutível
+
+::: {.grande}
+A mesma entrada produz a mesma saída: amanhã, daqui a cinco anos e no computador
+da colega.
+:::
+
+<span class="espaco"></span>
+
+. . .
+
+::: {.centro}
+[É isso que separa um **resultado** de uma **anedota**.]{.grande}
+:::
+
+## E a escala vem de graça
+
+::: {.escala}
+::: {.caixa}
+[1]{.qtd}
+processo
+:::
+
+[=]{.sinal-igual}
+
+::: {.caixa}
+[40.000]{.qtd}
+processos
+:::
+:::
+
+<span class="espaco"></span>
+
+. . .
+
+::: {.centro}
+[O mesmo código. O que muda é quanto tempo o computador fica ligado, e não quanto
+tempo **você** fica.]{.grande}
+:::
+
+## Reprodutibilidade não é preciosismo
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**O parecer contestado**]{.titulo}
+A parte contrária questiona o número. Você reexecuta a análise na frente do juízo
+e mostra de onde ele veio.
+:::
+
+::: {.cartao}
+[**O dado que atualizou**]{.titulo}
+Chegaram mais seis meses de decisões. Você roda de novo, e não refaz a pesquisa.
+:::
+
+::: {.cartao}
+[**A pesquisa que continua**]{.titulo}
+Outra pesquisadora parte de onde você parou, sem pedir explicações por WhatsApp.
+:::
+:::
+
+. . .
+
+<span class="espaco"></span>
+
+> Se o resultado só existe porque alguém clicou em uma sequência específica de
+> botões que ninguém anotou, ele não é um resultado. É uma lembrança.
+
+## Argumento 3: código é aberto
+
+::: {.colunas}
+::: {.coluna}
+### Gratuito
+
+Python, `pandas`, Jupyter, Git, VS Code e todo o resto do curso custam zero. Não
+há licença por assento, nem renovação anual, nem limite de alunos.
+:::
+
+::: {.coluna}
+### Auditável
+
+Você pode abrir qualquer ferramenta que usar e ver o que ela faz por dentro. Em
+pesquisa jurídica isso importa: um resultado que depende de uma caixa preta
+comercial é um resultado que você não consegue defender.
+:::
+:::
+
+. . .
+
+<span class="espaco"></span>
+
+::: {.cartao}
+[**E independente**]{.titulo}
+Ferramenta aberta não é descontinuada por decisão de um fornecedor, não muda de
+preço no meio da pesquisa e não deixa de funcionar quando o convênio acaba.
+:::
+
+## Os três, juntos
+
+| | Código | Interface gráfica |
+|:---|:---|:---|
+| Registro do que foi feito | O próprio arquivo | Memória de quem clicou |
+| Repetir em base nova | Executar de novo | Refazer tudo |
+| Revisão por terceiros | Linha a linha | Gravação de tela |
+| Custo para 100 mil casos | Praticamente o mesmo | Inviável |
+| Custo de licença | Zero | Variável |
+
+: Comparação estrutural {tbl-colwidths="[30,35,35]"}
+
+# E o que isso tem a ver com o Direito? {.secao background-color="#023A78"}
+
+## Três usos imediatos
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Automatizar**]{.titulo}
+Renomear 400 arquivos, extrair números CNJ de um PDF, montar a planilha de
+acompanhamento, conferir prazos.
+
+[O que hoje toma uma tarde inteira.]{.menor}
+:::
+
+::: {.cartao}
+[**Acessar dados**]{.titulo}
+Datajud, Jus.br, PDPJ e os sistemas dos tribunais entregam dados que nenhuma
+tela de consulta mostra.
+
+[É o assunto dos workshops.]{.menor}
+:::
+
+::: {.cartao}
+[**Verificar a IA**]{.titulo}
+Conferir se a classificação que o modelo fez bate com a leitura humana em uma
+amostra.
+
+[O uso mais importante em 2026.]{.menor}
+:::
+:::
+
+## Verificar é o ponto
+
+::: {.grande}
+Uma LLM classificou 12 mil decisões como "procedente" ou "improcedente".
+:::
+
+<span class="espaco"></span>
+
+. . .
+
+**Sem código:** você lê algumas, acha que está bom e publica.
+
+. . .
+
+**Com código:** você sorteia 200 decisões, classifica à mão, cruza com o
+resultado do modelo, calcula a taxa de acerto e descobre que ele erra
+sistematicamente nos casos de procedência parcial.
+
+. . .
+
+<span class="espaco"></span>
+
+::: {.centro}
+[A segunda frase é uma metodologia. A primeira é um chute bem escrito.]{.grande}
+:::
+
+# Duas estradas {.secao background-color="#023A78"}
+
+## Duas estradas, o mesmo destino
+
+::: {.meme-legenda-topo}
+Uma tem posto de gasolina no caminho. A outra tem um trecho de terra chamado "erro de PATH".
+:::
+
+::::: {.estradas}
+:::: {.faixa}
+[Estrada 1]{.rotulo}
+[Google Colab]{.nome}
+
+::: {.via}
+[abrir o link]{.marco}
+[pronto]{.destino}
+:::
+
+[Roda no navegador, não instala nada e funciona até no computador da faculdade.
+Suficiente para acompanhar todas as aulas.]{.chegada}
+::::
+
+:::: {.faixa}
+[Estrada 2]{.rotulo}
+[Seu computador]{.nome}
+
+::: {.via}
+[uv]{.marco}
+[Git]{.marco}
+[VS Code]{.marco}
+[pronto]{.destino}
+:::
+
+[Uma tarde de instalação. Em troca: seus arquivos, seus dados, projetos de
+verdade e agentes de IA trabalhando sobre eles.]{.chegada}
+::::
+:::::
+
+::: {.atalho}
+As duas se encontram. Dá para começar em uma e mudar para a outra quando quiser.
+:::
+
+## Falando sério: quando usar cada uma
+
+| | Colab | Computador local |
+|:---|:---|:---|
+| Tempo até a primeira linha | 30 segundos | 20 minutos |
+| Instalar bibliotecas | A cada sessão | Uma vez |
+| Trabalhar com arquivos seus | Upload manual | Direto na pasta |
+| Dados sigilosos | Não recomendado | Fica com você |
+| Agentes de IA sobre o projeto | Limitado | Completo |
+| Se der problema | Recarregar a página | Você conserta |
+
+: Colab e ambiente local {tbl-colwidths="[34,33,33]"}
+
+## O que vamos fazer no curso
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Ensinar a estrada 2**]{.titulo}
+As aulas mostram `uv`, Git e VS Code, porque é isso que sustenta um projeto de
+pesquisa de verdade e libera as ferramentas de IA mais interessantes.
+:::
+
+::: {.cartao}
+[**Sem deixar ninguém parado**]{.titulo}
+Todo notebook abre no Colab. Se a instalação travar hoje, você acompanha a aula
+pelo navegador e a gente resolve o resto com calma.
+:::
+:::
+
+. . .
+
+::: {.aviso-pratica}
+**O convite fica aberto.** Quem começar pelo Colab pode tentar a instalação de
+novo a qualquer momento até o Encontro 6, quando entrarmos em agentes de IA e o
+ambiente local passa de preferência a requisito.
+:::
+
+# Preparando o ambiente {.secao background-color="#023A78"}
+
+## Quatro ferramentas
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**uv**]{.titulo}
+Gerencia as versões do Python e as bibliotecas de cada projeto. Faz, com um
+comando só, o que antes exigia três ferramentas diferentes.
+:::
+
+::: {.cartao}
+[**Python 3.13**]{.titulo}
+A linguagem. Instalada pelo próprio `uv`, sem passar pelo instalador oficial.
+:::
+
+::: {.cartao}
+[**Git e GitHub**]{.titulo}
+Git guarda o histórico do projeto no seu computador. GitHub é onde esse histórico
+fica publicado e compartilhado.
+:::
+
+::: {.cartao}
+[**Visual Studio Code**]{.titulo}
+O editor. É onde você abre a pasta do projeto, escreve código e executa
+notebooks.
+:::
+:::
+
+## Um ambiente por projeto
+
+::: {.projetos}
+::: {.projeto}
+[pesquisa-mestrado/]{.pasta}
+Cada projeto declara de quais bibliotecas precisa e em quais versões.
+
+[.venv]{.venv} [pandas 2.2]{.venv}
+:::
+
+::: {.projeto}
+[relatorio-escritorio/]{.pasta}
+O ambiente fica dentro da pasta do projeto, isolado de todo o resto.
+
+[.venv]{.venv} [pandas 1.5]{.venv}
+:::
+:::
+
+. . .
+
+<span class="espaco"></span>
+
+::: {.centro}
+[Atualizar uma biblioteca na pesquisa de mestrado **não quebra** o script do
+escritório.]{.grande}
+:::
+
+## Baixando o material do curso
+
+::: {.passos}
+::: {.passo}
+Abra o PowerShell (Windows) ou o Terminal (Mac e Linux).
+:::
+::: {.passo}
+Vá até a pasta onde você guarda seus projetos.
+:::
+::: {.passo}
+**Clone** o repositório do curso, com `git clone` seguido do endereço.
+:::
+::: {.passo}
+Entre na pasta e rode `uv sync`, que monta o ambiente com tudo instalado.
+:::
+:::
+
+::: {.aviso-pratica}
+Os comandos exatos estão no tutorial do site, prontos para copiar. Ninguém
+precisa digitar endereço de repositório à mão.
+:::
+
+## Clonar, e não baixar o zip
+
+::: {.colunas}
+::: {.coluna}
+### Com `git clone`
+
+Antes de cada aula, um comando (`git pull`) traz tudo o que mudou.
+:::
+
+::: {.coluna}
+### Com o botão "Download ZIP"
+
+Antes de cada aula, você baixa tudo de novo, descompacta, e tenta lembrar em qual
+pasta estava o seu notebook editado.
+:::
+:::
+
+. . .
+
+::: {.aviso-pratica}
+**Dica que evita dor de cabeça:** trabalhe sempre em uma **cópia** do notebook,
+com o seu nome no arquivo. Assim o `git pull` nunca conflita com o que você
+escreveu.
+:::
+
+## Abrindo o notebook
+
+::: {.passos}
+::: {.passo}
+No VS Code: `File` e depois `Open Folder...`, escolhendo a pasta do curso.
+:::
+::: {.passo}
+Instale as extensões **Python** e **Jupyter**, ambas da Microsoft.
+:::
+::: {.passo}
+Abra o notebook do Encontro 1.
+:::
+::: {.passo}
+Clique em `Select Kernel` e escolha o `.venv` do projeto.
+:::
+::: {.passo}
+Execute a primeira célula com `Shift+Enter`.
+:::
+:::
+
+::: {.centro}
+[Se apareceu a versão do Python, está tudo pronto.]{.destaque}
+:::
+
+# Primeiros conceitos {.secao background-color="#023A78"}
+
+## O notebook
+
+::::: {.colunas}
+:::: {.coluna}
+Um notebook é uma sequência de **células**, de dois tipos:
+
+- **código**, que executa e mostra o resultado logo abaixo
+- **texto**, onde você escreve as anotações da aula
+
+`Shift+Enter` executa a célula atual e vai para a próxima.
+::::
+
+:::: {.coluna}
+::: {.cartao}
+[**A pegadinha clássica**]{.titulo}
+
+O notebook guarda o estado das células **na ordem em que você as executou**, e
+não na ordem em que elas aparecem na tela.
+
+<span class="espaco"></span>
+
+Se o resultado ficar estranho, use `Restart` e execute tudo de novo, de cima para
+baixo.
+:::
+::::
+:::::
+
+## Tudo em Python é objeto
+
+Um **objeto** é uma coisa que o programa guarda: um número, um texto, uma data,
+uma tabela inteira de processos.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Atributos**]{.titulo}
+O que o objeto **é**.
+
+Os dados que ele carrega consigo: o ano de uma data, o número de linhas de uma
+tabela.
+:::
+
+::: {.cartao}
+[**Métodos**]{.titulo}
+O que o objeto **faz**.
+
+As ações que ele sabe executar: colocar um texto em maiúsculas, mostrar as
+primeiras linhas de uma tabela.
+:::
+:::
+
+## O ponto e o parêntese
+
+::: {.notacao}
+[processo]{.alvo}[.]{.marca}ano
+:::
+::: {.legenda-notacao}
+**Atributo.** Sem parênteses. Pergunta um dado que o objeto já tem.
+:::
+
+::: {.notacao}
+[processo]{.alvo}[.]{.marca}limpar[()]{.exec}
+:::
+::: {.legenda-notacao}
+**Método.** Com parênteses. Manda o objeto executar uma ação.
+:::
+
+::: {.notacao}
+contar[(]{.exec}[processo]{.alvo}[)]{.exec}
+:::
+::: {.legenda-notacao}
+**Função.** O objeto vai dentro dos parênteses, e não antes do ponto.
+:::
+
+. . .
+
+::: {.centro}
+[O ponto significa "deste objeto aqui". O parêntese significa "execute".]{.destaque}
+:::
+
+## Nomes, não caixas
+
+::: {.grande}
+O sinal `=` não é igualdade matemática. Ele **dá um nome** a um objeto.
+:::
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Leia como "recebe"**]{.titulo}
+"O nome `processo` passa a se referir a este texto aqui."
+:::
+
+::: {.cartao}
+[**Um objeto, vários nomes**]{.titulo}
+Dois nomes podem apontar para a mesma coisa. Trocar um deles não muda o outro.
+:::
+:::
+
+. . .
+
+<span class="espaco"></span>
+
+::: {.centro}
+[Nome é etiqueta, não é gaveta.]{.grande}
+:::
+
+## Módulos
+
+O Python básico é enxuto de propósito. O resto vem em **módulos**, que você traz
+para a mesa quando precisa.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Biblioteca padrão**]{.titulo}
+`math`, `datetime`, `re`, `json`, `random`.
+
+Já vêm com o Python. Basta importar.
+:::
+
+::: {.cartao}
+[**Bibliotecas externas**]{.titulo}
+`pandas`, `matplotlib`, `juscraper`.
+
+Precisam ser instaladas antes, com `uv add`.
+:::
+:::
+
+. . .
+
+::: {.centro}
+[`import` é o que separa "existe em algum lugar" de "está disponível agora".]{.destaque}
+:::
+
+## Ler código é a habilidade central
+
+::: {.grande}
+Você vai conseguir explicar o que um trecho de código faz muito antes de
+conseguir escrevê-lo do zero.
+:::
+
+<span class="espaco"></span>
+
+. . .
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Do que se trata?**]{.titulo}
+Qual objeto está sendo manipulado, e o que sai no final.
+:::
+
+::: {.cartao}
+[**Onde estão as decisões?**]{.titulo}
+Que filtros, cortes e critérios foram aplicados, e por quê.
+:::
+
+::: {.cartao}
+[**O que eu checaria?**]{.titulo}
+Qual número deste resultado eu conferiria à mão antes de assinar.
+:::
+:::
+
+::: {.fonte}
+Na prática de hoje você vai ler um código com listas e índices que ainda não
+estudamos. E vai entender o que ele faz.
+:::
+
+## Quando algo dá errado
+
+::: {.erro}
+[Traceback (most recent call last):]{.parte1}<br>
+[&nbsp;&nbsp;File &quot;notebook-01.ipynb&quot;, line 2]{.parte1}<br>
+[AttributeError:]{.parte2} &#39;str&#39; object has no attribute &#39;uper&#39;.<br>
+[Did you mean: &#39;upper&#39;?]{.parte3}
+:::
+
+::: {.erro-legenda}
+::: {.l1}
+**Onde aconteceu.** No começo, é ruído. Leia de baixo para cima.
+:::
+::: {.l2}
+**O tipo do erro.** `AttributeError`, `NameError`, `TypeError`, `SyntaxError`.
+:::
+::: {.l3}
+**A dica.** Em boa parte dos casos, o Python já sugere a correção.
+:::
+:::
+
+. . .
+
+::: {.centro}
+[Nenhuma mensagem de erro estraga o computador. Corrija e execute de novo.]{.destaque}
+:::
+
+## Pedindo ajuda, na ordem certa
+
+::: {.passos}
+::: {.passo}
+**Leia a mensagem de erro.** Em metade dos casos ela já diz a solução.
+:::
+::: {.passo}
+**Use a documentação**, com `help()` ou `Shift+Tab` sobre o nome da função.
+:::
+::: {.passo}
+**Pergunte para a IA**, colando o código e a mensagem completa. E depois **teste
+a resposta**, em vez de acreditar nela.
+:::
+::: {.passo}
+**Pergunte para uma pessoa**, dizendo o que queria fazer, o que tentou e o que
+apareceu.
+:::
+:::
+
+::: {.fonte}
+A ordem importa: quem pula direto para o passo 3 aprende a pedir, mas não aprende
+a resolver.
+:::
+
+## Mão na massa
+
+::: {.aviso-pratica}
+Abra o notebook do Encontro 1, no VS Code ou no Colab.
+
+Vamos fazer os exercícios juntos, em blocos. Levante a mão sempre que travar.
+:::
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Parte A**]{.titulo}
+O notebook, objetos e nomes
+:::
+::: {.cartao}
+[**Parte B**]{.titulo}
+Atributos, métodos e módulos
+:::
+::: {.cartao}
+[**Parte C**]{.titulo}
+Lendo um número CNJ de verdade
+:::
+:::
+
+# Fechamento {.secao background-color="#023A78"}
+
+## O que fica do encontro 1
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**A tese**]{.titulo}
+Não é preciso ser programador. É preciso saber ler e escrever código, porque
+código é texto, é reprodutível e é aberto.
+:::
+
+::: {.cartao}
+[**O ambiente**]{.titulo}
+`uv`, Git, VS Code e Python instalados, repositório clonado, notebook rodando com
+o kernel do projeto. Ou o Colab aberto, sem culpa.
+:::
+
+::: {.cartao}
+[**Os conceitos**]{.titulo}
+Objeto, atributo, método, função e módulo. Além de ler um erro sem entrar em
+pânico.
+:::
+
+::: {.cartao}
+[**O hábito**]{.titulo}
+Antes de cada aula: `git pull`. Durante a aula: trabalhar em uma cópia sua do
+notebook.
+:::
+:::
+
+## Até o próximo encontro
+
+::: {.passos}
+::: {.passo}
+Termine os exercícios do notebook que ficaram pela metade. O gabarito está no
+repositório, mas tente antes de abrir.
+:::
+::: {.passo}
+Se você usou o Colab hoje, tente instalar o ambiente local com calma, seguindo o
+tutorial do site.
+:::
+::: {.passo}
+Crie uma conta no GitHub, se ainda não tem. No Encontro 2 faremos *fork* e
+*clone*.
+:::
+::: {.passo}
+Abra um `issue` no repositório com qualquer erro que você não conseguiu resolver.
+:::
+:::
+
+## {background-color="#023A78" .secao}
+
+::: {.centro}
+<span class="espaco"></span>
+
+[Obrigado]{.enorme}
+
+<span class="espaco"></span>
+
+Encontro 2: tipos básicos e funções
+
+<span class="espaco"></span>
+
+[lab-dados.github.io/programacao-aplicada-ao-direito]{.pequeno}
+:::

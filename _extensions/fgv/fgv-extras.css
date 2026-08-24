@@ -1,0 +1,546 @@
+/* Componentes visuais dos slides do curso.
+   Complementa o tema fgv.scss. Tudo em CSS puro, sem dependencias externas. */
+
+:root {
+  --fgv-azul: #023a78;
+  --fgv-azul-claro: #0791d3;
+  --fgv-azul-281: #1c2f67;
+  --fgv-tinta: #22303d;
+  --fgv-cinza: #5b6b7c;
+  --fgv-borda: #d3dee9;
+  --fgv-neve: #f5f8fb;
+  --fgv-gelo: #edf2f7;
+  --fgv-vermelho: #b03027;
+}
+
+/* ------------------------------------------------------------- utilidades */
+
+.reveal .centro { text-align: center; }
+.reveal .pequeno { font-size: 0.75em; }
+.reveal .menor { font-size: 0.62em; color: var(--fgv-cinza); }
+.reveal .grande { font-size: 1.45em; line-height: 1.25; }
+.reveal .enorme { font-size: 2.2em; font-weight: 700; line-height: 1.1; }
+.reveal .cinza { color: var(--fgv-cinza); }
+.reveal .azul { color: var(--fgv-azul-claro); }
+.reveal .espaco { display: block; height: 0.8em; }
+
+/* ------------------------------------------------------------- perguntas */
+
+.reveal .pergunta {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--fgv-azul);
+  line-height: 1.2;
+  margin: 0.2em 0 0.35em 0;
+}
+
+.reveal .resposta {
+  display: inline-block;
+  font-size: 2.6em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  padding: 0.1em 0.3em 0.06em 0.3em;
+  border-radius: 6px;
+  color: #ffffff;
+}
+
+.reveal .resposta-nao { background: var(--fgv-vermelho); }
+.reveal .resposta-sim { background: #0e7c5a; }
+
+/* ---------------------------------------------------------------- cartoes */
+
+.reveal .grade {
+  display: grid;
+  gap: 0.8em;
+  margin-top: 0.6em;
+}
+
+.reveal .grade-2 { grid-template-columns: repeat(2, 1fr); }
+.reveal .grade-3 { grid-template-columns: repeat(3, 1fr); }
+
+.reveal .cartao {
+  background: var(--fgv-neve);
+  border: 1px solid var(--fgv-borda);
+  border-top: 4px solid var(--fgv-azul-claro);
+  border-radius: 6px;
+  padding: 0.7em 0.85em;
+  font-size: 0.82em;
+  line-height: 1.35;
+}
+
+.reveal .cartao h3,
+.reveal .cartao .titulo {
+  display: block;
+  color: var(--fgv-azul);
+  font-weight: 700;
+  font-size: 1.05em;
+  margin: 0 0 0.35em 0;
+}
+
+.reveal .cartao .numero {
+  display: block;
+  font-size: 1.9em;
+  font-weight: 700;
+  color: var(--fgv-azul-claro);
+  line-height: 1;
+  margin-bottom: 0.15em;
+}
+
+.reveal .cartao ul { margin: 0.2em 0 0 0.9em; }
+.reveal .cartao li { margin-bottom: 0.2em; }
+
+/* --------------------------------------------------------------- colunas */
+
+.reveal .colunas {
+  display: flex;
+  gap: 1.2em;
+  align-items: flex-start;
+}
+
+.reveal .coluna { flex: 1; min-width: 0; }
+
+/* ------------------------------------------------ comparacao codigo x GUI */
+
+.reveal .comparacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  margin-top: 0.5em;
+}
+
+.reveal .lado {
+  border-radius: 6px;
+  padding: 0.7em 0.9em;
+  font-size: 0.8em;
+}
+
+.reveal .lado .titulo {
+  display: block;
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-bottom: 0.4em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.reveal .lado-ruim {
+  background: #fbedec;
+  border: 1px solid #f0cfcc;
+}
+.reveal .lado-ruim .titulo { color: var(--fgv-vermelho); }
+
+.reveal .lado-bom {
+  background: #eaf4fc;
+  border: 1px solid #c9e3f6;
+}
+.reveal .lado-bom .titulo { color: var(--fgv-azul); }
+
+/* ------------------------------------------------------------ meme pilulas */
+
+.reveal .meme {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4em;
+  margin-top: 0.4em;
+  text-align: center;
+}
+
+.reveal .meme-legenda-topo {
+  text-align: center;
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--fgv-azul-281);
+  margin-bottom: 0.3em;
+}
+
+.reveal .pilula {
+  display: inline-block;
+  width: 190px;
+  height: 74px;
+  border-radius: 37px;
+  position: relative;
+  margin-bottom: 0.45em;
+  box-shadow: 0 10px 22px rgba(34, 48, 61, 0.28);
+  transform: rotate(-8deg);
+}
+
+.reveal .pilula::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  width: 62px;
+  height: 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  filter: blur(1px);
+}
+
+.reveal .pilula-azul {
+  background: linear-gradient(100deg, #2aa8ea 0%, #0791d3 48%, #023a78 48%, #012a58 100%);
+}
+
+.reveal .pilula-vermelha {
+  background: linear-gradient(100deg, #e2564b 0%, #c8382c 48%, #8f231a 48%, #6d1712 100%);
+  transform: rotate(8deg);
+}
+
+.reveal .meme-titulo {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--fgv-azul);
+  margin-bottom: 0.15em;
+}
+
+.reveal .meme-frase {
+  font-size: 0.78em;
+  color: var(--fgv-tinta);
+  line-height: 1.35;
+  text-align: left;
+  background: var(--fgv-neve);
+  border: 1px solid var(--fgv-borda);
+  border-radius: 6px;
+  padding: 0.6em 0.8em;
+  margin-top: 0.4em;
+}
+
+.reveal .meme-frase ul { margin: 0 0 0 0.9em; }
+.reveal .meme-frase li { margin-bottom: 0.18em; }
+
+.reveal .impacto {
+  font-family: Arial Black, Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--fgv-azul-281);
+  font-weight: 900;
+  font-size: 0.9em;
+}
+
+/* ---------------------------------------------------------------- passos */
+
+.reveal .passos { counter-reset: passo; margin-top: 0.4em; }
+
+.reveal .passo {
+  position: relative;
+  padding-left: 2.1em;
+  margin-bottom: 0.5em;
+  font-size: 0.85em;
+  line-height: 1.35;
+}
+
+.reveal .passo::before {
+  counter-increment: passo;
+  content: counter(passo);
+  position: absolute;
+  left: 0;
+  top: -0.05em;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: var(--fgv-azul-claro);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ----------------------------------------------------------- agenda/tempo */
+
+.reveal .agenda { font-size: 0.85em; }
+
+.reveal .agenda .bloco {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9em;
+  border-bottom: 1px solid var(--fgv-borda);
+  padding: 0.35em 0;
+}
+
+.reveal .agenda .tempo {
+  flex: 0 0 5.2em;
+  color: var(--fgv-azul-claro);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------- terminal */
+
+.reveal .terminal {
+  background: #12202e;
+  color: #e6edf3;
+  border-radius: 6px;
+  padding: 0.7em 0.9em;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 0.62em;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.reveal .terminal .prompt { color: #58c4ff; }
+.reveal .terminal .saida { color: #9fb3c8; }
+
+/* ------------------------------------------------------------ mao na massa */
+
+.reveal .aviso-pratica {
+  background: var(--fgv-azul);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 0.8em 1em;
+  font-size: 0.95em;
+}
+
+.reveal .aviso-pratica strong,
+.reveal .aviso-pratica code { color: #ffffff; }
+.reveal .aviso-pratica code { background: rgba(255, 255, 255, 0.14); }
+
+/* ------------------------------------------------------- duas estradas */
+
+.reveal .estradas { margin-top: 0.3em; }
+
+.reveal .faixa {
+  border: 1px solid var(--fgv-borda);
+  background: var(--fgv-neve);
+  border-radius: 8px;
+  padding: 0.6em 0.85em 0.75em;
+  margin-bottom: 0.7em;
+}
+
+.reveal .faixa .rotulo {
+  display: block;
+  font-size: 0.55em;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--fgv-cinza);
+  font-weight: 700;
+}
+
+.reveal .faixa .nome {
+  display: block;
+  font-size: 0.92em;
+  font-weight: 700;
+  color: var(--fgv-azul);
+  margin-bottom: 0.35em;
+}
+
+.reveal .via {
+  position: relative;
+  height: 46px;
+  border-radius: 23px;
+  background: #2f3d4c;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0 0.8em;
+  overflow: hidden;
+}
+
+.reveal .via > p {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+  margin: 0;
+}
+
+.reveal .via::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 50%;
+  border-top: 3px dashed rgba(255, 255, 255, 0.35);
+}
+
+.reveal .via .marco {
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+  color: var(--fgv-azul-281);
+  border-radius: 14px;
+  padding: 0.15em 0.6em;
+  font-size: 0.52em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.reveal .via .destino {
+  position: relative;
+  z-index: 2;
+  margin-left: auto;
+  background: var(--fgv-azul-claro);
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 0.15em 0.7em;
+  font-size: 0.52em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.reveal .faixa .chegada {
+  display: block;
+  font-size: 0.66em;
+  color: var(--fgv-tinta);
+  margin-top: 0.4em;
+}
+
+.reveal .atalho {
+  text-align: center;
+  font-size: 0.66em;
+  color: var(--fgv-cinza);
+  border-top: 2px dashed var(--fgv-borda);
+  padding-top: 0.5em;
+}
+
+/* --------------------------------------------- notacao objeto/metodo */
+
+.reveal .notacao {
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 1.55em;
+  font-weight: 700;
+  text-align: center;
+  color: var(--fgv-azul-281);
+  margin: 0.25em 0 0.1em;
+  letter-spacing: -0.01em;
+}
+
+.reveal .notacao .alvo { color: var(--fgv-azul); }
+.reveal .notacao .marca { color: #c8952a; }
+.reveal .notacao .exec { color: var(--fgv-vermelho); }
+
+.reveal .legenda-notacao {
+  text-align: center;
+  font-size: 0.68em;
+  color: var(--fgv-cinza);
+  margin-bottom: 0.5em;
+}
+
+/* -------------------------------------------------- diff esquematico */
+
+.reveal .diff {
+  border: 1px solid var(--fgv-borda);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 0.72em;
+}
+
+.reveal .diff .linha {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.3em 0.7em;
+  border-bottom: 1px solid var(--fgv-borda);
+}
+
+.reveal .diff .linha:last-child { border-bottom: none; }
+.reveal .diff .igual { background: #ffffff; color: var(--fgv-cinza); }
+.reveal .diff .removida { background: #fbedec; color: #8f231a; }
+.reveal .diff .incluida { background: #e8f5f0; color: #0e5c43; }
+
+.reveal .diff .sinal {
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-weight: 700;
+  width: 1.1em;
+  text-align: center;
+}
+
+.reveal .barra {
+  height: 10px;
+  border-radius: 5px;
+  background: currentColor;
+  opacity: 0.28;
+}
+
+/* --------------------------------------------------- anatomia do erro */
+
+.reveal .erro {
+  background: #12202e;
+  border-radius: 6px;
+  padding: 0.8em 1em;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 0.66em;
+  line-height: 1.7;
+  color: #e6edf3;
+}
+
+.reveal .erro .parte1 { color: #9fb3c8; }
+.reveal .erro .parte2 { color: #ff9c8a; font-weight: 700; }
+.reveal .erro .parte3 { color: #7fd0f7; }
+
+.reveal .erro-legenda {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8em;
+  margin-top: 0.5em;
+  font-size: 0.68em;
+}
+
+.reveal .erro-legenda div { border-top: 3px solid var(--fgv-borda); padding-top: 0.3em; }
+.reveal .erro-legenda .l1 { border-color: #9fb3c8; }
+.reveal .erro-legenda .l2 { border-color: #c8382c; }
+.reveal .erro-legenda .l3 { border-color: var(--fgv-azul-claro); }
+
+/* ------------------------------------------------------ escala visual */
+
+.reveal .escala {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1em;
+  text-align: center;
+  margin-top: 0.4em;
+}
+
+.reveal .escala .caixa {
+  border: 1px solid var(--fgv-borda);
+  background: var(--fgv-neve);
+  border-radius: 8px;
+  padding: 0.8em;
+}
+
+.reveal .escala .qtd {
+  display: block;
+  font-size: 1.7em;
+  font-weight: 700;
+  color: var(--fgv-azul-claro);
+  line-height: 1.1;
+}
+
+.reveal .escala .sinal-igual {
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--fgv-cinza);
+}
+
+/* ------------------------------------------------- ambientes isolados */
+
+.reveal .projetos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1em; }
+
+.reveal .projeto {
+  border: 1px solid var(--fgv-borda);
+  border-radius: 8px;
+  padding: 0.7em 0.85em;
+  background: #ffffff;
+  font-size: 0.78em;
+}
+
+.reveal .projeto .pasta {
+  display: block;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-weight: 700;
+  color: var(--fgv-azul);
+  margin-bottom: 0.3em;
+}
+
+.reveal .projeto .venv {
+  display: inline-block;
+  background: var(--fgv-gelo);
+  color: var(--fgv-azul-281);
+  border-radius: 4px;
+  padding: 0.1em 0.45em;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 0.85em;
+  margin-top: 0.25em;
+}

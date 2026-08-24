@@ -1,0 +1,22 @@
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Quarto
+/.quarto/
+/_site/
+/_freeze/
+*_files/
+*.quarto_ipynb
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Segredos
+.env
+*.key
+
+**/*.quarto_ipynb

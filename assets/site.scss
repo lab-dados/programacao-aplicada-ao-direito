@@ -1,0 +1,136 @@
+/*-- scss:defaults --*/
+
+// Paleta FGV (Manual de Identidade Visual)
+$fgv-azul:        #023a78;
+$fgv-azul-claro:  #0791d3;
+$fgv-azul-281:    #1c2f67;
+$fgv-tinta:       #22303d;
+$fgv-cinza:       #5b6b7c;
+$fgv-borda:       #d3dee9;
+$fgv-neve:        #f5f8fb;
+$fgv-gelo:        #edf2f7;
+
+$primary:   $fgv-azul;
+$secondary: $fgv-cinza;
+$info:      $fgv-azul-claro;
+$body-color: $fgv-tinta;
+$link-color: $fgv-azul-claro;
+
+$font-family-sans-serif: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif !default;
+$font-family-monospace: "JetBrains Mono", "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace !default;
+
+$font-size-root: 16px;
+$headings-font-weight: 700;
+$headings-color: $fgv-azul;
+$border-radius: 6px;
+$code-color: $fgv-azul-281;
+$code-bg: $fgv-gelo;
+
+/*-- scss:rules --*/
+
+body { line-height: 1.6; }
+
+h1, h2, h3, h4 { letter-spacing: -0.01em; }
+
+h2 {
+  border-bottom: 2px solid $fgv-borda;
+  padding-bottom: 0.25rem;
+  margin-top: 2.2rem;
+}
+
+.navbar { border-bottom: 4px solid $fgv-azul-claro; }
+.navbar-brand { font-weight: 700; }
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+// ------------------------------------------------------------------ hero
+.hero {
+  background: linear-gradient(120deg, $fgv-azul 0%, $fgv-azul-281 60%, #0b1c3d 100%);
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 2.4rem 2.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  color: #ffffff;
+  font-size: 2.2rem;
+  margin: 0 0 0.5rem 0;
+  border: none;
+}
+
+.hero p { color: rgba(255, 255, 255, 0.88); margin-bottom: 0; }
+.hero .etiqueta {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7fd0f7;
+  margin-bottom: 0.6rem;
+}
+
+// ----------------------------------------------------------------- cards
+.grade {
+  display: grid;
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+.grade-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.grade-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+.cartao {
+  background: $fgv-neve;
+  border: 1px solid $fgv-borda;
+  border-top: 4px solid $fgv-azul-claro;
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+}
+
+.cartao h3 {
+  margin-top: 0;
+  font-size: 1.05rem;
+  color: $fgv-azul;
+}
+
+.cartao p:last-child { margin-bottom: 0; }
+
+// ----------------------------------------------------------------- botoes
+.botao {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin: 0.15rem 0.3rem 0.15rem 0;
+  border: 1px solid $fgv-azul;
+  color: $fgv-azul;
+  background: #ffffff;
+}
+
+.botao:hover { background: $fgv-azul; color: #ffffff; text-decoration: none; }
+.botao-cheio { background: $fgv-azul; color: #ffffff; }
+.botao-cheio:hover { background: $fgv-azul-281; color: #ffffff; }
+.botao-colab { border-color: #e8710a; color: #b35707; }
+.botao-colab:hover { background: #e8710a; border-color: #e8710a; color: #ffffff; }
+
+// ----------------------------------------------------------------- tabelas
+table { font-size: 0.94rem; }
+thead th { background: $fgv-azul; color: #ffffff; }
+
+// ---------------------------------------------------------------- estados
+.estado {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+}
+.estado-pronto { background: #e8f5f0; color: #0e7c5a; }
+.estado-preparo { background: $fgv-gelo; color: $fgv-cinza; }
+
+// ---------------------------------------------------------------- rodape
+.nav-footer { font-size: 0.85rem; }
+.nav-footer a { color: #9fd4f5; }

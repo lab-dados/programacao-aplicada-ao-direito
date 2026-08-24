@@ -1,0 +1,214 @@
+---
+title: "Programa do curso"
+subtitle: "Seis encontros e quatro workshops de aprofundamento"
+---
+
+O curso tem duas partes. A primeira, com seis encontros de 3 horas, cobre os
+fundamentos de programação em Python. A segunda reúne workshops temáticos, que
+aplicam esses fundamentos a problemas concretos de pesquisa empírica em Direito.
+
+## Curso base
+
+### Encontro 1 · Por que programar e preparação do ambiente
+
+**Objetivos de aprendizagem**
+
+- Explicar por que o código permanece relevante na era da IA e suas implicações
+  para o Direito.
+- Executar a instalação e a configuração de um ambiente de programação,
+  reconhecendo conceitos fundamentais de Python (objetos, métodos e módulos).
+
+**Conteúdo**
+
+- Programação na era da IA: por que ainda aprender código, mesmo com ferramentas
+  de IA cada vez mais capazes.
+- Código versus interfaces gráficas: código como texto, reprodutível e livre.
+- Valor do código para o Direito: automação de tarefas, acesso a dados judiciais
+  e fortalecimento de pesquisa e verificação de resultados da IA.
+- Aula prática de setup: instalação de ferramentas (Python, Git, VS Code, uv),
+  uso do GitHub e execução de um projeto inicial com repositório e notebook.
+- Fundamentos de Python: objetos, atributos, métodos e módulos, com leitura e
+  compreensão de código existente.
+
+### Encontro 2 · Tipos básicos e funções
+
+**Objetivos de aprendizagem**
+
+- Distinguir os tipos básicos de Python (inteiro/float, string, booleano) e seus
+  métodos.
+- Construir funções aplicando parâmetros, escopo e retorno para evitar
+  repetição.
+
+**Conteúdo**
+
+- Introdução: programação e IA como ferramentas para resolver problemas (uso de
+  *large n* no STF; paradoxo de Jevons).
+- Tipos básicos: inteiro/float, string e booleano, explorando os métodos de cada
+  um.
+- Funções: o que são e por que evitam a repetição de código.
+- Parâmetros e argumentos (obrigatórios e opcionais), escopo e `return`.
+- Aplicação: exercícios simples (estilo URI) em notebook, primeiro sem função e
+  depois reescritos com função (retomando *fork* e *clone* de um repositório).
+
+### Encontro 3 · Fluxo de execução e coleções
+
+**Objetivos de aprendizagem**
+
+- Aplicar condicionais e loops para controlar o fluxo de execução de um programa.
+- Diferenciar listas e dicionários e utilizá-los para organizar dados.
+
+**Conteúdo**
+
+- Condicionais: tomada de decisão para criar programas e funções mais
+  interessantes.
+- Loops: repetição de instruções, com foco no `for`.
+- Listas: estrutura para organizar coleções de dados.
+- Dicionários: estrutura chave-valor que permite ainda mais complexidade.
+- Loops aplicados a listas e dicionários: percorrer e transformar coleções.
+
+### Encontro 4 · Objetos, classes e herança
+
+**Objetivos de aprendizagem**
+
+- Criar tipos de objeto próprios, definindo métodos e atributos.
+- Aplicar herança para especializar objetos.
+
+**Conteúdo**
+
+- Criando um novo tipo de objeto: como defini-lo e como criar seus métodos.
+- Atributos: os dados que um objeto guarda.
+- Exercício prático: criar um objeto a partir de especificações (por exemplo, um
+  raspador ou a hierarquia juíza, desembargadora, ministra).
+- Herança: especializar objetos a partir de outros, revisando o exercício com
+  classes derivadas.
+- *Teaser* de `pandas`: o DataFrame como objeto, com atributos (`shape`,
+  `columns`) e métodos que funcionam como loops prontos (por exemplo, a base de
+  judicialização de TEA, do `juscraper`).
+
+### Encontro 5 · Manipulação de dados com pandas
+
+**Objetivos de aprendizagem**
+
+- Executar as principais operações de manipulação de dados em DataFrames
+  derivados do `juscraper`.
+- Produzir análises de dados mais complexas com apoio de *vibecoding*.
+
+**Conteúdo**
+
+- Abrir e explorar um DataFrame derivado do `juscraper` com `pandas`.
+- Selecionar colunas e linhas, unir dois DataFrames, remover duplicatas e agrupar
+  por valores de colunas.
+- Reordenar linhas, renomear colunas, criar colunas e linhas e aplicar uma função
+  em todas as linhas.
+- Combinar operações em análises mais complexas.
+- *Vibecoding* na prática: usar IA para escrever as análises.
+
+### Encontro 6 · Conceitos de IA e engenharia de contexto
+
+**Objetivos de aprendizagem**
+
+- Explicar os conceitos centrais de IA aplicada ao Direito (LLM, token, janela de
+  contexto, ferramentas, agentes).
+- Aplicar técnicas de engenharia de contexto no Claude Code.
+
+**Conteúdo**
+
+- Panorama: inteligência artificial, aprendizado de máquina, rede neural e
+  grande modelo de linguagem.
+- Conceitos básicos: token, janela de contexto, GUI versus API, nuvem versus
+  local, uso de nossos dados.
+- Ferramentas e pensamento: busca, criação de documentos e planilhas, execução de
+  código, *test-time scaling*.
+- *Harness* e engenharia: chatbot versus CLI; engenharia de prompt versus
+  engenharia de contexto; agente e *Deep Research*.
+- Engenharia de contexto no Claude Code: acesso via CLI, modo planejamento e
+  execução, ferramentas, subagentes, MCP, plugins, skills e *context rot*.
+
+## Workshops de aprofundamento
+
+### Workshop 1 · Dados judiciais com juscraper
+
+**Objetivos de aprendizagem**
+
+- Distinguir as fontes de dados judiciais acessíveis pelo `juscraper`: raspadores
+  de tribunais e agregadores nacionais (Datajud, Jus.br e PDPJ).
+- Executar a obtenção de dados de processos usando os raspadores e agregadores já
+  existentes no `juscraper`.
+
+**Conteúdo**
+
+- Apresentação do `juscraper`: biblioteca Python que unifica, em uma única
+  interface, o acesso automatizado a dados do Judiciário.
+- Duas categorias de fonte: raspadores de tribunais individuais (por exemplo,
+  TJSP e TRF3) e agregadores nacionais.
+- Agregadores acessados via API: Datajud (base nacional do CNJ), Jus.br e PDPJ,
+  estes dois exigindo autenticação por token JWT obtido com login gov.br.
+- O que obter de cada processo: existência, detalhes, partes, movimentos e
+  documentos.
+- Uso prático: consultar por número CNJ, buscar com filtros (tribunal, classe,
+  assunto, datas) e baixar documentos.
+
+### Workshop 2 · Tratamento de dados e engenharia de variáveis
+
+**Objetivos de aprendizagem**
+
+- Aplicar um fluxo de tratamento de dados jurídicos, da amostragem à engenharia
+  de variáveis.
+- Construir variáveis a partir de dados brutos usando expressões regulares e
+  classificação.
+
+**Conteúdo**
+
+- Fluxo de trabalho em dados: extração, detecção do universo de interesse
+  (amostragem), engenharia de variáveis, análises e visualizações. O caminho não
+  é linear.
+- Detecção do universo relevante: amostragem a partir da engenharia de temas;
+  limpeza inicial, filtragem e junção de bases.
+- Regex para extração: problemas de codificação e espaçamento (`str.replace`),
+  construção de expressões regulares (`re.compile`), busca no DataFrame
+  (`findall`) e extração com `for`.
+- Engenharia de variáveis: criar características do processo via regex, criar
+  colunas a partir das existentes (uso do número CNJ) e classificar as partes por
+  gênero.
+- Decisão de método: quando usar regex, formulário ou LLM.
+
+### Workshop 3 · Leitura de decisões com LLMs
+
+**Objetivos de aprendizagem**
+
+- Aplicar LLMs para ler decisões judiciais e extrair informações de forma
+  estruturada.
+- Avaliar criticamente os resultados produzidos pela IA na leitura de decisões.
+
+**Conteúdo**
+
+- Quando usar LLM: comparação com regex e formulário para extrair informações de
+  decisões.
+- Engenharia de prompt e de contexto para decisões longas: lidar com a janela de
+  contexto.
+- Extração estruturada com LLM: identificar o resultado da decisão e classificar
+  partes e características do processo.
+- Verificação dos resultados: conferir se a leitura da IA está correta,
+  retomando os argumentos do Encontro 1 e os conceitos do Encontro 6.
+
+### Workshop 4 · Análises e visualizações (em definição)
+
+**Objetivos de aprendizagem**
+
+- Produzir estatísticas descritivas e visualizações básicas a partir dos dados de
+  processos tratados.
+
+**Conteúdo**
+
+- Análises e visualizações como etapa final do fluxo de dados, a partir das
+  variáveis construídas nos workshops anteriores.
+- Demais conteúdos a definir com a responsável pelo workshop.
+
+## Avaliação e dinâmica
+
+- As aulas combinam exposição e prática. O notebook de cada encontro é preenchido
+  durante a aula.
+- Os exercícios não precisam ser entregues. Eles existem para gerar dúvidas
+  enquanto ainda há alguém por perto para respondê-las.
+- Traga o computador com o ambiente já instalado. O
+  [tutorial de instalação](instalacao.qmd) leva cerca de 20 minutos.
