@@ -1,5 +1,6 @@
 ---
-pagetitle: "Programação Aplicada ao Direito | LabDados FGV Direito SP"
+pagetitle: "Programação Aplicada ao Direito"
+title-prefix: ""
 toc: false
 ---
 
