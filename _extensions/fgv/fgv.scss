@@ -67,7 +67,7 @@ $code-color: $fgv-azul-281;
 // dependa de o slide estar centralizado verticalmente ou nao.
 .reveal .slides::before {
   @include faixa-marca;
-  top: 0;
+  top: -32px;
   z-index: 12;
   pointer-events: none;
 }

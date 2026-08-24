@@ -485,3 +485,43 @@
   font-size: 0.85em;
   margin-top: 0.25em;
 }
+
+/* ------------------------------------------------------------- teclado */
+
+.reveal .teclas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.2em;
+  margin: 0.5em 0 0.9em;
+}
+
+.reveal .combo > p {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  margin: 0;
+}
+
+.reveal .tecla {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.7em;
+  padding: 0.28em 0.5em;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 1.9em;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--fgv-azul-281);
+  background: linear-gradient(180deg, #ffffff 0%, #eaf0f6 100%);
+  border: 1px solid var(--fgv-borda);
+  border-bottom: 5px solid #c2cfdc;
+  border-radius: 10px;
+}
+
+.reveal .mais {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--fgv-cinza);
+}

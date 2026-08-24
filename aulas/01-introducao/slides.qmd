@@ -239,6 +239,25 @@ Outra pessoa lê linha a linha, como leria uma petição.
 :::
 :::
 
+## Copiar e colar
+
+:::: {.teclas}
+::: {.combo}
+[Ctrl]{.tecla}[+]{.mais}[C]{.tecla}
+:::
+::: {.combo}
+[Ctrl]{.tecla}[+]{.mais}[V]{.tecla}
+:::
+::::
+
+Você copia o código de um lugar e cola em outro: do notebook para o e-mail, da
+documentação para o seu projeto, da mensagem de erro para a pergunta que vai
+fazer.
+
+::: {.fonte}
+Não existe equivalente disso para uma sequência de cliques em uma planilha.
+:::
+
 ## Texto é comparável
 
 O que mudou entre a versão de ontem e a de hoje:
@@ -293,7 +312,8 @@ resultado precisa ser reproduzido ou revisado por outra pessoa.
 ## Argumento 2: código é reprodutível
 
 A mesma entrada produz a mesma saída: amanhã, daqui a cinco anos e no computador
-da colega.
+de outra pessoa. Na prática, essa outra pessoa costuma ser **você mesmo**, seis
+meses depois, sem lembrar do que fez.
 
 <span class="espaco"></span>
 
@@ -310,8 +330,9 @@ Chegaram mais seis meses de decisões. Você roda de novo, e não refaz a pesqui
 :::
 
 ::: {.cartao}
-[**A pesquisa que continua**]{.titulo}
-Outra pesquisadora parte de onde você parou, sem pedir explicações por WhatsApp.
+[**A pesquisa que volta**]{.titulo}
+Você retoma o projeto um ano depois e o arquivo explica o que o seu "eu" antigo
+fez, sem depender da memória.
 :::
 :::
 
@@ -362,59 +383,59 @@ Ferramenta aberta não é descontinuada por decisão de um fornecedor, não muda
 preço no meio da pesquisa e não deixa de funcionar quando o convênio acaba.
 :::
 
-## Os três, juntos
-
-| | Código | Interface gráfica |
-|:---|:---|:---|
-| Registro do que foi feito | O próprio arquivo | Memória de quem clicou |
-| Repetir em base nova | Executar de novo | Refazer tudo |
-| Revisão por terceiros | Linha a linha | Gravação de tela |
-| Custo para 100 mil casos | Praticamente o mesmo | Inviável |
-| Custo de licença | Zero | Variável |
-
-: Comparação estrutural {tbl-colwidths="[30,35,35]"}
-
 # E o que isso tem a ver com o Direito? {.secao background-color="#023A78"}
 
-## Três usos imediatos
+## O que dá para fazer com vinte linhas
 
 ::: {.grade .grade-3}
 ::: {.cartao}
-[**Automatizar**]{.titulo}
-Renomear 400 arquivos, extrair números CNJ de um PDF, montar a planilha de
-acompanhamento, conferir prazos.
+[**Organizar arquivos**]{.titulo}
+Abrir 400 acórdãos em PDF, achar o número do processo dentro de cada um,
+renomear os arquivos e separá-los por ano e por vara.
 :::
 
 ::: {.cartao}
-[**Acessar dados**]{.titulo}
-Datajud, Jus.br, PDPJ e os sistemas dos tribunais entregam dados que nenhuma
-tela de consulta mostra.
-
-[É o assunto dos workshops.]{.menor}
+[**Baixar dados da internet**]{.titulo}
+Pegar todos os processos de um tribunal com um filtro, com partes e movimentos,
+sem abrir o navegador nem clicar 4 mil vezes.
 :::
 
 ::: {.cartao}
-[**Verificar a IA**]{.titulo}
-Conferir se a classificação que o modelo fez bate com a leitura humana em uma
-amostra.
+[**Escrever documentos**]{.titulo}
+Gerar 60 ofícios, notificações ou relatórios a partir de um modelo e de uma
+planilha, cada um com os dados certos.
 :::
 :::
 
-## Verificar: um exemplo
+::: {.fonte}
+Um quarto uso, que retomamos no Encontro 6: conferir, em uma amostra, se o que
+uma IA classificou bate com a leitura humana.
+:::
 
-Uma LLM classificou 12 mil decisões como "procedente" ou "improcedente".
+## Um exemplo: 400 acórdãos em PDF
 
-<span class="espaco"></span>
+::: {.comparacao}
+::: {.lado .lado-ruim}
+[À mão]{.titulo}
 
-. . .
+Abrir o arquivo, procurar o número do processo, renomear, anotar na planilha,
+fechar. Repetir.
 
-**Sem código:** você lê algumas, acha que está bom e publica.
+**2 minutos por arquivo, 13 horas de trabalho.**
 
-. . .
+E, no mês seguinte, chegam mais 400.
+:::
 
-**Com código:** você sorteia 200 decisões, classifica à mão, cruza com o
-resultado do modelo, calcula a taxa de acerto e descobre que ele erra
-sistematicamente nos casos de procedência parcial.
+::: {.lado .lado-bom}
+[Com código]{.titulo}
+
+Um programa lê os 400 arquivos, extrai o número, renomeia e monta a planilha.
+
+**Uma tarde para escrever, 2 minutos para rodar.**
+
+E, no mês seguinte, são os mesmos 2 minutos.
+:::
+:::
 
 # Duas estradas {.secao background-color="#023A78"}
 
@@ -485,19 +506,6 @@ Essa figura é de 2018. O problema é real e antigo, e é exatamente por causa d
 que o Colab existe como alternativa.
 :::
 
-## Falando sério: quando usar cada uma
-
-| | Colab | Computador local |
-|:---|:---|:---|
-| Tempo até a primeira linha | 30 segundos | 20 minutos |
-| Instalar bibliotecas | A cada sessão | Uma vez |
-| Trabalhar com arquivos seus | Upload manual | Direto na pasta |
-| Dados sigilosos | Não recomendado | Fica com você |
-| Agentes de IA sobre o projeto | Limitado | Completo |
-| Se der problema | Recarregar a página | Você conserta |
-
-: Colab e ambiente local {tbl-colwidths="[34,33,33]"}
-
 ## O que vamos fazer no curso
 
 ::: {.grade .grade-2}
@@ -548,7 +556,35 @@ notebooks.
 :::
 :::
 
-## Um ambiente por projeto
+## Projeto = pasta = repositório
+
+Ao longo do curso, "projeto" quer dizer sempre a mesma coisa: **uma pasta**.
+
+::: {.projeto}
+[minha-pesquisa/]{.pasta}
+[.venv/]{.venv} [notebooks/]{.venv} [dados/]{.venv} [resultados/]{.venv} [.git/]{.venv}
+:::
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**A pasta**]{.titulo}
+Tudo do projeto mora nela: notebooks, dados, resultados e o ambiente.
+:::
+
+::: {.cartao}
+[**O repositório**]{.titulo}
+É a mesma pasta, com histórico. O Git registra o que mudou, quando e por quê.
+:::
+
+::: {.cartao}
+[**O ambiente**]{.titulo}
+O `.venv` também fica dentro dela. Trocar de projeto é trocar de pasta.
+:::
+:::
+
+## Um ambiente virtual por projeto
 
 ::: {.projetos}
 ::: {.projeto}
