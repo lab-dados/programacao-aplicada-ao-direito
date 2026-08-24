@@ -1155,15 +1155,15 @@ wheels = [
 
 [[package]]
 name = "labdados"
-version = "0.8.0"
+version = "0.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpx" },
     { name = "pymupdf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/70/96/d2a37759e741f33a6bb3000dd8b76e1a96de1128e535effa41dbab18a98a/labdados-0.8.0.tar.gz", hash = "sha256:ebee15cbc1c53247666271795a7e0ccd87409a4c97948ec025c954adbe3587da", size = 230214, upload-time = "2026-05-04T09:18:50.208Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d8/06/389c4bcd01736a01421194580ce8144a6624e3fd5cd2b7c793938e17f8c7/labdados-0.9.0.tar.gz", hash = "sha256:4aca1c0f39bfa6cb0a7430c6b6b14e4396075c3e311e31c2e56d97b1b8f7eb6a", size = 235547, upload-time = "2026-08-24T19:02:52.003Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3c/e2/23ab7d678828a7c470c311395c0cc48d67196f0e00f03421307ff3558fdb/labdados-0.8.0-py3-none-any.whl", hash = "sha256:bf07107e7090e6655c440fe3bdaafbb0f60658fb059b57ceef085ba80e534195", size = 29953, upload-time = "2026-05-04T09:18:47.995Z" },
+    { url = "https://files.pythonhosted.org/packages/03/ae/3d50b324dad69c00ddac12376ebe80c74b37b8aa8f7ecd5c31342a71742d/labdados-0.9.0-py3-none-any.whl", hash = "sha256:d49e58b998d5cd89dc92d06a45cac532492f2d33049e1b101810642f1ed97110", size = 33836, upload-time = "2026-08-24T19:02:50.698Z" },
 ]
 
 [package.optional-dependencies]
@@ -1769,7 +1769,7 @@ dependencies = [
 requires-dist = [
     { name = "ipykernel", specifier = ">=6.29" },
     { name = "jupyter", specifier = ">=1.1" },
-    { name = "labdados", extras = ["transcricao"], specifier = ">=0.8" },
+    { name = "labdados", extras = ["transcricao"], specifier = ">=0.9" },
 ]
 
 [[package]]

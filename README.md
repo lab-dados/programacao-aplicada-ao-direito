@@ -127,10 +127,10 @@ O modelo de projeto dos alunos fica em
 e traz uma cópia de `aulas/01-introducao/notebook.ipynb` como `aula-01.ipynb`.
 **Ao alterar o notebook aqui, copie a versão nova para lá.**
 
-O modelo de transcrição usado no Encontro 1 está publicado na
-[release `modelos-v1`](https://github.com/lab-dados/programacao-aplicada-ao-direito/releases/tag/modelos-v1)
-deste repositório. O notebook baixa de lá, e não do Hugging Face, porque o HF
-bloqueia requisições anônimas vindas de IPs de datacenter, que é o caso do Colab.
+O modelo de transcrição usado no Encontro 1 é baixado pelo próprio `labdados`
+(a partir da versão 0.9), que o serve de uma release sua em vez do Hugging Face.
+O HF bloqueia requisições anônimas vindas de IPs de datacenter, que é o caso do
+Colab, e pedia um `HF_TOKEN` que os alunos não têm.
 
 ## Licença
 
