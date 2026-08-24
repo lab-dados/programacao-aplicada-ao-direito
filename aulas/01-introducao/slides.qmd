@@ -10,6 +10,40 @@ format:
     output-file: slides.html
 ---
 
+## O LabDados
+
+O **Laboratório de Dados e Pesquisa Empírica em Direito** é uma instância da FGV
+Direito SP. Ele aproxima a reflexão metodológica em pesquisa empírica, que a
+Escola desenvolve há mais de uma década, da ciência de dados e da inteligência
+artificial.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Formação**]{.titulo}
+Cursos e oficinas para pesquisadoras e pesquisadores da Escola. Este curso é
+parte disso.
+:::
+
+::: {.cartao}
+[**Pesquisa**]{.titulo}
+Projetos empíricos com dados judiciais, em parceria com centros da FGV e de fora
+dela.
+:::
+
+::: {.cartao}
+[**Escritório de apoio**]{.titulo}
+Serviços e ferramentas abertas para quem pesquisa: coleta, OCR, transcrição e
+estruturação de dados.
+:::
+:::
+
+::: {.fonte}
+Coordenação de **Daniel Wang**. Equipe: **Beatriz Varejão**, **Bruno Oliveira**,
+**Helena Funari**, **Julio Trecenti** e **Luiz Pimenta**.
+:::
+
 ## Agenda do encontro
 
 ::: {.agenda}
@@ -499,27 +533,6 @@ a estrada 2.
 xkcd 1987, "Python Environment", de Randall Munroe. Licença CC BY-NC 2.5.
 :::
 
-## O que o uv resolve
-
-::: {.grade .grade-2}
-::: {.cartao}
-[**Antes**]{.titulo}
-Várias instalações de Python no mesmo computador, cada biblioteca em um lugar,
-e ninguém sabe qual comando usa qual.
-:::
-
-::: {.cartao}
-[**Com o uv**]{.titulo}
-Uma ferramenta só instala o Python, cria o ambiente do projeto e resolve as
-bibliotecas. O ambiente fica dentro da pasta do projeto.
-:::
-:::
-
-::: {.fonte}
-Essa figura é de 2018. O problema é real e antigo, e é exatamente por causa dele
-que o Colab existe como alternativa.
-:::
-
 ## O que vamos fazer no curso
 
 ::: {.grade .grade-2}
@@ -540,61 +553,6 @@ nenhuma instalação ter dado certo.
 **O convite fica aberto.** Se a instalação depois do intervalo não sair hoje,
 você continua pelo Colab e a gente resolve na monitoria. Até o Encontro 6, quando
 entrarmos em agentes de IA, o ambiente local passa de preferência a requisito.
-:::
-
-## O que a prática de hoje termina fazendo
-
-Você grava 30 segundos lendo um trecho de uma decisão em voz alta, e cinco linhas
-de Python devolvem o texto transcrito.
-
-<span class="espaco"></span>
-
-::: {.grade .grade-3}
-::: {.cartao}
-[**Usa tudo o que vimos**]{.titulo}
-Módulo, função, argumento nomeado, objeto, nome e método, na mesma chamada.
-:::
-
-::: {.cartao}
-[**Sem chave e sem servidor**]{.titulo}
-O modelo roda na máquina em que o notebook está aberto. Não é preciso conta em
-serviço nenhum.
-:::
-
-::: {.cartao}
-[**E erra**]{.titulo}
-O modelo pequeno erra termos jurídicos. Encontrar esses erros é o exercício
-final da aula.
-:::
-:::
-
-## Transcrever serve para quê
-
-::: {.grade .grade-2}
-::: {.cartao}
-[**Sessões de julgamento**]{.titulo}
-As plenárias do STF são horas de vídeo por semana. Transcritas, viram texto
-pesquisável: dá para procurar um termo, contar quantas vezes um argumento
-aparece, acompanhar um tema ao longo de anos.
-:::
-
-::: {.cartao}
-[**Entrevistas de pesquisa**]{.titulo}
-Uma pesquisa qualitativa com 40 entrevistas de uma hora custa semanas de
-transcrição manual, ou alguns minutos de processamento.
-:::
-
-::: {.cartao}
-[**Audiências e depoimentos**]{.titulo}
-A gravação vira texto para conferência, citação e análise, em vez de ficar
-parada em um arquivo de áudio que ninguém reabre.
-:::
-
-::: {.cartao}
-[**Sustentações orais**]{.titulo}
-O mesmo, para acompanhar teses e argumentos de forma sistemática, e não caso a
-caso.
-:::
 :::
 
 ## Mão na massa
