@@ -1,6 +1,5 @@
 ---
-title: "Programação Aplicada ao Direito"
-subtitle: "Curso do LabDados, FGV Direito SP"
+pagetitle: "Programação Aplicada ao Direito | LabDados FGV Direito SP"
 toc: false
 ---
 
