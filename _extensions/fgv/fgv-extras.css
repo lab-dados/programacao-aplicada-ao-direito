@@ -136,85 +136,26 @@
 }
 .reveal .lado-bom .titulo { color: var(--fgv-azul); }
 
-/* ------------------------------------------------------------ meme pilulas */
+/* --------------------------------------------------------- quadrinho */
 
-.reveal .meme {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.4em;
-  margin-top: 0.4em;
+.reveal .quadrinho {
   text-align: center;
+  margin-top: 0.2em;
 }
 
-.reveal .meme-legenda-topo {
-  text-align: center;
-  font-size: 1.05em;
-  font-weight: 700;
-  color: var(--fgv-azul-281);
-  margin-bottom: 0.3em;
-}
-
-.reveal .pilula {
-  display: inline-block;
-  width: 190px;
-  height: 74px;
-  border-radius: 37px;
-  position: relative;
-  margin-bottom: 0.45em;
-  box-shadow: 0 10px 22px rgba(34, 48, 61, 0.28);
-  transform: rotate(-8deg);
-}
-
-.reveal .pilula::after {
-  content: "";
-  position: absolute;
-  left: 16px;
-  top: 12px;
-  width: 62px;
-  height: 18px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.45);
-  filter: blur(1px);
-}
-
-.reveal .pilula-azul {
-  background: linear-gradient(100deg, #2aa8ea 0%, #0791d3 48%, #023a78 48%, #012a58 100%);
-}
-
-.reveal .pilula-vermelha {
-  background: linear-gradient(100deg, #e2564b 0%, #c8382c 48%, #8f231a 48%, #6d1712 100%);
-  transform: rotate(8deg);
-}
-
-.reveal .meme-titulo {
-  font-size: 1.15em;
-  font-weight: 700;
-  color: var(--fgv-azul);
-  margin-bottom: 0.15em;
-}
-
-.reveal .meme-frase {
-  font-size: 0.78em;
-  color: var(--fgv-tinta);
-  line-height: 1.35;
-  text-align: left;
-  background: var(--fgv-neve);
+.reveal .quadrinho img {
+  max-height: 500px;
+  width: auto;
   border: 1px solid var(--fgv-borda);
-  border-radius: 6px;
-  padding: 0.6em 0.8em;
-  margin-top: 0.4em;
+  border-radius: 4px;
+  background: #ffffff;
 }
 
-.reveal .meme-frase ul { margin: 0 0 0 0.9em; }
-.reveal .meme-frase li { margin-bottom: 0.18em; }
-
-.reveal .impacto {
-  font-family: Arial Black, Arial, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--fgv-azul-281);
-  font-weight: 900;
-  font-size: 0.9em;
+.reveal .creditos {
+  text-align: center;
+  font-size: 0.55em;
+  color: var(--fgv-cinza);
+  margin-top: 0.4em;
 }
 
 /* ---------------------------------------------------------------- passos */

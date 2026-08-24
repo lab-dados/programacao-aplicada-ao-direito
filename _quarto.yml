@@ -3,68 +3,37 @@ project:
   output-dir: _site
   render:
     - index.qmd
-    - programa.qmd
-    - instalacao.qmd
-    - aulas.qmd
-    - materiais.qmd
     - aulas/*/slides.qmd
-    - pdf/tutorial-instalacao.qmd
   resources:
-    - assets/**
     - aulas/**/*.ipynb
-    - dados/**
 
 website:
   title: "Programação Aplicada ao Direito"
-  description: "Curso de programação em Python para pesquisa e prática jurídica. LabDados, FGV Direito SP."
+  description: "Curso de programação em Python do LabDados, FGV Direito SP."
   site-url: https://lab-dados.github.io/programacao-aplicada-ao-direito/
   repo-url: https://github.com/lab-dados/programacao-aplicada-ao-direito
-  repo-actions: [issue]
-  favicon: assets/favicon.svg
-  page-navigation: true
-  back-to-top-navigation: true
   navbar:
     background: "#023A78"
     foreground: "#FFFFFF"
-    title: "Programação Aplicada ao Direito"
     left:
       - text: "Início"
         href: index.qmd
-      - text: "Programa"
-        href: programa.qmd
-      - text: "Instalação"
-        href: instalacao.qmd
-      - text: "Aulas"
-        href: aulas.qmd
-      - text: "Materiais"
-        href: materiais.qmd
+      - text: "Slides do Encontro 1"
+        href: aulas/01-introducao/slides.qmd
     right:
       - icon: github
         href: https://github.com/lab-dados/programacao-aplicada-ao-direito
         aria-label: Repositório no GitHub
-  page-footer:
-    background: "#1C2F67"
-    foreground: "#FFFFFF"
-    left: "LabDados · FGV Direito SP"
-    center: "Conteúdo sob licença [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br) · código sob [MIT](https://opensource.org/licenses/MIT)"
-    right: "[Código-fonte](https://github.com/lab-dados/programacao-aplicada-ao-direito)"
 
 format:
   html:
-    theme: [cosmo, assets/site.scss]
+    theme: [cosmo, _extensions/fgv/site.scss]
     toc: true
     toc-title: "Nesta página"
-    toc-depth: 3
+    toc-depth: 2
     lang: pt
-    smooth-scroll: true
     link-external-newwindow: true
     code-copy: true
-    code-overflow: wrap
     highlight-style: github
-    anchor-sections: true
-    fig-align: center
-
-execute:
-  freeze: auto
 
 lang: pt

@@ -124,7 +124,7 @@ Todo profissional do Direito deveria **saber programar**?
 ::: {.coluna}
 ### Ser programador
 
-É uma profissão. Exige arquitetura de sistemas, testes, segurança, trabalho em
+É uma profissão. Exige arquitetura de sistemas, testes, segurança e trabalho em
 equipe sobre bases de código enormes.
 
 [Não é o que estamos propondo aqui.]{.menor}
@@ -133,25 +133,16 @@ equipe sobre bases de código enormes.
 ::: {.coluna}
 ### Saber programar
 
-É uma **alfabetização**. É conseguir ler o que um código faz, escrever vinte
-linhas que resolvem o seu problema e desconfiar de um resultado que não fecha.
+É conseguir ler o que um código faz, escrever vinte linhas que resolvem o seu
+problema e desconfiar de um resultado que não fecha.
 
-[É exatamente o que faremos neste curso.]{.menor}
+[É o que faremos neste curso.]{.menor}
 :::
 :::
-
-. . .
-
-> Ninguém exige que uma advogada seja escritora profissional. Mas exige-se que
-> ela saiba escrever. Com código, a lógica é a mesma.
 
 ## "Mas a IA não escreve o código por mim?"
 
-::: {.grande}
-Escreve. E é justamente por isso que você precisa saber ler.
-:::
-
-. . .
+Escreve boa parte dele. Três consequências disso:
 
 <span class="espaco"></span>
 
@@ -159,19 +150,18 @@ Escreve. E é justamente por isso que você precisa saber ler.
 ::: {.cartao}
 [**Mais código, não menos**]{.titulo}
 Quando escrever código fica barato, o mundo produz muito mais código. Quem
-consegue ler ganha alcance; quem não consegue, vira refém.
+consegue ler ganha alcance.
 :::
 
 ::: {.cartao}
 [**O erro é plausível**]{.titulo}
 Um modelo de linguagem erra com boa redação. O código roda, o número aparece e a
-tabela fica bonita. Só que está errado.
+tabela fica bonita, mas o resultado está errado.
 :::
 
 ::: {.cartao}
 [**A responsabilidade é sua**]{.titulo}
-No processo, quem assina a petição é você. Não existe "o modelo calculou errado"
-como tese de defesa.
+Quem assina a petição é você. "O modelo calculou errado" não é tese de defesa.
 :::
 :::
 
@@ -195,12 +185,6 @@ como tese de defesa.
 - Perceber que o resultado não faz sentido
 - Assinar embaixo
 :::
-:::
-
-. . .
-
-::: {.centro}
-[Programar deixou de ser sobre **digitar** e passou a ser sobre **julgar**.]{.grande}
 :::
 
 # Três argumentos a favor do código {.secao background-color="#023A78"}
@@ -227,19 +211,9 @@ Gratuito, auditável e independente de fornecedor.
 :::
 :::
 
-. . .
-
-<span class="espaco"></span>
-
-::: {.centro}
-[Nenhum dos três é sobre velocidade. Os três são sobre **confiança**.]{.grande}
-:::
-
 ## Argumento 1: código é texto
 
-::: {.grande}
-Um clique não deixa rastro. Uma linha de texto deixa.
-:::
+Um programa é um arquivo de texto simples. Daí vêm quatro propriedades práticas:
 
 <span class="espaco"></span>
 
@@ -284,11 +258,9 @@ O que mudou entre a versão de ontem e a de hoje:
 :::
 ::::
 
-. . .
-
-::: {.centro}
-[Uma linha de diferença explica por que o número da tabela 3 mudou de 1.482 para
-2.117.]{.grande}
+::: {.fonte}
+É esse registro que permite explicar por que um número mudou entre duas versões
+do relatório.
 :::
 
 ## O contraste com a interface gráfica
@@ -299,7 +271,7 @@ O que mudou entre a versão de ontem e a de hoje:
 
 - "Ordenei, filtrei, arrastei a fórmula, colei especial"
 - O histórico não existe
-- Reproduzir significa refazer, na mesma ordem, na sexta-feira à noite
+- Reproduzir significa refazer, na mesma ordem
 - Explicar para outra pessoa significa gravar a tela
 :::
 
@@ -314,26 +286,36 @@ O que mudou entre a versão de ontem e a de hoje:
 :::
 
 ::: {.fonte}
-Interfaces gráficas são ótimas para explorar. O problema começa quando o
-resultado precisa virar prova, artigo ou política pública.
+Interfaces gráficas são ótimas para explorar. A dificuldade aparece quando o
+resultado precisa ser reproduzido ou revisado por outra pessoa.
 :::
 
 ## Argumento 2: código é reprodutível
 
-::: {.grande}
 A mesma entrada produz a mesma saída: amanhã, daqui a cinco anos e no computador
 da colega.
-:::
 
 <span class="espaco"></span>
 
-. . .
-
-::: {.centro}
-[É isso que separa um **resultado** de uma **anedota**.]{.grande}
+::: {.grade .grade-3}
+::: {.cartao}
+[**O parecer contestado**]{.titulo}
+A parte contrária questiona o número. Você reexecuta a análise e mostra de onde
+ele veio.
 :::
 
-## E a escala vem de graça
+::: {.cartao}
+[**O dado que atualizou**]{.titulo}
+Chegaram mais seis meses de decisões. Você roda de novo, e não refaz a pesquisa.
+:::
+
+::: {.cartao}
+[**A pesquisa que continua**]{.titulo}
+Outra pesquisadora parte de onde você parou, sem pedir explicações por WhatsApp.
+:::
+:::
+
+## E a escala vem junto
 
 ::: {.escala}
 ::: {.caixa}
@@ -349,41 +331,10 @@ processos
 :::
 :::
 
-<span class="espaco"></span>
-
-. . .
-
-::: {.centro}
-[O mesmo código. O que muda é quanto tempo o computador fica ligado, e não quanto
-tempo **você** fica.]{.grande}
+::: {.fonte}
+O código é o mesmo nos dois casos. O que cresce é o tempo de execução da máquina,
+e não o seu.
 :::
-
-## Reprodutibilidade não é preciosismo
-
-::: {.grade .grade-3}
-::: {.cartao}
-[**O parecer contestado**]{.titulo}
-A parte contrária questiona o número. Você reexecuta a análise na frente do juízo
-e mostra de onde ele veio.
-:::
-
-::: {.cartao}
-[**O dado que atualizou**]{.titulo}
-Chegaram mais seis meses de decisões. Você roda de novo, e não refaz a pesquisa.
-:::
-
-::: {.cartao}
-[**A pesquisa que continua**]{.titulo}
-Outra pesquisadora parte de onde você parou, sem pedir explicações por WhatsApp.
-:::
-:::
-
-. . .
-
-<span class="espaco"></span>
-
-> Se o resultado só existe porque alguém clicou em uma sequência específica de
-> botões que ninguém anotou, ele não é um resultado. É uma lembrança.
 
 ## Argumento 3: código é aberto
 
@@ -398,13 +349,10 @@ há licença por assento, nem renovação anual, nem limite de alunos.
 ::: {.coluna}
 ### Auditável
 
-Você pode abrir qualquer ferramenta que usar e ver o que ela faz por dentro. Em
-pesquisa jurídica isso importa: um resultado que depende de uma caixa preta
-comercial é um resultado que você não consegue defender.
+Você pode abrir qualquer ferramenta que usar e ver o que ela faz por dentro. Um
+resultado que depende de uma caixa preta comercial é mais difícil de defender.
 :::
 :::
-
-. . .
 
 <span class="espaco"></span>
 
@@ -435,8 +383,6 @@ preço no meio da pesquisa e não deixa de funcionar quando o convênio acaba.
 [**Automatizar**]{.titulo}
 Renomear 400 arquivos, extrair números CNJ de um PDF, montar a planilha de
 acompanhamento, conferir prazos.
-
-[O que hoje toma uma tarde inteira.]{.menor}
 :::
 
 ::: {.cartao}
@@ -451,16 +397,12 @@ tela de consulta mostra.
 [**Verificar a IA**]{.titulo}
 Conferir se a classificação que o modelo fez bate com a leitura humana em uma
 amostra.
-
-[O uso mais importante em 2026.]{.menor}
 :::
 :::
 
-## Verificar é o ponto
+## Verificar: um exemplo
 
-::: {.grande}
 Uma LLM classificou 12 mil decisões como "procedente" ou "improcedente".
-:::
 
 <span class="espaco"></span>
 
@@ -474,21 +416,9 @@ Uma LLM classificou 12 mil decisões como "procedente" ou "improcedente".
 resultado do modelo, calcula a taxa de acerto e descobre que ele erra
 sistematicamente nos casos de procedência parcial.
 
-. . .
-
-<span class="espaco"></span>
-
-::: {.centro}
-[A segunda frase é uma metodologia. A primeira é um chute bem escrito.]{.grande}
-:::
-
 # Duas estradas {.secao background-color="#023A78"}
 
 ## Duas estradas, o mesmo destino
-
-::: {.meme-legenda-topo}
-Uma tem posto de gasolina no caminho. A outra tem um trecho de terra chamado "erro de PATH".
-:::
 
 ::::: {.estradas}
 :::: {.faixa}
@@ -524,6 +454,37 @@ verdade e agentes de IA trabalhando sobre eles.]{.chegada}
 As duas se encontram. Dá para começar em uma e mudar para a outra quando quiser.
 :::
 
+## Por que a estrada 2 costuma dar trabalho
+
+::: {.quadrinho}
+![](xkcd-1987-python-environment.png)
+:::
+
+::: {.creditos}
+xkcd 1987, "Python Environment", de Randall Munroe. Licença CC BY-NC 2.5.
+:::
+
+## O que o uv resolve
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Antes**]{.titulo}
+Várias instalações de Python no mesmo computador, cada biblioteca em um lugar,
+e ninguém sabe qual comando usa qual.
+:::
+
+::: {.cartao}
+[**Com o uv**]{.titulo}
+Uma ferramenta só instala o Python, cria o ambiente do projeto e resolve as
+bibliotecas. O ambiente fica dentro da pasta do projeto.
+:::
+:::
+
+::: {.fonte}
+Essa figura é de 2018. O problema é real e antigo, e é exatamente por causa dele
+que o Colab existe como alternativa.
+:::
+
 ## Falando sério: quando usar cada uma
 
 | | Colab | Computador local |
@@ -553,8 +514,6 @@ pelo navegador e a gente resolve o resto com calma.
 :::
 :::
 
-. . .
-
 ::: {.aviso-pratica}
 **O convite fica aberto.** Quem começar pelo Colab pode tentar a instalação de
 novo a qualquer momento até o Encontro 6, quando entrarmos em agentes de IA e o
@@ -568,8 +527,7 @@ ambiente local passa de preferência a requisito.
 ::: {.grade .grade-2}
 ::: {.cartao}
 [**uv**]{.titulo}
-Gerencia as versões do Python e as bibliotecas de cada projeto. Faz, com um
-comando só, o que antes exigia três ferramentas diferentes.
+Gerencia as versões do Python e as bibliotecas de cada projeto.
 :::
 
 ::: {.cartao}
@@ -608,13 +566,9 @@ O ambiente fica dentro da pasta do projeto, isolado de todo o resto.
 :::
 :::
 
-. . .
-
-<span class="espaco"></span>
-
-::: {.centro}
-[Atualizar uma biblioteca na pesquisa de mestrado **não quebra** o script do
-escritório.]{.grande}
+::: {.fonte}
+Assim, atualizar uma biblioteca na pesquisa de mestrado não quebra o script do
+escritório.
 :::
 
 ## Baixando o material do curso
@@ -635,8 +589,7 @@ Entre na pasta e rode `uv sync`, que monta o ambiente com tudo instalado.
 :::
 
 ::: {.aviso-pratica}
-Os comandos exatos estão no tutorial do site, prontos para copiar. Ninguém
-precisa digitar endereço de repositório à mão.
+Os comandos exatos estão no site do curso, prontos para copiar.
 :::
 
 ## Clonar, e não baixar o zip
@@ -655,8 +608,6 @@ Antes de cada aula, você baixa tudo de novo, descompacta, e tenta lembrar em qu
 pasta estava o seu notebook editado.
 :::
 :::
-
-. . .
 
 ::: {.aviso-pratica}
 **Dica que evita dor de cabeça:** trabalhe sempre em uma **cópia** do notebook,
@@ -765,17 +716,13 @@ contar[(]{.exec}[processo]{.alvo}[)]{.exec}
 **Função.** O objeto vai dentro dos parênteses, e não antes do ponto.
 :::
 
-. . .
-
 ::: {.centro}
 [O ponto significa "deste objeto aqui". O parêntese significa "execute".]{.destaque}
 :::
 
 ## Nomes, não caixas
 
-::: {.grande}
-O sinal `=` não é igualdade matemática. Ele **dá um nome** a um objeto.
-:::
+O sinal `=` não é igualdade matemática. Ele dá um **nome** a um objeto.
 
 <span class="espaco"></span>
 
@@ -791,18 +738,10 @@ Dois nomes podem apontar para a mesma coisa. Trocar um deles não muda o outro.
 :::
 :::
 
-. . .
-
-<span class="espaco"></span>
-
-::: {.centro}
-[Nome é etiqueta, não é gaveta.]{.grande}
-:::
-
 ## Módulos
 
 O Python básico é enxuto de propósito. O resto vem em **módulos**, que você traz
-para a mesa quando precisa.
+para a sessão com `import`.
 
 <span class="espaco"></span>
 
@@ -822,22 +761,12 @@ Precisam ser instaladas antes, com `uv add`.
 :::
 :::
 
-. . .
-
-::: {.centro}
-[`import` é o que separa "existe em algum lugar" de "está disponível agora".]{.destaque}
-:::
-
 ## Ler código é a habilidade central
 
-::: {.grande}
 Você vai conseguir explicar o que um trecho de código faz muito antes de
-conseguir escrevê-lo do zero.
-:::
+conseguir escrevê-lo do zero. Três perguntas ajudam:
 
 <span class="espaco"></span>
-
-. . .
 
 ::: {.grade .grade-3}
 ::: {.cartao}
@@ -858,14 +787,14 @@ Qual número deste resultado eu conferiria à mão antes de assinar.
 
 ::: {.fonte}
 Na prática de hoje você vai ler um código com listas e índices que ainda não
-estudamos. E vai entender o que ele faz.
+estudamos.
 :::
 
 ## Quando algo dá errado
 
 ::: {.erro}
 [Traceback (most recent call last):]{.parte1}<br>
-[&nbsp;&nbsp;File &quot;notebook-01.ipynb&quot;, line 2]{.parte1}<br>
+[&nbsp;&nbsp;File &quot;notebook.ipynb&quot;, line 2]{.parte1}<br>
 [AttributeError:]{.parte2} &#39;str&#39; object has no attribute &#39;uper&#39;.<br>
 [Did you mean: &#39;upper&#39;?]{.parte3}
 :::
@@ -881,8 +810,6 @@ estudamos. E vai entender o que ele faz.
 **A dica.** Em boa parte dos casos, o Python já sugere a correção.
 :::
 :::
-
-. . .
 
 ::: {.centro}
 [Nenhuma mensagem de erro estraga o computador. Corrija e execute de novo.]{.destaque}
@@ -905,11 +832,6 @@ a resposta**, em vez de acreditar nela.
 **Pergunte para uma pessoa**, dizendo o que queria fazer, o que tentou e o que
 apareceu.
 :::
-:::
-
-::: {.fonte}
-A ordem importa: quem pula direto para o passo 3 aprende a pedir, mas não aprende
-a resolver.
 :::
 
 ## Mão na massa
