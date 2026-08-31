@@ -1,0 +1,1374 @@
+---
+title: "Tipos básicos e funções"
+subtitle: "Encontro 2 · Programação Aplicada ao Direito"
+author: "Beatriz Varejão · LabDados · FGV Direito SP"
+date: "2026-08-31"
+date-format: long
+format:
+  fgv-revealjs:
+    footer: "Programação Aplicada ao Direito · Encontro 2"
+    output-file: slides.html
+    # Tabelas alinhadas a esquerda, como o resto do deck. Se o tema FGV passar
+    # a tratar tabelas, esta regra pode subir para o _extensions/fgv.
+    include-in-header:
+      text: |
+        <style>
+        /* Tabelas alinhadas a esquerda, como o resto do deck. */
+        .reveal table { margin-left: 0; }
+
+        /* Diagrama de variaveis apontando para objetos na memoria. */
+        .reveal .diagrama {
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 1.2em; margin-top: 0.5em;
+        }
+        .reveal .diagrama-3 {
+          grid-template-columns: repeat(3, 1fr); gap: 0.9em;
+        }
+        .reveal .momento {
+          border: 1px solid var(--fgv-borda); border-radius: 8px;
+          background: var(--fgv-neve); padding: 0.7em 0.9em 1em;
+        }
+        .reveal .momento .rotulo {
+          display: block; font-size: 0.55em; font-weight: 700;
+          text-transform: uppercase; letter-spacing: 0.11em;
+          color: var(--fgv-cinza); margin-bottom: 0.7em;
+        }
+        .reveal .momento .rotulo.comando {
+          font-family: "JetBrains Mono", Consolas, monospace;
+          text-transform: none; letter-spacing: 0; font-size: 0.62em;
+          color: var(--fgv-azul-281);
+        }
+        .reveal .linhas {
+          display: grid; grid-template-columns: auto auto 1fr;
+          align-items: center; row-gap: 0.6em; column-gap: 0.6em;
+        }
+        .reveal .terminal.notebook { white-space: pre-wrap; }
+        .reveal .linhas > p { display: contents; }
+        .reveal .linhas.solta {
+          grid-template-columns: auto auto auto;
+          justify-content: center; margin: 0.6em 0;
+        }
+        .reveal .linhas .nome, .reveal .linhas .obj {
+          font-family: "JetBrains Mono", Consolas, monospace;
+          font-size: 0.68em; font-weight: 700; text-align: center;
+          background: #ffffff; border: 1px solid var(--fgv-borda);
+          border-radius: 4px; padding: 0.3em 0.6em;
+        }
+        .reveal .linhas .nome { color: var(--fgv-azul); }
+        .reveal .linhas .obj { color: var(--fgv-azul-281); }
+        .reveal .linhas .seta {
+          color: var(--fgv-azul-claro); font-size: 1.1em;
+          font-weight: 700; text-align: center;
+        }
+        .reveal .linhas .duplo { grid-row: span 2; }
+        .reveal .linhas .novo {
+          border: 2px solid var(--fgv-azul-claro);
+        }
+        </style>
+---
+
+## Onde a gente parou
+
+No Encontro 1 você abriu um notebook, escreveu as suas primeiras linhas de código
+e fez o computador transcrever um áudio seu. Foi bastante coisa.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**O que já ficou**]{.titulo}
+Executar uma célula, criar uma variável com `=`, chamar uma função e ler
+uma mensagem de erro sem entrar em pânico.
+:::
+
+::: {.cartao}
+[**O que passou rápido**]{.titulo}
+Para onde vai o que você escreve depois do `=`, e por que às vezes dois números
+somam e às vezes ficam grudados um no outro.
+:::
+:::
+
+::: {.fonte}
+Hoje a gente vai devagar nesses dois pontos. É a aula mais "por dentro" do curso,
+e é a partir dela que o resto encaixa.
+:::
+
+## Agenda do encontro
+
+::: {.agenda}
+::: {.bloco}
+[00:00]{.tempo} Abertura: onde a gente parou
+:::
+::: {.bloco}
+[00:08]{.tempo} Variáveis e memória: o que o `=` faz
+:::
+::: {.bloco}
+[00:28]{.tempo} Os tipos básicos: o problema do `max` e as saídas
+:::
+::: {.bloco}
+[00:55]{.tempo} Mão na massa: Parte A, variáveis, tipos e texto
+:::
+::: {.bloco}
+[01:20]{.tempo} Intervalo
+:::
+::: {.bloco}
+[01:30]{.tempo} Funções: dar nome a um pedaço de código
+:::
+::: {.bloco}
+[02:00]{.tempo} Mão na massa: Parte B, escrevendo as suas
+:::
+::: {.bloco}
+[02:25]{.tempo} Fechamento
+:::
+:::
+
+# Variáveis e memória {.secao background-color="#023A78"}
+
+## O que o `=` faz
+
+::: {.notacao}
+[valor_causa]{.alvo} [=]{.marca} 15000.50
+:::
+::: {.legenda-notacao}
+Leia como **"recebe"**, e nunca como "é igual a".
+:::
+
+<span class="espaco"></span>
+
+::: {.passos}
+::: {.passo}
+O Python cria o objeto `15000.50` em algum lugar da memória.
+:::
+::: {.passo}
+Anota a variável `valor_causa` na sessão.
+:::
+::: {.passo}
+Faz essa variável **apontar** para aquele objeto.
+:::
+:::
+
+::: {.linhas .solta}
+[valor_causa]{.nome} [→]{.seta} [15000.50]{.obj}
+:::
+
+::: {.fonte}
+A leitura é da direita para a esquerda: primeiro o objeto passa a existir, depois
+a variável passa a apontar para ele. É essa setinha que a aula inteira vai mexer
+de lugar.
+:::
+
+## Etiqueta, não caixa
+
+Duas imagens mentais disputam o que o `=` faz, e só uma delas explica o que vem a
+seguir.
+
+::: {.comparacao}
+::: {.lado .lado-ruim}
+[A imagem errada]{.titulo}
+
+Uma **caixa** chamada `valor_causa`, com o `15000.50` guardado dentro.
+
+Dá a entender que o valor mora dentro da variável, e que passar a variável
+adiante duplica o valor.
+:::
+
+::: {.lado .lado-bom}
+[A imagem certa]{.titulo}
+
+Uma **etiqueta** `valor_causa` pendurada em um `15000.50` que está na memória.
+
+O objeto existe por conta própria. A variável só aponta para ele, e pode passar
+a apontar para outro.
+:::
+:::
+
+## O que estas duas linhas imprimem?
+
+```python
+valor = 15000.50
+copia = valor
+
+valor = 20000.00
+
+print(valor)
+print(copia)
+```
+
+::: {.pergunta}
+Quanto vale `copia` no final?
+:::
+
+## Trocar a etiqueta não mexe no objeto
+
+```python
+valor = 15000.50
+copia = valor       # o mesmo objeto, agora com duas variáveis
+
+valor = 20000.00    # 'valor' passa a apontar para outro objeto
+
+print(valor)        # 20000.0
+print(copia)        # 15000.5
+```
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**O que mudou**]{.titulo}
+Só para onde a variável `valor` aponta. O objeto `15000.50` continua onde estava,
+ainda etiquetado por `copia`.
+:::
+
+::: {.cartao}
+[**Onde isso volta**]{.titulo}
+É a mesma razão pela qual `.strip()` devolve um texto novo em vez de alterar o
+original. Daqui a pouco, na parte de texto.
+:::
+:::
+
+## As setas, comando a comando
+
+::: {.diagrama .diagrama-3}
+:::: {.momento}
+[valor = 15000.50]{.rotulo .comando}
+
+::::: {.linhas}
+[valor]{.nome} [→]{.seta} [15000.50]{.obj}
+:::::
+::::
+
+:::: {.momento .fragment}
+[copia = valor]{.rotulo .comando}
+
+::::: {.linhas}
+[valor]{.nome} [→]{.seta} [15000.50]{.obj .duplo}
+[copia]{.nome} [→]{.seta}
+:::::
+::::
+
+:::: {.momento .fragment}
+[valor = 20000.00]{.rotulo .comando}
+
+::::: {.linhas}
+[valor]{.nome} [→]{.seta} [20000.00]{.obj .novo}
+[copia]{.nome} [→]{.seta} [15000.50]{.obj}
+:::::
+::::
+:::
+
+::: {.fonte}
+Repare no que o terceiro comando **não** fez: ele não alterou nenhum objeto. Só
+puxou a seta de `valor` para outro lugar. O `15000.50` continua na memória porque
+ainda tem uma seta apontando para ele.
+:::
+
+## O tipo é do objeto, não da variável
+
+```python
+ano = "2024"     # a variável aponta para um texto
+type(ano)        # <class 'str'>
+
+ano = 2024       # agora aponta para um número
+type(ano)        # <class 'int'>
+```
+
+A mesma variável pode apontar para coisas de espécies diferentes ao longo do
+notebook. Por isso a pergunta certa nunca é "que tipo é `ano`?", e sim "que tipo
+é `ano` **agora**?".
+
+::: {.fonte}
+Em outras linguagens o tipo é declarado junto com a variável e não muda mais. Python
+não faz isso: dá liberdade e cobra atenção.
+:::
+
+## Escolhendo o nome da variável
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**As regras**]{.titulo}
+Letras, números e `_`, sem começar por número. `Processo` e `processo` são nomes
+diferentes.
+:::
+
+::: {.cartao}
+[**A convenção**]{.titulo}
+`letras_minusculas_com_underline`. É o que a comunidade escreve, e é o que a IA
+vai devolver para você.
+:::
+
+::: {.cartao}
+[**O critério**]{.titulo}
+`vc` economiza três segundos hoje e custa dez minutos daqui a seis meses.
+`valor_causa` não.
+:::
+
+::: {.cartao}
+[**O que evitar**]{.titulo}
+Nomes que o Python já usa, como `list`, `type`, `str` ou `sum`. Funciona na hora,
+e quebra a função de mesmo nome depois.
+:::
+:::
+
+## Tudo isso mora na sessão
+
+A memória de que estamos falando é a da **sessão** do notebook: o conjunto de
+variáveis que existem naquele momento.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Nasce vazia**]{.titulo}
+Ao abrir o notebook, nenhuma variável existe. Cada célula executada acrescenta
+as suas.
+:::
+
+::: {.cartao}
+[**Guarda a ordem de execução**]{.titulo}
+E não a ordem da tela. É por isso que o `NameError` é o erro número um de quem
+está começando em notebook.
+:::
+
+::: {.cartao}
+[**`Restart` apaga tudo**]{.titulo}
+Volta ao zero. Executar de cima para baixo depois disso é como você confere que o
+notebook funciona sozinho.
+:::
+:::
+
+::: {.fonte}
+Na segunda metade da aula aparece uma segunda memória, menor e temporária: a que
+existe só enquanto uma função está rodando.
+:::
+
+# Tipos básicos {.secao background-color="#023A78"}
+
+## Um problema para começar
+
+Três valores da causa, do jeito que um sistema de tribunal costuma entregar. A
+pergunta é a mais simples possível: qual é o maior?
+
+```{=html}
+<div class="terminal">
+<span class="prompt">In [1]:</span> valores = ["15000.00", "9000.00", "2300.00"]<br>
+<br>
+<span class="prompt">In [2]:</span> max(valores)
+</div>
+```
+
+::: {.centro}
+[Antes de virar o slide: qual dos três o computador vai responder?]{.destaque}
+:::
+
+## O que o Python respondeu
+
+```{=html}
+<div class="terminal">
+<span class="prompt">In [1]:</span> valores = ["15000.00", "9000.00", "2300.00"]<br>
+<br>
+<span class="prompt">In [2]:</span> max(valores)<br>
+<span class="saida">Out[2]: '9000.00'</span>
+</div>
+```
+
+::: {.fonte}
+Repare nas aspas da resposta. Elas não estão ali por acaso, e voltamos a elas em
+dois slides.
+:::
+
+## Agora somando os três
+
+```{=html}
+<div class="erro">
+<span class="parte1">In [3]: sum(valores)</span><br>
+<br>
+<span class="parte1">---------------------------------------------------------------</span><br>
+<span class="parte2">TypeError</span><span class="parte1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Traceback (most recent call last)</span><br>
+<span class="parte1">Cell In[3], line 1</span><br>
+<span class="parte3">----> 1</span><span class="parte1"> sum(valores)</span><br>
+<br>
+<span class="parte2">TypeError:</span> unsupported operand type(s) for +: 'int' and 'str'
+</div>
+```
+
+::: {.fonte}
+Mesmos três valores, outra pergunta, e desta vez o Python se recusa a responder.
+:::
+
+## Por que isso aconteceu
+
+::: {.pergunta}
+Por que o processo de R$ 9.000,00 é o mais caro da lista, e por que a soma nem
+chega a acontecer?
+:::
+
+Porque aqueles valores não são números: são **texto**. Texto se ordena como uma
+lista de chamada, em que o que começa com "9" vem depois do que começa com "1". E
+somar texto com número é uma operação que não significa nada.
+
+::: {.centro}
+[Saber que espécie de coisa você tem na mão, antes de confiar em uma conta feita
+com ela: é disso que trata esta parte da aula.]{.destaque}
+:::
+
+## Dos dois, qual é o pior?
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[`sum`, o erro que avisa]{.titulo}
+
+Para na hora, com uma tela vermelha difícil de ignorar.
+
+Você descobre em dois segundos e conserta antes de seguir.
+:::
+
+::: {.lado .lado-ruim}
+[`max`, o erro que não avisa]{.titulo}
+
+Responde `'9000.00'` e segue a vida.
+
+A resposta é plausível, entra na tabela do relatório e ninguém volta para
+conferir.
+:::
+:::
+
+::: {.centro}
+[O tipo errado quase nunca grita. Ele responde.]{.destaque}
+:::
+
+## Todo objeto tem um tipo
+
+Se o tipo é do objeto, e não da variável, `type()` é como você pergunta qual é. Ele
+determina o que dá para fazer com o objeto, e é a primeira coisa a checar quando
+uma conta não fecha.
+
+```python
+type("Procedimento Comum")   # <class 'str'>
+type(2024)                   # <class 'int'>
+type(15000.50)               # <class 'float'>
+type(True)                   # <class 'bool'>
+```
+
+::: {.centro}
+[Quando um resultado não faz sentido, pergunte primeiro `type()`.]{.destaque}
+:::
+
+## Os quatro tipos básicos
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**`int` · número inteiro**]{.titulo}
+Contagens e códigos: ano, número de processos, quantidade de réus.
+
+`2024`, `40000`, `-3`
+:::
+
+::: {.cartao}
+[**`float` · número com decimais**]{.titulo}
+Medidas e valores: valor da causa, percentuais, médias.
+
+`15000.50`, `0.65`, `3.0`
+:::
+
+::: {.cartao}
+[**`str` · texto**]{.titulo}
+Tudo que é escrito: número do processo, nome da parte, ementa inteira.
+
+`"Procedimento Comum"`
+:::
+
+::: {.cartao}
+[**`bool` · verdadeiro ou falso**]{.titulo}
+Respostas de sim ou não: houve liminar, o recurso foi provido.
+
+`True`, `False`
+:::
+:::
+
+::: {.fonte}
+O ponto separa os decimais, e não a vírgula. `15000.50` é o valor da causa;
+`15.000,50` é texto.
+:::
+
+## O tipo decide o que dá para fazer
+
+O mesmo sinal `+` faz coisas diferentes conforme o tipo dos objetos:
+
+```python
+2024 + 1        # 2025      soma
+"2024" + "1"    # "20241"   junta os dois textos
+"2024" + 1      # TypeError
+```
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Não é o Python sendo chato**]{.titulo}
+Somar `1` a um número de processo não faz sentido. O erro está avisando que a
+operação não significa nada.
+:::
+
+::: {.cartao}
+[**É por isso que o tipo importa**]{.titulo}
+"O valor da causa é 15000" e "o valor da causa é `'15000'`" parecem iguais na
+tela. Só um dos dois pode ser somado.
+:::
+:::
+
+## Números: as operações
+
+| Operação | Exemplo | Resultado |
+|:---------------------|:-------------|:----------|
+| Soma, subtração | `10 + 3` | `13` |
+| Multiplicação | `10 * 3` | `30` |
+| Divisão | `10 / 3` | `3.333...` |
+| Divisão inteira | `10 // 3` | `3` |
+| Resto da divisão | `10 % 3` | `1` |
+| Potência | `10 ** 3` | `1000` |
+
+::: {.fonte}
+`/` sempre devolve `float`, mesmo quando a divisão é exata: `10 / 2` é `5.0`. O
+resto (`%`) parece inútil agora, mas é ele que valida o dígito do número CNJ, no
+fim da aula.
+:::
+
+## A armadilha do `float`
+
+```python
+0.1 + 0.2       # 0.30000000000000004
+```
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Por que isso acontece**]{.titulo}
+O computador guarda decimais em base 2, e alguns números decimais não têm
+representação exata ali. O erro é minúsculo, mas existe.
+:::
+
+::: {.cartao}
+[**O que fazer**]{.titulo}
+Arredonde na hora de **apresentar**, com `round(valor, 2)`. E desconfie de
+comparar dois `float` com `==`.
+:::
+:::
+
+::: {.fonte}
+Para dinheiro em cálculo de precisão (juros, correção, condenação), o Python tem
+o tipo `Decimal`. Fora disso, `float` com arredondamento na saída resolve a vida
+da pesquisa empírica.
+:::
+
+## `str`: o tipo mais comum em dados judiciais
+
+Praticamente tudo que sai de um tribunal chega como texto: número do processo,
+classe, assunto, comarca, ementa, e frequentemente até o valor da causa.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Aspas**]{.titulo}
+`'simples'` ou `"duplas"`, tanto faz. Só não pode misturar as duas pontas.
+:::
+
+::: {.cartao}
+[**Aspas dentro de aspas**]{.titulo}
+`"assunto 'Saúde'"` funciona porque as de fora e as de dentro são diferentes.
+:::
+
+::: {.cartao}
+[**Texto longo**]{.titulo}
+Três aspas (`"""`) abrem um texto de várias linhas, útil para colar uma ementa
+inteira.
+:::
+:::
+
+::: {.fonte}
+Um número entre aspas é texto, não número. `"2024"` e `2024` são objetos de tipos
+diferentes.
+:::
+
+## Texto tem posições
+
+Cada caractere de um texto tem uma posição, e você pode pedir um pedaço com
+colchetes. O número unificado do CNJ é o exemplo perfeito:
+
+```python
+numero = "1000123-35.2024.8.26.0100"
+```
+
+| Campo | Fatia | Resultado |
+|:-------------------|:-----------------|:------------|
+| Sequencial | `numero[:7]` | `'1000123'` |
+| Ano de ajuizamento | `numero[11:15]` | `'2024'` |
+| Segmento | `numero[16]` | `'8'` |
+| Tribunal | `numero[18:20]` | `'26'` |
+
+::: {.fonte}
+O resultado continua sendo texto: `numero[11:15]` é `'2024'`, com aspas. Para
+comparar com um ano, `int()` primeiro.
+:::
+
+## Duas regras da contagem
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**A contagem começa em zero**]{.titulo}
+O primeiro caractere é o de posição `0`, não `1`. Estranho no começo, e depois
+some.
+:::
+
+::: {.cartao}
+[**O fim não entra**]{.titulo}
+`numero[11:15]` pega da posição 11 até a 14. O 15 fica de fora. Em compensação,
+`15 - 11` é exatamente o tamanho do pedaço: quatro caracteres.
+:::
+:::
+
+::: {.centro}
+[Vale para texto hoje e vai valer para listas no Encontro 3.]{.destaque}
+:::
+
+## Métodos de texto que resolvem quase tudo
+
+| Método | O que faz |
+|:--------------------------|:-------------------------------------------|
+| `.strip()` | Remove espaços das pontas |
+| `.upper()` `.lower()` | Tudo em maiúsculas ou minúsculas |
+| `.title()` | Primeira letra de cada palavra em maiúscula |
+| `.replace(a, b)` | Troca uma parte por outra |
+| `.split(sep)` | Quebra o texto em pedaços |
+| `.startswith(a)` | Devolve `True` se começa com aquilo |
+
+::: {.fonte}
+Ninguém decora essa lista. Digite `texto.` e pressione `Tab` para ver as opções,
+ou use `help(str.replace)`.
+:::
+
+## Limpando um dado de verdade
+
+::: {.comparacao}
+::: {.lado .lado-ruim}
+[Como veio do tribunal]{.titulo}
+
+`"  R$ 15.000,50  "`
+
+Espaços nas pontas, símbolo da moeda, ponto de milhar e vírgula decimal. É texto,
+e não dá para somar.
+:::
+
+::: {.lado .lado-bom}
+[Depois de tratar]{.titulo}
+
+`15000.5`
+
+Um `float`, que entra em soma, média e comparação.
+:::
+:::
+
+<span class="espaco"></span>
+
+```python
+bruto = "  R$ 15.000,50  "
+limpo = bruto.strip().replace("R$ ", "").replace(".", "").replace(",", ".")
+valor = float(limpo)
+```
+
+::: {.fonte}
+Quatro operações encadeadas, cada uma devolvendo um texto novo para a seguinte.
+Guarde esse trecho: ele vira uma função na segunda metade da aula.
+:::
+
+## `bool`: comparar produz verdadeiro ou falso
+
+```python
+valor > 20000          # False
+ano == 2024            # True
+"Saúde" in assunto     # True, se a palavra aparece no texto
+```
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Comparações**]{.titulo}
+`==`, `!=`, `<`, `>`, `<=`, `>=` e `in`. Todas devolvem `True` ou `False`.
+:::
+
+::: {.cartao}
+[**Combinações**]{.titulo}
+`and` exige as duas condições, `or` aceita uma delas, `not` inverte.
+:::
+
+::: {.cartao}
+[**Para que serve**]{.titulo}
+No Encontro 3, é o `bool` que decide o caminho do `if` e o que fica no filtro.
+:::
+:::
+
+## `=` e `==` não são a mesma coisa
+
+::: {.notacao}
+ano [=]{.marca} 2024
+:::
+::: {.legenda-notacao}
+**Atribuição.** Cria a variável `ano` apontando para o número 2024. Não devolve
+nada para a tela.
+:::
+
+::: {.notacao}
+ano [==]{.exec} 2024
+:::
+::: {.legenda-notacao}
+**Comparação.** Pergunta se são iguais e devolve `True` ou `False`.
+:::
+
+::: {.centro}
+[Trocar um pelo outro é o erro de digitação mais comum de quem está
+começando.]{.destaque}
+:::
+
+## `None`: a ausência de resposta
+
+Existe um objeto para dizer "aqui não tem valor nenhum". Ele se chama `None`, e
+não é a mesma coisa que zero, texto vazio ou falso.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**`0`**]{.titulo}
+Um valor medido, que por acaso deu zero. Uma condenação de R$ 0,00 é uma
+informação.
+:::
+
+::: {.cartao}
+[**`""`**]{.titulo}
+Um texto que existe e está vazio. O campo foi preenchido em branco.
+:::
+
+::: {.cartao}
+[**`None`**]{.titulo}
+Não há dado. O tribunal não informou, o campo não se aplica, a busca não
+encontrou.
+:::
+:::
+
+::: {.fonte}
+A distinção parece filosófica e é prática: somar zeros que na verdade eram
+"não informado" muda a média da sua pesquisa.
+:::
+
+## Convertendo de um tipo para outro
+
+```python
+int("2024")        # 2024      texto vira inteiro
+float("15000.5")   # 15000.5   texto vira decimal
+str(2024)          # '2024'    número vira texto
+int(15000.9)       # 15000     corta a parte decimal, não arredonda
+```
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**A conversão cria um objeto novo**]{.titulo}
+`int("2024")` não transforma o texto: devolve um número. Se você não guardar o
+resultado em uma variável, ele se perde.
+:::
+
+::: {.cartao}
+[**`int()` trunca**]{.titulo}
+`int(15000.9)` é `15000`, e não `15001`. Para arredondar de verdade, use
+`round()`.
+:::
+:::
+
+## Quando a conversão falha
+
+::: {.erro}
+[Traceback (most recent call last):]{.parte1}<br>
+[&nbsp;&nbsp;File &quot;notebook.ipynb&quot;, line 1]{.parte1}<br>
+[ValueError:]{.parte2} invalid literal for int() with base 10: &#39;15.000,50&#39;
+:::
+
+::: {.erro-legenda}
+::: {.l1}
+**O que você pediu.** Converter um texto em número inteiro.
+:::
+::: {.l2}
+**Por que não deu.** O texto tem ponto e vírgula, que não fazem parte de um
+inteiro.
+:::
+::: {.l3}
+**O que fazer.** Limpar o texto **antes** de converter.
+:::
+:::
+
+::: {.centro}
+[`TypeError`: o tipo está errado. `ValueError`: o tipo está certo, o conteúdo
+não.]{.destaque}
+:::
+
+## Mão na massa: Parte A
+
+::: {.aviso-pratica}
+Abra o notebook do Encontro 2 pelo link da página do curso: no VS Code, se você
+instalou o ambiente, ou no Colab, onde vale lembrar de `Salvar uma cópia no
+Drive` antes de começar.
+:::
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**A.1**]{.titulo}
+Variáveis, memória e o que acontece depois do `=`
+:::
+::: {.cartao}
+[**A.2**]{.titulo}
+Tipos, `type()` e as operações com números
+:::
+::: {.cartao}
+[**A.3**]{.titulo}
+Texto: fatias, métodos e limpeza de um dado do tribunal
+:::
+::: {.cartao}
+[**A.4**]{.titulo}
+Conversões de tipo e o que fazer quando elas falham
+:::
+:::
+
+::: {.fonte}
+Voltamos aos slides depois do intervalo. Agora é teclado.
+:::
+
+# Funções {.secao background-color="#023A78"}
+
+## O notebook de quem copia e cola
+
+Três valores para limpar, com o trecho da Parte A repetido em cada célula:
+
+```{=html}
+<div class="terminal notebook"><span class="prompt">In [7]:</span> bruto = "  R$ 15.000,50  "
+         limpo = bruto.strip().replace("R$ ", "").replace(".", "").replace(",", ".")
+         valor_1 = float(limpo)
+
+<span class="prompt">In [8]:</span> bruto = "  R$ 2.300,00  "
+         limpo = bruto.strip().replace("R$ ", "").replace(".", "").replace(",", ".")
+         valor_2 = float(limpo)
+
+<span class="prompt">In [9]:</span> bruto = "  R$ 980,75  "
+         limpo = bruto.strip().replace("R$ ", "").replace(".", "").replace(",", ".")
+         valor_3 = float(limpo)
+</div>
+```
+
+::: {.fonte}
+Leia de novo e responda rápido: as três células são iguais? Uma delas pode ter um
+`.replace` a menos e você não veria.
+:::
+
+## O mesmo notebook, com uma função
+
+```{=html}
+<div class="terminal notebook"><span class="prompt">In [7]:</span> def limpar_valor(bruto):
+             limpo = bruto.strip().replace("R$ ", "").replace(".", "").replace(",", ".")
+             return float(limpo)
+
+<span class="prompt">In [8]:</span> valor_1 = limpar_valor("  R$ 15.000,50  ")
+         valor_2 = limpar_valor("  R$ 2.300,00  ")
+         valor_3 = limpar_valor("  R$ 980,75  ")
+</div>
+```
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**A regra existe uma vez**]{.titulo}
+Se amanhã chegar um valor escrito `R$1.500,00`, sem espaço, é **uma** correção em
+um lugar, e os três valores voltam a funcionar juntos.
+:::
+
+::: {.cartao}
+[**E dá para ler**]{.titulo}
+A célula `In [8]` diz o que está acontecendo: três valores sendo limpos. A versão
+anterior dizia nove linhas de pontuação.
+:::
+:::
+
+## Três razões para criar uma função
+
+::: {.grade .grade-3}
+::: {.cartao}
+[1]{.numero}
+[**Ela tem nome**]{.titulo}
+`limpar_valor(bruto)` diz o que acontece ali. Quatro linhas de `.replace()` não
+dizem.
+:::
+
+::: {.cartao}
+[2]{.numero}
+[**Um lugar só**]{.titulo}
+A regra existe uma vez. Corrigir, melhorar ou documentar é uma edição, não cinco.
+:::
+
+::: {.cartao}
+[3]{.numero}
+[**Dá para conferir**]{.titulo}
+Você testa com um caso cuja resposta conhece. É a menor unidade de código que se
+pode auditar.
+:::
+:::
+
+::: {.fonte}
+A terceira razão é a mais importante para pesquisa: uma função é a menor coisa
+que você consegue defender em um apêndice metodológico.
+:::
+
+## Anatomia de uma função
+
+```python
+def limpar_valor(bruto):
+    """Converte '  R$ 15.000,50  ' em 15000.5."""
+    limpo = bruto.strip().replace("R$ ", "")
+    limpo = limpo.replace(".", "").replace(",", ".")
+    return float(limpo)
+```
+
+::: {.notacao}
+[def]{.marca} [limpar_valor]{.alvo}[(]{.exec}bruto[)]{.exec}[:]{.marca}
+:::
+::: {.legenda-notacao}
+`def` anuncia uma definição · o **nome** é como você vai chamá-la · entre
+parênteses, o que ela **recebe** · os dois pontos abrem o corpo
+:::
+
+## As quatro partes
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**O cabeçalho**]{.titulo}
+`def`, o nome e os parâmetros. É o contrato: o que a função precisa receber para
+trabalhar.
+:::
+
+::: {.cartao}
+[**A docstring**]{.titulo}
+O texto entre três aspas, logo abaixo. Diz o que a função faz, e aparece quando
+alguém chama `help()`.
+:::
+
+::: {.cartao}
+[**O corpo**]{.titulo}
+As linhas **indentadas**. O recuo de quatro espaços é o que marca o que está
+dentro da função, e não é decoração.
+:::
+
+::: {.cartao}
+[**O `return`**]{.titulo}
+O que a função devolve para quem a chamou. Sem ele, a função não entrega nada.
+:::
+:::
+
+## Definir não é executar
+
+::: {.passos}
+::: {.passo}
+Você executa a célula com o `def`. **Nada acontece**: o Python só guardou a
+receita com aquele nome.
+:::
+::: {.passo}
+Você escreve `limpar_valor("  R$ 15.000,50  ")`. **Agora** o corpo roda, com
+`bruto` valendo aquele texto.
+:::
+::: {.passo}
+A função chega no `return` e devolve `15000.5` para o lugar onde foi chamada.
+:::
+::: {.passo}
+Você guarda o resultado: `valor = limpar_valor(bruto)`. Sem isso, ele se perde.
+:::
+:::
+
+::: {.fonte}
+Se você mudar a função, execute a célula do `def` de novo. Senão o Python
+continua usando a versão antiga, que ainda está na memória da sessão.
+:::
+
+## `return` e `print` não são a mesma coisa
+
+::: {.comparacao}
+::: {.lado .lado-ruim}
+[`print`]{.titulo}
+
+Escreve na tela e devolve `None`.
+
+```python
+def limpar(bruto):
+    print(float(bruto))
+```
+
+`limpar("15000.5") * 2` dá erro: não dá para multiplicar `None`.
+
+Serve para você olhar.
+:::
+
+::: {.lado .lado-bom}
+[`return`]{.titulo}
+
+Devolve o objeto para o programa.
+
+```python
+def limpar(bruto):
+    return float(bruto)
+```
+
+`limpar("15000.5") * 2` dá `30001.0`.
+
+Serve para continuar a conta.
+:::
+:::
+
+::: {.centro}
+[No notebook os dois parecem iguais, porque o resultado aparece na tela dos dois
+jeitos.]{.destaque}
+:::
+
+## Uma função sem `return` devolve `None`
+
+Não é um erro, e é justamente por isso que confunde: a função roda, você não vê
+reclamação nenhuma, e o resultado some.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**O sintoma**]{.titulo}
+`TypeError: unsupported operand type(s)` algumas linhas adiante, quando você tenta
+usar o resultado.
+:::
+
+::: {.cartao}
+[**A causa**]{.titulo}
+Faltou `return`. A função fez o trabalho e jogou fora antes de entregar.
+:::
+:::
+
+::: {.fonte}
+É o mesmo `None` do começo da aula: o objeto que representa "não há valor aqui".
+:::
+
+## Parâmetros e argumentos
+
+::: {.notacao}
+def calcular_custas[(]{.exec}[valor, percentual]{.alvo}[)]{.exec}
+:::
+::: {.legenda-notacao}
+**Parâmetros.** As variáveis que a função usa por dentro. Existem só ali.
+:::
+
+::: {.notacao}
+calcular_custas[(]{.exec}[15000.5, 0.01]{.alvo}[)]{.exec}
+:::
+::: {.legenda-notacao}
+**Argumentos.** Os objetos que você entrega na hora de chamar.
+:::
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Por posição**]{.titulo}
+`calcular_custas(15000.5, 0.01)`. A ordem é a da definição, e trocar a ordem
+troca o significado.
+:::
+
+::: {.cartao}
+[**Por nome**]{.titulo}
+`calcular_custas(valor=15000.5, percentual=0.01)`. Mais longo, mais claro e
+imune à ordem. É o que o Encontro 1 usou em `idioma="pt"`.
+:::
+:::
+
+## Valores padrão
+
+```python
+def calcular_custas(valor, percentual=0.01):
+    return round(valor * percentual, 2)
+
+calcular_custas(20000.0)              # 200.0, usa o padrão
+calcular_custas(20000.0, 0.02)        # 400.0, você mandou outro
+```
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Para que serve**]{.titulo}
+Cobre o caso comum sem obrigar quem chama a repetir sempre a mesma coisa.
+:::
+
+::: {.cartao}
+[**A regra**]{.titulo}
+Parâmetros com padrão vêm **depois** dos sem padrão. O Python reclama se for ao
+contrário.
+:::
+:::
+
+## O que acontece dentro fica dentro
+
+```python
+def limpar_valor(bruto):
+    limpo = bruto.strip()
+    return float(limpo)
+
+limpar_valor("  15000.5  ")
+print(limpo)     # NameError: name 'limpo' is not defined
+```
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Escopo**]{.titulo}
+`limpo` nasce e morre dentro da função. É a segunda memória, prometida no começo
+da aula: ela existe só enquanto a função roda, e do lado de fora essa variável
+nunca existiu.
+:::
+
+::: {.cartao}
+[**Por que é bom**]{.titulo}
+Você pode usar `limpo`, `x` ou `total` dentro de vinte funções diferentes sem que
+uma atrapalhe a outra.
+:::
+:::
+
+::: {.fonte}
+A regra prática: tudo que a função precisa entra pelos parâmetros, e tudo que ela
+produz sai pelo `return`.
+:::
+
+## Documentar e declarar os tipos
+
+```python
+def digito_cnj(numero: str) -> int:
+    """Calcula o dígito verificador de um número CNJ."""
+```
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Docstring**]{.titulo}
+A primeira linha do corpo, entre três aspas. É o que aparece em `help(digito_cnj)`
+e o que o seu "eu" de daqui a seis meses vai ler.
+:::
+
+::: {.cartao}
+[**Anotações de tipo**]{.titulo}
+`numero: str` e `-> int` avisam o que entra e o que sai. O Python **não confere**:
+serve para pessoas, para o editor e para a IA que vai ler o seu código.
+:::
+:::
+
+## O que faz uma boa função
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Faz uma coisa só**]{.titulo}
+Se o nome precisa de um "e" (`limpar_e_salvar`), provavelmente são duas funções.
+:::
+
+::: {.cartao}
+[**Tem nome de verbo**]{.titulo}
+`limpar_valor`, `extrair_ano`, `calcular_custas`. O nome descreve a ação, não o
+dado.
+:::
+
+::: {.cartao}
+[**Não depende do lado de fora**]{.titulo}
+Tudo entra pelos parâmetros. Uma função que usa uma variável criada em outra
+célula quebra quando você reordena o notebook.
+:::
+
+::: {.cartao}
+[**Devolve, não imprime**]{.titulo}
+`return` deixa o resultado disponível. Quem chamou decide se quer mostrar na tela
+ou usar na conta seguinte.
+:::
+:::
+
+## Juntando tudo: o dígito do número CNJ
+
+```python
+def digito_cnj(numero: str) -> int:
+    """Calcula o dígito verificador de um número CNJ."""
+    limpo = numero.replace("-", "").replace(".", "")
+    sem_digito = limpo[:7] + limpo[9:] + "00"
+    return 98 - int(sem_digito) % 97
+
+digito_cnj("1017654-66.2021.8.26.0577")   # 66
+```
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Nada aqui é novo**]{.titulo}
+Métodos de texto, fatias, `int()`, o resto da divisão e um `return`. Tudo apareceu
+hoje.
+:::
+
+::: {.cartao}
+[**Era o exercício "difícil"**]{.titulo}
+O Extra 2 do Encontro 1 foi deixado em aberto de propósito, à espera das funções.
+São quatro linhas.
+:::
+:::
+
+## Como conferir que a função está certa
+
+::: {.passos}
+::: {.passo}
+**Um caso que você conhece.** Um número real, cujo dígito você lê no próprio
+número: `digito_cnj("1017654-66...")` tem que devolver `66`.
+:::
+::: {.passo}
+**Um segundo caso, de outro tribunal.** Um acerto pode ser coincidência; dois já
+são um indício.
+:::
+::: {.passo}
+**Um caso que deve falhar.** Troque um dígito do meio e confira que o resultado
+deixa de bater.
+:::
+::: {.passo}
+**Um caso estranho.** Um número com espaços, sem pontuação, ou vazio. Decida o
+que a função deve fazer nesses casos.
+:::
+:::
+
+::: {.fonte}
+No Encontro 3 essa conferência vira uma condição escrita em código, e não uma
+olhada na tela.
+:::
+
+## Funções e IA
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[Bom uso]{.titulo}
+
+Pedir uma função com entrada e saída bem definidas: "recebe um número CNJ como
+texto e devolve o ano como inteiro".
+
+Depois, testar com casos que você conhece.
+:::
+
+::: {.lado .lado-ruim}
+[Uso arriscado]{.titulo}
+
+Pedir "trata a minha base" e colar o resultado sem ler.
+
+O código roda, a tabela fica bonita e o erro de tipo aparece na conclusão do
+artigo.
+:::
+:::
+
+::: {.centro}
+[A função é a unidade certa para pedir, ler e conferir.]{.destaque}
+:::
+
+## Mão na massa: Parte B
+
+::: {.aviso-pratica}
+De volta ao notebook, na Parte B. Os exercícios partem do código que você já
+escreveu na Parte A: agora com nome, parâmetros e `return`.
+:::
+
+<span class="espaco"></span>
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**B.1**]{.titulo}
+Sua primeira função: transformar a limpeza da Parte A em `limpar_valor`
+:::
+::: {.cartao}
+[**B.2**]{.titulo}
+Parâmetros, valores padrão e docstring em `calcular_custas`
+:::
+::: {.cartao}
+[**B.3**]{.titulo}
+`extrair_ano` e `digito_cnj`, com os testes que provam que funcionam
+:::
+:::
+
+# Fechamento {.secao background-color="#023A78"}
+
+## O que fica do encontro 2
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**As variáveis**]{.titulo}
+`=` cola uma etiqueta em um objeto que está na memória da sessão. O tipo é do
+objeto, e não da variável.
+:::
+
+::: {.cartao}
+[**Os tipos**]{.titulo}
+`int`, `float`, `str`, `bool` e `None`. O tipo determina o que dá para fazer, e é
+a primeira suspeita quando algo não funciona.
+:::
+
+::: {.cartao}
+[**O texto**]{.titulo}
+Fatias, métodos encadeados e conversão de tipo. É com isso que se trata dado
+de tribunal.
+:::
+
+::: {.cartao}
+[**As funções**]{.titulo}
+`def`, parâmetros, valores padrão, escopo e `return`. Um nome para um pedaço de
+código que você vai usar de novo.
+:::
+:::
+
+::: {.fonte}
+E um hábito: toda função nasce com uma docstring e com pelo menos um caso de
+teste cuja resposta você já sabe.
+:::
+
+## Até o próximo encontro
+
+::: {.passos}
+::: {.passo}
+Termine os exercícios que ficaram pela metade. O gabarito está no repositório,
+mas tente antes de abrir.
+:::
+::: {.passo}
+Escreva uma função sua, para um problema seu: um número que você sempre calcula à
+mão, um texto que você sempre limpa igual.
+:::
+::: {.passo}
+`git add`, `git commit -m "aula 2"` e `git push`. O projeto cresce junto com o
+curso.
+:::
+::: {.passo}
+Abra um `issue` no repositório com qualquer erro que você não conseguiu resolver.
+:::
+:::
+
+::: {.fonte}
+São duas semanas até o Encontro 3, por causa do feriado de 7 de setembro.
+:::
+
+## {background-color="#023A78" .secao}
+
+::: {.centro}
+<span class="espaco"></span>
+
+[Obrigada]{.enorme}
+
+<span class="espaco"></span>
+
+Encontro 3, em 14 de setembro: condicionais, loops, listas e dicionários
+
+<span class="espaco"></span>
+
+[lab-dados.github.io/programacao-aplicada-ao-direito]{.pequeno}
+:::

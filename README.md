@@ -11,7 +11,7 @@ Página do curso: <https://lab-dados.github.io/programacao-aplicada-ao-direito/>
 | # | Encontro | Material |
 |:--|:---------|:---------|
 | 1 | Por que programar e preparação do ambiente | [slides](https://lab-dados.github.io/programacao-aplicada-ao-direito/aulas/01-introducao/slides.html) · [**abrir no Colab**](https://colab.research.google.com/github/lab-dados/programacao-aplicada-ao-direito/blob/main/aulas/01-introducao/notebook.ipynb) · [notebook](https://lab-dados.github.io/programacao-aplicada-ao-direito/aulas/01-introducao/notebook.ipynb) · [gabarito](https://github.com/lab-dados/programacao-aplicada-ao-direito/blob/main/aulas/01-introducao/gabarito.ipynb) |
-| 2 | Tipos básicos e funções | em preparo |
+| 2 | Tipos básicos e funções | [slides](https://lab-dados.github.io/programacao-aplicada-ao-direito/aulas/02-tipos-e-funcoes/slides.html) · [**abrir no Colab**](https://colab.research.google.com/github/lab-dados/programacao-aplicada-ao-direito/blob/main/aulas/02-tipos-e-funcoes/notebook.ipynb) · [notebook](https://lab-dados.github.io/programacao-aplicada-ao-direito/aulas/02-tipos-e-funcoes/notebook.ipynb) · [gabarito](https://github.com/lab-dados/programacao-aplicada-ao-direito/blob/main/aulas/02-tipos-e-funcoes/gabarito.ipynb) |
 | 3 | Condicionais, loops, listas e dicionários | em preparo |
 | 4 | Objetos, classes e herança | em preparo |
 | 5 | Manipulação de dados com pandas | em preparo |

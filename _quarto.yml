@@ -20,6 +20,8 @@ website:
         href: index.qmd
       - text: "Slides do Encontro 1"
         href: aulas/01-introducao/slides.qmd
+      - text: "Slides do Encontro 2"
+        href: aulas/02-tipos-e-funcoes/slides.qmd
     right:
       - icon: github
         href: https://github.com/lab-dados/programacao-aplicada-ao-direito
