@@ -1,0 +1,970 @@
+---
+title: "Condicionais e loops: operações mais complexas"
+subtitle: "Encontro 3 · Programação Aplicada ao Direito"
+author: "Bruno Oliveira · LabDados · FGV Direito SP"
+date: "2026-09-14"
+date-format: long
+format:
+  fgv-revealjs:
+    footer: "Programação Aplicada ao Direito · Encontro 3"
+    output-file: slides.html
+    chalkboard: true
+    include-in-header:
+      text: |
+        <style>
+        /* Tabelas alinhadas a esquerda, em corpo legivel, ocupando o slide. */
+        .reveal table { margin-left: 0; font-size: 0.85em; width: 100%; }
+        .reveal table td, .reveal table th { padding: 0.3em 0.8em; }
+        .reveal .comparacao table { font-size: 1.15em; width: 100%; }
+        .reveal .tabela-grande table { font-size: 1.25em; width: 100%; }
+        .reveal table th code { color: #fff; background: transparent; }
+
+        /* Pseudocodigo: mesmo bloco do codigo, em portugues e sem realce. */
+        .reveal .pseudo pre { background: var(--fgv-neve); }
+        </style>
+---
+
+## Onde a gente parou
+
+Computadores são muito bons em duas coisas: **guardar informação** e
+**realizar operações** sobre ela. O curso inteiro é sobre pedir essas duas
+coisas com precisão.
+
+<span class="espaco"></span>
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Guardar**]{.titulo}
+Variável, valor e tipo. Texto, número, verdadeiro ou falso, e a ausência de
+resposta. Cada dado com a regra do que cabe nele.
+:::
+
+::: {.cartao}
+[**Operar uma vez**]{.titulo}
+Funções: recebem um dado, devolvem uma resposta. O ano de um número de
+processo. O valor limpo de um texto. Um de cada vez.
+:::
+:::
+
+<span class="espaco"></span>
+
+Uma decisão, uma operação. Só que a pesquisa nunca tem uma decisão só.
+
+## O mapa daqui para a frente
+
+::: {.passos}
+::: {.passo}
+**Encontros 3 e 4.** Criar operações mais complexas, e entender o que a IA
+está criando quando cria por você.
+:::
+::: {.passo}
+**Encontro 5.** Trabalhar com bases de dados, em cima do que outras pessoas
+já desenvolveram: o pandas, e bibliotecas como a `labdados`, que transcreveu
+áudio por você.
+:::
+::: {.passo}
+**Encontro 6.** Vibecoding bem feito: conceitos de IA e engenharia de
+contexto, para pedir código com critério e conferir o que volta.
+:::
+::: {.passo}
+**A cada aula.** Pensamento computacional: pensar de maneira mais objetiva,
+lógica e precisa. Serve para o código e serve fora dele.
+:::
+:::
+
+## Como pedir operações mais complexas?
+
+```python
+decisao = {"numero": "1073601-73.2024.8.13.0024",
+           "resultado": "PARCIALMENTE PROCEDENTE",
+           "valor_causa": 121336.38}
+```
+
+<span class="espaco"></span>
+
+Uma decisão cabe numa função. Uma pesquisa tem quarenta, quatrocentas, quarenta
+mil. E as perguntas mudam de forma:
+
+- Qual a **taxa** de procedência?
+- **Quantas** deferiram tutela e depois julgaram procedente?
+- Qual operadora é **mais** processada?
+
+::: {.centro}
+[Nenhuma dessas perguntas é sobre uma decisão. São sobre a base
+inteira.]{.destaque}
+:::
+
+## Duas ferramentas
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Só em alguns casos**]{.titulo}
+Realizar uma operação apenas quando uma condição vale. "Se o resultado for
+procedente, conte." Em Python: `if`.
+:::
+
+::: {.cartao}
+[**Várias e várias vezes**]{.titulo}
+Repetir a mesma operação para cada item de uma coleção. "Para cada decisão da
+base, faça isto." Em Python: `for`.
+:::
+:::
+
+<span class="espaco"></span>
+
+São as duas coisas que todo código que a IA escrever para você vai ter dentro.
+
+## As três perguntas, com as duas ferramentas
+
+| A pergunta | Várias e várias vezes | Só em alguns casos |
+|---|---|---|
+| Qual a **taxa** de procedência? | para cada decisão da base | se o resultado é procedente, conta |
+| **Quantas** deferiram tutela e julgaram procedente? | para cada decisão da base | se deferiu tutela **e** é procedente, conta |
+| Qual operadora é **mais** processada? | para cada decisão da base | soma 1 na operadora daquela decisão |
+
+<span class="espaco"></span>
+
+::: {.centro}
+[Combinadas, elas respondem qualquer pergunta da lista.]{.destaque}
+:::
+
+<span class="espaco"></span>
+
+O `for` visita cada decisão. O `if` decide o que fazer com ela. A pergunta de
+pesquisa vira essas duas frases antes de virar código.
+
+# Revisão: do formulário à base {.secao background-color="#023A78"}
+
+<!-- Seção pulável. Se a turma estiver bem, pular direto para o divisor do
+     notebook. Os slides existem para apoiar os exercícios de revisão, não para
+     serem expostos por inteiro. A retomada de função fica: o Encontro 2 foi
+     com outra docente e os exercícios 3, 6, 7 e 9 pedem def e return. -->
+
+## O codebook da decisão: o que nunca falta
+
+Decisão de primeiro grau contra operadora de plano de saúde. Dados fictícios.
+
+| Campo | Tipo | Exemplo |
+|---|---|---|
+| `numero` | `str` | `"1073601-73.2024.8.13.0024"` |
+| `tribunal` | `str`, conjunto fechado | `"TJMG"` |
+| `reu` | `str` | `"Operadora Alfa"` |
+| `resultado` | `str`, conjunto fechado | `"PARCIALMENTE PROCEDENTE"` |
+
+<span class="espaco"></span>
+
+Sem número, tribunal, réu e resultado, o registro não existe: a decisão não
+foi identificada ou não decidiu.
+
+## O codebook da decisão: o que pode faltar
+
+| Campo | Tipo | Exemplo | Se faltar |
+|---|---|---|---|
+| `idade_autor` | `int` | `27` | `None` |
+| `valor_causa` | `float` | `121336.38` | `None` |
+| `tutela_deferida` | `bool` | `True` | `None`, se não houve pedido |
+| `fundamentos` | `list` de `str` | `["LEI 9.656/98", "SÚMULA 302 STJ"]` | `[]`, nunca `None` |
+
+<span class="espaco"></span>
+
+A regra para a ausência é decisão de codebook: `None` quando a decisão não
+informa, lista vazia quando a decisão não invoca fundamento nenhum.
+
+## Nulo não é falso
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[`None`]{.titulo}
+
+```python
+tutela_deferida = None
+```
+
+Não houve pedido de tutela. A pergunta não se aplica.
+:::
+
+::: {.lado .lado-ruim}
+[`False`]{.titulo}
+
+```python
+tutela_deferida = False
+```
+
+Houve pedido, e o juiz indeferiu.
+:::
+:::
+
+<span class="espaco"></span>
+
+Contar `None` como `False` infla a taxa de indeferimento. A regra para a
+ausência é parte do codebook porque ela muda o número no fim.
+
+## Função: recebe, faz, devolve
+
+```python
+def ano_ajuizamento(decisao):
+    """Devolve o ano em que a ação foi ajuizada, lido do número CNJ."""
+    return decisao["numero"][11:15]
+
+ano_ajuizamento(decisao)        # '2024'
+```
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**`def` e o parâmetro**]{.titulo}
+`def` dá nome ao pedaço de código. `decisao` é o parâmetro: o dado que a
+função recebe para trabalhar. Hoje ele é um dicionário inteiro.
+:::
+::: {.cartao}
+[**`return` devolve**]{.titulo}
+O que vem depois de `return` é a resposta da função, e pode ser guardado numa
+variável. `print` só mostra na tela e devolve `None`.
+:::
+::: {.cartao}
+[**Definir não é executar**]{.titulo}
+A célula com `def` não faz nada visível. A função só roda quando é chamada,
+com o argumento entre parênteses.
+:::
+:::
+
+# No notebook: exercícios 1 a 3 {.secao background-color="#023A78"}
+
+::: {.aviso-pratica}
+Abra o notebook do Encontro 3 pelo link da página do curso: no VS Code, se você
+instalou o ambiente, ou no Colab, onde vale lembrar de `Salvar uma cópia no
+Drive` antes de começar.
+:::
+
+<!-- Revisao, quinze minutos. Exercicio 1: pedir cada campo do dicionario pelo
+     nome e conferir o tipo com type(). Exercicio 2: prever quatro linhas de
+     comparacao antes de rodar. Exercicio 3: resumo(decisao), def, return e
+     f-string sobre o dicionario. -->
+
+# Listas e dicionários {.secao background-color="#023A78"}
+
+## Uma decisão, um dicionário
+
+```python
+decisao = {
+    "numero": "1073601-73.2024.8.13.0024",
+    "tribunal": "TJMG",
+    "reu": "Operadora Alfa",
+    "idade_autor": 27,
+    "valor_causa": 121336.38,
+    "tutela_deferida": True,
+    "resultado": "PARCIALMENTE PROCEDENTE",
+    "fundamentos": ["LEI 9.656/98", "SÚMULA 302 STJ"],
+}
+
+decisao["resultado"]        # 'PARCIALMENTE PROCEDENTE'
+decisao["fundamentos"]      # ['LEI 9.656/98', 'SÚMULA 302 STJ']
+```
+
+O dicionário é o formulário preenchido: cada campo vira uma **chave**, e o
+valor daquele caso fica ao lado. Pede-se um campo pelo nome, entre colchetes.
+
+## Dicionário: gravar e perguntar
+
+```python
+decisao["juiz"] = "3ª Vara Cível"      # chave nova: cria
+decisao["juiz"] = "4ª Vara Cível"      # chave existente: troca o valor
+
+"juiz" in decisao                      # True
+"relator" in decisao                   # False
+decisao["relator"]                     # KeyError: 'relator'
+```
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Colchete à esquerda do `=`**]{.titulo}
+Grava. Se a chave não existe, ela nasce; se existe, o valor antigo some. Um
+dicionário vazio, `{}`, cresce assim, uma chave por vez.
+:::
+::: {.cartao}
+[**`in` pergunta pela chave**]{.titulo}
+Devolve `True` ou `False`, como toda comparação. É a pergunta que se faz antes
+de ler uma chave que pode não existir.
+:::
+::: {.cartao}
+[**`KeyError` avisa**]{.titulo}
+Ler chave que não existe interrompe o código e diz qual faltou. É o erro que
+avisa, e o `in` é como se evita.
+:::
+:::
+
+## Várias decisões, uma lista de dicionários
+
+```python
+decisoes = [
+    {"numero": "1073601-73.2024.8.13.0024", "tribunal": "TJMG", ...},
+    {"numero": "1024313-09.2024.8.26.0053", "tribunal": "TJSP", ...},
+    {"numero": "1053653-51.2024.8.26.0100", "tribunal": "TJSP", ...},
+]
+
+len(decisoes)               # 3
+decisoes[0]                 # o primeiro dicionário inteiro
+decisoes[0]["tribunal"]     # 'TJMG'
+```
+
+<span class="espaco"></span>
+
+| No formulário | Na base |
+|---|---|
+| Pergunta ou campo | chave do dicionário |
+| Formulário preenchido para uma decisão | um dicionário |
+| Vários formulários preenchidos | a lista |
+
+## Lista: posição, tamanho, pertencimento
+
+```python
+fundamentos = ["LEI 9.656/98", "SÚMULA 302 STJ"]
+
+fundamentos[0]                  # 'LEI 9.656/98'
+len(fundamentos)                # 2
+"CDC" in fundamentos            # False
+
+fundamentos.append("CDC")       # acrescenta no fim
+fundamentos                     # ['LEI 9.656/98', 'SÚMULA 302 STJ', 'CDC']
+```
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Posição, a partir de 0**]{.titulo}
+O colchete pede pela posição, como no texto: `[0]` é o primeiro item,
+`[-1]` é o último. Fatia também funciona: `[:5]` são os cinco primeiros.
+:::
+::: {.cartao}
+[**`len` e `in`**]{.titulo}
+`len` conta os itens. `in` pergunta se um item está na lista e devolve
+`True` ou `False`, o que a torna condição pronta.
+:::
+::: {.cartao}
+[**`.append` acrescenta**]{.titulo}
+Uma lista vazia, `[]`, cresce um item por vez. O item entra no fim, e a lista
+muda no lugar: não há `=`.
+:::
+:::
+
+# No notebook: exercícios 4 e 5 {.secao background-color="#023A78"}
+
+<!-- Dez minutos. Antes dos exercicios, as duas celulas de demonstracao e a do
+     KeyError, que da erro de proposito. Exercicio 4: lista de tribunais com
+     append, len, [0] e in. Exercicio 5: contagem que comeca, com chave nova,
+     soma numa chave existente e in; e a operacao que o Exercicio 12 repete
+     num loop. -->
+
+# Ferramenta 1: só em alguns casos {.secao background-color="#023A78"}
+
+## `=` guarda, `==` pergunta
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[Um sinal: atribuição]{.titulo}
+
+```python
+resultado = "PROCEDENTE"
+```
+
+Guarda o texto na variável. Não responde nada. Se `resultado` já existia, o
+valor antigo some sem aviso.
+:::
+
+::: {.lado .lado-bom}
+[Dois sinais: comparação]{.titulo}
+
+```python
+resultado == "PROCEDENTE"      # True ou False
+```
+
+Pergunta se os dois lados são iguais. Não muda nada. Devolve `True` ou
+`False`.
+:::
+:::
+
+<span class="espaco"></span>
+
+Trocar um pelo outro dentro do `if` dá `SyntaxError`, e o Python avisa. Fora
+dele, `resultado = "PROCEDENTE"` no lugar da comparação sobrescreve a variável
+em silêncio.
+
+## As comparações que cabem num `if`
+
+::: {.tabela-grande}
+| Sinal | Exemplo |
+|---|---|
+| `==` | `resultado == "PROCEDENTE"` |
+| `!=` | `resultado != "PROCEDENTE"` |
+| `>` e `>=` | `idade >= 60` |
+| `<` e `<=` | `valor < 20000` |
+| `in` | `"CDC" in fundamentos` |
+| `not in` | `"CDC" not in fundamentos` |
+| `is None` | `idade is None` |
+:::
+
+<span class="espaco"></span>
+
+::: {.centro}
+[Todas devolvem `True` ou `False`. É isso que o `if` lê.]{.destaque}
+:::
+
+## A pergunta de pesquisa
+
+Qual a taxa de procedência das ações contra operadoras de plano de saúde?
+
+<span class="espaco"></span>
+
+Para responder, cada decisão da base passa por uma pergunta de sim ou não:
+
+::: {.centro}
+[Esta decisão conta como procedente?]{.destaque}
+:::
+
+<span class="espaco"></span>
+
+A comparação já responde com `True` ou `False`:
+
+```python
+decisao["resultado"] == "PROCEDENTE"      # True ou False
+```
+
+O que falta é **fazer algo diferente** dependendo da resposta.
+
+## `if`: o código decide
+
+```python
+if decisao["resultado"] == "PROCEDENTE":
+    print("conta")
+print("próxima decisão")
+```
+
+::: {.notacao}
+[if]{.marca} [decisao["resultado"] == "PROCEDENTE"]{.alvo}[:]{.marca}
+:::
+::: {.legenda-notacao}
+`if` anuncia uma decisão · no meio, uma **condição** que vale `True` ou
+`False` · os dois pontos abrem o bloco
+:::
+
+<span class="espaco"></span>
+
+A linha indentada só roda quando a condição deu `True`. A linha de fora roda
+sempre. Quatro espaços são a única coisa que separa "se" de "sempre".
+
+## A indentação é o que diz o que está dentro
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[Dentro do bloco]{.titulo}
+
+```python
+if decisao["resultado"] == "PROCEDENTE":
+    print("conta")
+    print("anotado")
+```
+
+As duas linhas só rodam se a condição der `True`.
+:::
+
+::: {.lado .lado-ruim}
+[Uma escapou]{.titulo}
+
+```python
+if decisao["resultado"] == "PROCEDENTE":
+    print("conta")
+print("anotado")
+```
+
+"anotado" aparece sempre. O Python não reclama de nada.
+:::
+:::
+
+<span class="espaco"></span>
+
+É o erro mais comum em código gerado e colado: uma linha que devia estar
+dentro e ficou fora. Nenhuma mensagem de erro avisa. Só a leitura pega.
+
+## `else`: o outro caminho
+
+```python
+if decisao["resultado"] == "PROCEDENTE":
+    situacao = "ganhou"
+else:
+    situacao = "não ganhou"
+```
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Exatamente um dos dois**]{.titulo}
+Se a condição deu `True`, roda o primeiro bloco. Se deu `False`, o segundo.
+Nunca os dois, nunca nenhum.
+:::
+::: {.cartao}
+[**O `else` não tem condição**]{.titulo}
+Ele recolhe tudo o que o `if` não pegou: improcedente, parcialmente
+procedente, extinto. Se isso é "não ganhou", quem decide é o codebook.
+:::
+:::
+
+# No notebook: Exercício 6 {.secao background-color="#023A78"}
+
+<!-- ganhou(decisao): if e else devolvendo "ganhou" ou "nao ganhou"; procedente
+     e parcialmente procedente contam como ganho. Para a decisao da revisao, da
+     "ganhou". Cinco minutos. -->
+
+## `elif`: mais de duas hipóteses
+
+Idade do autor, pelo Estatuto da Pessoa Idosa: 60 anos definem pessoa idosa
+(art. 1º), e acima de 80 a prioridade é especial (art. 71, § 5º).
+
+```python
+if decisao["idade_autor"] > 80:
+    faixa = "prioridade especial"
+elif decisao["idade_autor"] >= 60:
+    faixa = "pessoa idosa"
+else:
+    faixa = "sem prioridade"
+```
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**A regra**]{.titulo}
+O `elif` só é testado quando o `if` de cima deu `False`. O `else` recolhe o
+que nenhuma condição pegou.
+:::
+::: {.cartao}
+[**A ordem é conteúdo**]{.titulo}
+Quem tem 84 anos satisfaz as duas condições. Se `>= 60` viesse primeiro, cairia
+ali e a prioridade especial nunca seria atribuída a ninguém.
+:::
+:::
+
+# No notebook: Exercício 7 {.secao background-color="#023A78"}
+
+<!-- faixa_etaria(decisao): if, elif e else, a condicao mais restrita primeiro.
+     Testes com 27, 67 e 84 anos: "sem prioridade", "pessoa idosa",
+     "prioridade especial". Cinco minutos. -->
+
+## `not`: o contrário
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[A tabela]{.titulo}
+
+| `a` | `not a` |
+|---|---|
+| `True` | `False` |
+| `False` | `True` |
+:::
+
+::: {.lado .lado-bom}
+[Na pesquisa]{.titulo}
+
+Quais decisões **não** deferiram a tutela?
+
+```python
+not decisao["tutela_deferida"]
+```
+
+`tutela_deferida` já é `bool`. O `not` inverte: `True` vira `False`, `False`
+vira `True`.
+:::
+:::
+
+# No notebook: Exercício 8 {.secao background-color="#023A78"}
+
+<!-- Tabela-verdade de and, or e not preenchida a mao, antes de ver as tabelas
+     nos dois slides seguintes. A celula de baixo calcula as tres colunas para
+     um par a, b; a turma troca os valores para conferir as quatro linhas.
+     Tres minutos. -->
+
+## `or`: basta um
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[A tabela]{.titulo}
+
+| `a` | `b` | `a or b` |
+|---|---|---|
+| `True` | `True` | `True` |
+| `True` | `False` | `True` |
+| `False` | `True` | `True` |
+| `False` | `False` | `False` |
+:::
+
+::: {.lado .lado-bom}
+[Na pesquisa]{.titulo}
+
+O autor ganhou? Se procedente **ou** parcialmente procedente contam como
+ganho:
+
+```python
+resultado = decisao["resultado"]
+
+resultado == "PROCEDENTE" \
+    or resultado == "PARCIALMENTE PROCEDENTE"
+```
+
+Só dá `False` quando os dois lados falham.
+:::
+:::
+
+## `and`: precisa dos dois
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[A tabela]{.titulo}
+
+| `a` | `b` | `a and b` |
+|---|---|---|
+| `True` | `True` | `True` |
+| `True` | `False` | `False` |
+| `False` | `True` | `False` |
+| `False` | `False` | `False` |
+:::
+
+::: {.lado .lado-bom}
+[Na pesquisa]{.titulo}
+
+Quantas deferiram a tutela **e** depois julgaram procedente?
+
+```python
+decisao["tutela_deferida"] \
+    and decisao["resultado"] == "PROCEDENTE"
+```
+
+Só dá `True` quando os dois lados valem.
+:::
+:::
+
+## Os conectivos no texto da lei
+
+Art. 171 do Código Penal: obter, para si ou para outrem, vantagem ilícita, em
+prejuízo alheio, induzindo ou mantendo alguém em erro, mediante artifício,
+ardil, ou qualquer outro meio fraudulento.
+
+```python
+vantagem_ilicita and prejuizo_alheio \
+    and (induziu_em_erro or manteve_em_erro) \
+    and meio_fraudulento
+```
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Quatro exigências ligadas por `and`**]{.titulo}
+Vantagem ilícita, prejuízo alheio, erro da vítima, meio fraudulento. Falta
+uma, o tipo não se configura. A defesa derruba o conjunto derrubando qualquer
+uma delas.
+:::
+::: {.cartao}
+[**Um `or` entre parênteses**]{.titulo}
+Induzir ou manter: qualquer um dos dois basta. Os parênteses dizem onde o
+`or` acaba. Sem eles, a leitura muda.
+:::
+:::
+
+# No notebook: Exercício 9 {.secao background-color="#023A78"}
+
+<!-- tutela_e_procedente(decisao): True so quando tutela deferida e resultado
+     procedente; tutela_deferida ja e bool, entra sem "== True". Para a decisao
+     da revisao da False. Cinco minutos. -->
+
+## `in`: está na lista?
+
+Quantas decisões invocam a Súmula 302 do STJ?
+
+```python
+decisao["fundamentos"]                          # ['LEI 9.656/98', 'SÚMULA 302 STJ']
+
+"SÚMULA 302 STJ" in decisao["fundamentos"]      # True
+"CDC" in decisao["fundamentos"]                 # False
+```
+
+<span class="espaco"></span>
+
+```python
+if "SÚMULA 302 STJ" in decisao["fundamentos"]:
+    print("cita a súmula")
+```
+
+`in` devolve `bool`, como `==` e `>`. Por isso cabe direto na condição. Vale
+para lista e vale para texto: `"302" in "SÚMULA 302 STJ"` também dá `True`.
+
+# Ferramenta 2: várias e várias vezes {.secao background-color="#023A78"}
+
+## A mesma pergunta, quarenta vezes
+
+<!-- Retomada depois do intervalo. -->
+
+A base do notebook tem 40 decisões. A condição responde por uma:
+
+```python
+decisoes[0]["resultado"] == "PROCEDENTE"     # False
+decisoes[1]["resultado"] == "PROCEDENTE"     # False
+decisoes[2]["resultado"] == "PROCEDENTE"     # False
+decisoes[3]["resultado"] == "PROCEDENTE"     # ...
+```
+
+<span class="espaco"></span>
+
+Quarenta linhas dessas ainda cabem na tela. Com quatro mil decisões, não. E
+uma base de pesquisa de verdade raramente tem menos que isso.
+
+::: {.centro}
+[A operação é a mesma. Só o item muda.]{.destaque}
+:::
+
+## Em português, antes do Python
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[A instrução]{.titulo}
+
+::: {.pseudo}
+```
+procedentes começa em 0
+para cada decisão da base:
+    se o resultado da decisão é PROCEDENTE:
+        somar 1 em procedentes
+mostrar procedentes
+```
+:::
+:::
+
+::: {.lado .lado-bom}
+[Em Python]{.titulo}
+
+```python
+procedentes = 0
+for decisao in decisoes:
+    if decisao["resultado"] == "PROCEDENTE":
+        procedentes = procedentes + 1
+print(procedentes)
+```
+:::
+:::
+
+<span class="espaco"></span>
+
+Linha a linha, é a mesma coisa. "Para cada decisão da base" é a repetição;
+"se o resultado é PROCEDENTE" é a condição; "somar 1" é a operação que se
+repete só em alguns casos.
+
+## `for`: uma vez por decisão
+
+```python
+for decisao in decisoes:
+    print(decisao["numero"], decisao["resultado"])
+```
+
+::: {.notacao}
+[for]{.marca} [decisao]{.alvo} [in]{.marca} [decisoes]{.alvo}[:]{.marca}
+:::
+::: {.legenda-notacao}
+`for` anuncia a repetição · `decisao` é a **variável de iteração**: a cada
+volta, recebe o próximo item · `decisoes` é a lista percorrida
+:::
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**O que roda**]{.titulo}
+O bloco indentado roda uma vez para cada item da lista. Quarenta itens,
+quarenta voltas. Nenhuma linha a mais no código.
+:::
+::: {.cartao}
+[**O nome é seu**]{.titulo}
+`decisao` podia ser `d` ou `x`. O Python não liga. Quem lê, liga: o singular
+da lista diz o que é cada item.
+:::
+:::
+
+## O acumulador
+
+```python
+procedentes = 0
+for decisao in decisoes:
+    if decisao["resultado"] == "PROCEDENTE":
+        procedentes = procedentes + 1
+print(procedentes)                     # 18
+```
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Nasce antes, muda dentro**]{.titulo}
+`procedentes = 0` fica fora do loop. Se estivesse dentro, zeraria a cada
+volta e o total nunca passaria de 1.
+:::
+::: {.cartao}
+[**Atribuição, não equação**]{.titulo}
+`procedentes = procedentes + 1` não é uma igualdade impossível. É "pegue o
+valor atual, some um, guarde de volta".
+:::
+:::
+
+<span class="espaco"></span>
+
+As duas ferramentas juntas: o `for` visita cada decisão, o `if` decide se ela
+conta. A taxa é `procedentes / len(decisoes)`.
+
+# No notebook: Exercício 10 {.secao background-color="#023A78"}
+
+<!-- Antes do exercicio, a primeira celula da Parte B: a base inteira, 40
+     dicionarios numa celula so. Rodar e apontar o incomodo, que e assunto do
+     Encontro 5. Depois a celula do for que imprime numero e resultado.
+     Exercicio 10: contar procedentes com for, if e acumulador, e a taxa.
+     Resultado 18 e 0.45. O acumulador nasce antes do loop. Cinco minutos. -->
+
+## Leia antes de rodar
+
+Uma IA escreveu isto para "separar os casos que interessam". O que ele
+seleciona?
+
+```python
+if (decisao["tribunal"] == "TJSP" or decisao["tribunal"] == "TJRJ") \
+        and decisao["idade_autor"] >= 60 \
+        and not decisao["tutela_deferida"]:
+    print(decisao["numero"])
+```
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**A**]{.titulo}
+Qualquer autor do TJSP, ou idosos do TJRJ sem tutela.
+:::
+::: {.cartao}
+[**B**]{.titulo}
+Idosos do TJSP ou do TJRJ, sem tutela deferida.
+:::
+::: {.cartao}
+[**C**]{.titulo}
+Idosos do TJSP ou do TJRJ, com tutela deferida.
+:::
+:::
+
+<!-- Resposta: B. Sem os parênteses seria A, porque o and liga antes do or.
+     A barra invertida so quebra a linha. -->
+
+# No notebook: Exercício 11 {.secao background-color="#023A78"}
+
+<!-- A mesma condicao da IA sobre quatro casos de teste, num for; prever quem
+     entra antes de rodar. So A entra; B cai no not, C no or, D na idade. A
+     resposta esta so no gabarito. Cinco minutos. -->
+
+# No notebook: exercícios 12 e 13 {.secao background-color="#023A78"}
+
+<!-- Contar por operadora. O primeiro jeito (quatro variaveis, uma por
+     operadora) esta dado no notebook como demonstracao: 17 11 8 4, e uma
+     quinta operadora entraria sem ser contada. Exercicio 12: o dicionario que
+     cresce sozinho, com "if reu in contagem", a operacao do Exercicio 5 dentro
+     do for. Exercicio 13: contar_itens(lista, campo), o mesmo codigo virando
+     funcao; testar com "reu". Quinze minutos. -->
+
+# Fechamento {.secao background-color="#023A78"}
+
+## Isso já existe
+
+A contagem por operadora que você escreveu na Parte B o pandas tem pronta, e
+ela se chama `value_counts`. Você não vai escrever `contar_itens` de novo na
+vida.
+
+<span class="espaco"></span>
+
+::: {.comparacao}
+::: {.lado .lado-ruim}
+[Sem saber o que há dentro]{.titulo}
+
+`value_counts` é mágica. Quando o resultado vem estranho, não há o que
+conferir. Quando a IA usa outra coisa no lugar, não há como saber se é
+equivalente.
+:::
+
+::: {.lado .lado-bom}
+[Sabendo o que há dentro]{.titulo}
+
+`value_counts` é um `for` com um `if` e um dicionário. É natural que o Python
+faça isso bem, e pedir isso a uma IA é pedido seguro. E dá para dizer quando
+ela errou.
+:::
+:::
+
+::: {.centro}
+[Entender condição e repetição é o que permite julgar o que vale a pena
+automatizar.]{.destaque}
+:::
+
+## Loops e IA
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[Bom uso]{.titulo}
+
+Pedir o loop com a lista e o critério nomeados: "para cada decisão em
+`decisoes`, conte as que têm `tutela_deferida` igual a `True` e `resultado`
+igual a `PROCEDENTE`".
+
+Depois, contar cinco decisões à mão e conferir.
+:::
+
+::: {.lado .lado-ruim}
+[Uso arriscado]{.titulo}
+
+Pedir "filtra a minha base pelos casos relevantes" e aceitar o número.
+
+O código roda, o número aparece, e ninguém sabe quantas linhas entraram nem
+por quê.
+:::
+:::
+
+::: {.centro}
+[A IA escreve o loop. Você escreve o critério e confere a amostra.]{.destaque}
+:::
+
+## Pensar como o computador pensa
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Objetivo**]{.titulo}
+O critério vem escrito antes de contar. "Parcialmente procedente conta como
+ganho?" é decisão do codebook, tomada uma vez e válida para as quarenta
+decisões, não uma escolha no meio da contagem.
+:::
+::: {.cartao}
+[**Lógico**]{.titulo}
+Toda pergunta de pesquisa de hoje se decompôs em uma condição e uma
+repetição, e as condições se ligaram por `not`, `or` e `and`. Se a pergunta
+não se decompõe assim, ela ainda não está pronta para o código.
+:::
+::: {.cartao}
+[**Preciso**]{.titulo}
+Um filtro diz qual campo, qual comparação e qual valor, e com isso o que entra
+e o que fica de fora. "Os casos relevantes" não é filtro. `tribunal == "TJSP"
+and idade_autor >= 60` é.
+:::
+:::
+
+## Até o próximo encontro
+
+::: {.passos}
+::: {.passo}
+Faça os exercícios de fixação do notebook: a mesma habilidade de hoje, com
+outro dado, e o resultado esperado em cada um. O gabarito está no repositório,
+mas tente antes de abrir. O aprofundamento é opcional.
+:::
+::: {.passo}
+Escolha uma pergunta de pesquisa sua e escreva, em português, a condição e a
+repetição que a respondem. Sem código. É por aí que o Encontro 4 começa.
+:::
+::: {.passo}
+`git add`, `git commit -m "aula 3"` e `git push`. O projeto cresce junto com o
+curso.
+:::
+::: {.passo}
+Abra um `issue` no repositório com qualquer erro que você não conseguiu
+resolver.
+:::
+:::
+
+## {background-color="#023A78" .secao}
+
+::: {.centro}
+[Obrigado]{.enorme}
+:::
