@@ -41,5 +41,15 @@ format:
     link-external-newwindow: true
     code-copy: true
     highlight-style: github
+    # Sem isto o navegador abre o .ipynb como JSON cru, porque o GitHub Pages
+    # o serve como texto. O atributo download so vale para link da mesma
+    # origem, que e o caso dos notebooks publicados junto com o site.
+    include-after-body:
+      text: |
+        <script>
+        document.querySelectorAll('a[href$=".ipynb"]').forEach(function (a) {
+          if (a.host === location.host) a.setAttribute("download", "");
+        });
+        </script>
 
 lang: pt
