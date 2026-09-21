@@ -24,6 +24,8 @@ website:
         href: aulas/02-tipos-e-funcoes/slides.qmd
       - text: "Slides do Encontro 3"
         href: aulas/03-condicionais-loops-listas-dicionarios/slides.qmd
+      - text: "Slides do Encontro 4"
+        href: aulas/04-objetos-e-classes/slides.qmd
     right:
       - icon: github
         href: https://github.com/lab-dados/programacao-aplicada-ao-direito

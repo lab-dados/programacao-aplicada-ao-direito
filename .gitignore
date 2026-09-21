@@ -20,3 +20,7 @@ Thumbs.db
 *.key
 
 **/*.quarto_ipynb
+
+# Video de abertura do Encontro 4: toca do arquivo local, fora do repositorio,
+# esteja ele em aulas/ ou na pasta do encontro
+aulas/**/RoboLoopECondicional.mp4
