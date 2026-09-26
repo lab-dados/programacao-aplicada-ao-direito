@@ -6,6 +6,9 @@ project:
     - aulas/*/slides.qmd
   resources:
     - aulas/**/*.ipynb
+    - aulas/**/*.csv
+    - aulas/**/*.xlsx
+    - aulas/**/*.pptx
 
 website:
   title: "Programação Aplicada ao Direito"
@@ -41,13 +44,16 @@ format:
     link-external-newwindow: true
     code-copy: true
     highlight-style: github
-    # Sem isto o navegador abre o .ipynb como JSON cru, porque o GitHub Pages
-    # o serve como texto. O atributo download so vale para link da mesma
-    # origem, que e o caso dos notebooks publicados junto com o site.
+    # Sem isto o navegador abre o .ipynb como JSON cru e o .csv como uma
+    # parede de texto, porque o GitHub Pages os serve como texto. O atributo
+    # download so vale para link da mesma origem, que e o caso dos notebooks e
+    # das bases publicados junto com o site.
     include-after-body:
       text: |
         <script>
-        document.querySelectorAll('a[href$=".ipynb"]').forEach(function (a) {
+        document.querySelectorAll(
+          'a[href$=".ipynb"], a[href$=".csv"], a[href$=".xlsx"], a[href$=".pptx"]'
+        ).forEach(function (a) {
           if (a.host === location.host) a.setAttribute("download", "");
         });
         </script>
