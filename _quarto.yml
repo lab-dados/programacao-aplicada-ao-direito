@@ -8,7 +8,6 @@ project:
     - aulas/**/*.ipynb
     - aulas/**/*.csv
     - aulas/**/*.xlsx
-    - aulas/**/*.pptx
 
 website:
   title: "Programação Aplicada ao Direito"
@@ -29,6 +28,8 @@ website:
         href: aulas/03-condicionais-loops-listas-dicionarios/slides.qmd
       - text: "Slides do Encontro 4"
         href: aulas/04-objetos-e-classes/slides.qmd
+      - text: "Slides do Encontro 5"
+        href: aulas/05-manipulacao-de-dados-com-pandas/slides.qmd
     right:
       - icon: github
         href: https://github.com/lab-dados/programacao-aplicada-ao-direito

@@ -1,0 +1,1118 @@
+---
+title: "Manipulação de dados com pandas"
+subtitle: "Encontro 5 · Programação Aplicada ao Direito"
+author: "Helena Funari · LabDados · FGV Direito SP"
+date: "2026-09-28"
+date-format: long
+format:
+  fgv-revealjs:
+    footer: "Programação Aplicada ao Direito · Encontro 5"
+    output-file: slides.html
+    chalkboard: true
+    include-in-header:
+      text: |
+        <style>
+        /* Tabelas alinhadas a esquerda, em corpo legivel, ocupando o slide. */
+        .reveal table { margin-left: 0; font-size: 0.85em; width: 100%; }
+        .reveal table td, .reveal table th { padding: 0.3em 0.8em; }
+        .reveal .tabela-grande table { font-size: 1.1em; width: 100%; }
+        .reveal .tabela-miuda table { font-size: 0.66em; }
+        .reveal table th code { color: #fff; background: transparent; }
+
+        /* Imagem que ocupa o slide, para captura de tela e ilustracao. */
+        .reveal .imagem-cheia { text-align: center; }
+        .reveal .imagem-cheia img { max-height: 540px; width: auto; border-radius: 4px; }
+
+        /* O cartao do que a aula abre hoje, marcado em vermelho. */
+        .reveal .cartao.aqui { border: 2px solid var(--fgv-vermelho); }
+
+        /* Grade de quatro colunas e cartoes compactos, para slides densos. */
+        .reveal .grade-4 { grid-template-columns: repeat(4, 1fr); }
+        .reveal .compacto { gap: 0.4em; }
+        .reveal .compacto .cartao { font-size: 0.72em; padding: 0.45em 0.7em; }
+
+        /* Rotulo pequeno em versalete, para o subtitulo dentro do cartao. */
+        .reveal .cartao .sub { display: block; font-size: 0.55em; text-transform: uppercase;
+          letter-spacing: 0.06em; color: var(--fgv-cinza); margin-bottom: 0.3em; }
+        </style>
+---
+
+## Lista, dicionário, lista de dicionários
+
+No Encontro 3 vocês construíram os três. A base de hoje é o terceiro, repetido 7.000 vezes.
+
+**Lista** — vários valores em fila. Você pega pela posição.
+
+```python
+tribunais = ["TJSP", "TJRJ", "TJMG"]
+tribunais[0]   # "TJSP"
+```
+
+**Dicionário** — um registro só, com nome em cada valor. Você pega pela chave.
+
+```python
+processo = {"tribunal": "TJSP", "ano": 2023, "ganhou_autor": True}
+processo["ano"]   # 2023
+```
+
+**Lista de dicionários** — vários registros com as mesmas chaves. Isto já é uma tabela.
+
+```python
+processos = [
+    {"tribunal": "TJSP", "ano": 2023, "ganhou_autor": True},
+    {"tribunal": "TJRJ", "ano": 2024, "ganhou_autor": False},
+]
+processos[1]["ano"]   # 2024
+```
+
+[Cada dicionário vira uma linha. Cada chave vira uma coluna.]{.destaque}
+
+::: {.notes}
+Antes de olhar a classe do Encontro 4, um passo atrás de trinta segundos.
+
+Na tela estão as três estruturas do Encontro 3. A primeira é uma lista: três tribunais em fila, e eu pego o primeiro pela posição, com o colchete zero. A lista guarda valores de uma coisa só.
+
+A segunda é um dicionário. Aqui não tem fila, tem nome: cada valor está preso a uma chave. Eu não peço a posição um, eu peço a chave "ano". E repare que este dicionário é um processo inteiro — tribunal, ano, quem ganhou. É um registro.
+
+A terceira é a que interessa: uma lista de dicionários. Vários registros, todos com as mesmas chaves. Leiam em voz alta o que está ali: dois processos, cada um com tribunal, ano e resultado. Isso já é uma tabela, e apareceu na aula passada sem ninguém chamar de tabela.
+
+Guardem a última linha do slide, porque ela é a aula inteira: cada dicionário vira uma linha, cada chave vira uma coluna. Quando a gente montar a tabela daqui a pouco, é exatamente esta estrutura que vai estar lá dentro — só que com sete mil dicionários em vez de dois.
+
+(Se a turma estiver sólida, vale perguntar: e se um dos dicionários não tivesse a chave "ano"? A resposta é o dado faltante, que volta no bloco de conceitos.)
+:::
+
+## De lista de dicionários para tabela
+
+A mesma informação, escrita de dois jeitos. O da direita é uma tabela.
+
+::: {.columns}
+::: {.column width="48%"}
+```python
+processos = [
+  {"tribunal": "TJSP", "ano": 2023,
+   "ganhou_autor": True},
+  {"tribunal": "TJRJ", "ano": 2024,
+   "ganhou_autor": False},
+]
+```
+:::
+::: {.column width="52%"}
+|   | tribunal | ano | ganhou_autor |
+|--:|:---------|----:|:-------------|
+| **0** | TJSP | 2023 | True |
+| **1** | TJRJ | 2024 | False |
+:::
+:::
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Cada dicionário vira uma linha**]{.titulo}
+São 2 dicionários na lista e 2 linhas na tabela. Com 7.000 dicionários, o desenho é o mesmo.
+:::
+::: {.cartao}
+[**Cada chave vira uma coluna**]{.titulo}
+Os nomes das chaves viram o cabeçalho. Por isso todos os dicionários precisam ter as mesmas.
+:::
+::: {.cartao}
+[**O índice vem de brinde**]{.titulo}
+O `0` e o `1` à esquerda ninguém escreveu: eles aparecem sozinhos, para dar nome a cada linha.
+:::
+:::
+
+[Nada se perde na passagem. O que muda é o que dá para fazer depois.]{.destaque}
+
+::: {.notes}
+Este slide é o pulo. À esquerda está exatamente a lista de dicionários do slide anterior. À direita está a tabela montada a partir dela — a mesma coisa, com outra cara.
+
+Sigam as cores comigo. O dicionário azul, de cima, é a primeira linha da tabela, também azul. O dicionário laranja é a segunda linha. Nada foi reescrito, nada foi calculado: é a mesma informação com outra aparência.
+
+Agora olhem o cabeçalho da tabela: tribunal, ano, ganhou_autor. De onde vieram esses três nomes? Das chaves dos dicionários. E é por isso que os dois dicionários precisam ter as mesmas chaves — se um deles não tivesse "ano", aquela célula ficaria vazia, e a gente volta nisso quando falar de dado faltante.
+
+Tem um detalhe que eu quero que vocês reparem, do lado esquerdo da tabela: a coluna sem nome, com 0 e 1. Ninguém escreveu esses números. Eles aparecem junto com a tabela, e isso tem nome: é o índice. É por ele que a gente vai pedir uma linha específica. Volta no bloco de conceitos.
+
+A frase do rodapé é a que importa: nada se perde na passagem. A informação é a mesma. O que muda é que, virando tabela, eu consigo filtrar, agrupar, ordenar e juntar com outra tabela — e é isso que a lista de dicionários não deixava fazer sem um for enorme.
+:::
+
+## Onde a gente parou
+
+No Encontro 4 vocês escreveram uma classe que guarda uma base inteira e responde perguntas sobre ela.
+
+```python
+class Tabela:                                        # a classe: o molde de onde saem as tabelas
+    def __init__(self, linhas):                      # roda uma vez, quando o objeto nasce
+        self.linhas = linhas                         # atributo: guarda a lista que chegou
+        self.shape = (len(linhas), len(linhas[0]))   # atributo: calculado na criação e guardado
+
+    def head(self, n=5):                             # método: uma função escrita dentro da classe
+        return self.linhas[:n]
+
+    def contar(self, campo):                         # método: o self é o próprio objeto
+        ...
+```
+
+[Quarenta linhas. E elas já desenham a estrutura de uma tabela.]{.destaque}
+
+::: {.notes}
+Bom dia. A aula de hoje começa exatamente onde a última terminou, então vamos voltar à classe Tabela, do Encontro 4.
+
+Está na tela. A `Tabela` guarda uma lista de dicionários no atributo `linhas`, calcula o tamanho no atributo `shape`, mostra as primeiras linhas com o método `head` e conta quantas vezes cada valor aparece com o método `contar`.
+
+Eu quero que vocês reparem numa coisa antes de qualquer outra: isso não foi um exercício de brincadeira. Quarenta linhas de código, e o que saiu dali tem a mesma estrutura de uma tabela. Os atributos são os mesmos, os métodos têm os mesmos nomes, e a ideia é idêntica.
+
+A aula de hoje não é a apresentação de uma ferramenta estranha e nova. É a continuação direta dessa classe. O que muda é que hoje vocês vão usar a versão que já vem pronta, e ela sabe fazer muito mais do que essa.
+
+Então vamos começar recolocando as quatro palavras que descrevem essa classe, e depois percorrer elemento por elemento da tabela.
+
+Antes de sair deste slide, duas palavras e uma pergunta.
+
+A primeira palavra é classe. A classe é o molde. Ela não é a tabela: é a receita que diz o que toda tabela vai guardar e o que toda tabela vai saber fazer. Escrever Tabela, abre parênteses, a lista, usa o molde uma vez e devolve uma tabela pronta. A classe é a forma de bolo; o objeto é o bolo. Dá para assar quantos bolos quiser com a mesma forma.
+
+A pergunta é a que sempre aparece: posso criar funções dentro do objeto? Pode, e vocês já fizeram isso. Olhem as setas: head e contar são funções escritas dentro da classe. Quando uma função mora dentro de uma classe, ela muda de nome e passa a se chamar método.
+
+O que muda de verdade é o self. Repare que todo def aí dentro começa com self entre parênteses. O self é o próprio objeto, entregue para a função: é por ele que head consegue ler self.linhas. Uma função escrita fora da classe não recebe self e não tem dono — ela só sabe o que a gente entrega dentro dos parênteses, como o len.
+
+Se alguém perguntar por que vale a pena escrever dentro da classe: porque aí a função anda junto com os dados. Quem receber a tabela recebe também tudo o que ela sabe fazer.
+:::
+
+## Classe, método e a pergunta que sempre aparece
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**O que é uma classe**]{.titulo}
+É o molde: diz o que cada objeto vai guardar (`linhas`, `shape`) e o que ele vai saber fazer (`head`, `contar`).
+
+A classe é a forma de bolo; o objeto é o bolo.
+:::
+::: {.cartao}
+[**Posso criar funções dentro do objeto?**]{.titulo}
+Pode — e é exatamente isso que `head` e `contar` são. Uma função escrita dentro de uma classe muda de nome: passa a se chamar **método**, e ganha o `self`, que é o próprio objeto.
+
+É por ele que ela enxerga os dados guardados. A mesma função escrita fora da classe não teria `self` nem dono.
+:::
+:::
+
+## Quatro palavras do Encontro 4
+
+As quatro palavras que vocês usaram na aula passada, todas na classe `Tabela` do Encontro 4.
+
+::: {.grade .grade-2 .compacto}
+::: {.cartao}
+[**Objeto**]{.titulo}
+A coisa criada a partir de uma classe. Guarda dados e sabe agir sobre eles.
+:::
+::: {.cartao}
+[**Atributo**]{.titulo}
+Uma informação que o objeto já guarda. Vem sem parênteses.
+:::
+::: {.cartao}
+[**Método**]{.titulo}
+Uma ação que o objeto sabe fazer. Vem sempre com parênteses.
+:::
+::: {.cartao}
+[**Função**]{.titulo}
+Uma ação solta: não é de objeto nenhum. O que ela usa vai dentro dos parênteses.
+:::
+:::
+
+```python
+tabela = Tabela(linhas)   # objeto: o que sai quando a classe é chamada
+tabela.shape              # atributo: já estava guardado — devolve (7000, 11)
+tabela.head(3)            # método: a ação, feita na hora
+len(linhas)               # função: a lista vai dentro dos parênteses
+```
+
+[Com parênteses, alguém faz algo. Sem parênteses, é informação já guardada.]{.destaque}
+
+::: {.notes}
+Este slide é de memória, não de matéria nova. São as quatro palavras do Encontro 4, e eu quero que elas fiquem penduradas na parede pelas próximas duas horas.
+
+As definições estão nas caixas de cima, mas o que interessa é a parte de baixo: as mesmas quatro palavras marcadas no código do Encontro 4. Vamos linha por linha.
+
+Primeira linha. Eu chamo a classe Tabela e guardo o resultado no nome tabela. O que está circulado é o objeto: é a coisa que passou a existir depois dessa linha.
+
+Segunda linha, tabela.shape. O circulado é o atributo. Não tem parênteses porque não tem nada para fazer: a informação já estava guardada lá dentro desde que o objeto foi criado. Devolve sete mil e onze.
+
+Terceira, tabela.head(3). O circulado é o método. Tem parênteses, e os parênteses são o sinal de que alguém está fazendo alguma coisa agora: ele vai lá e monta as três primeiras linhas.
+
+Quarta, len(linhas). O circulado é a função. Repare na diferença de desenho, que é o que eu quero que vocês guardem: no método o objeto vem antes do ponto; na função o objeto vai dentro dos parênteses. len não pertence a ninguém, serve para qualquer lista.
+
+Se hoje alguém travar num erro, oitenta por cento das vezes vai ser isto: parênteses a mais num atributo, ou parênteses de menos num método. Quando acontecer, voltem nesta regra de bolso do rodapé.
+:::
+
+## Os elementos da tabela
+
+| O elemento | Na classe `Tabela` | No `DataFrame` |
+|:-----------|:-------------------|:---------------|
+| a base inteira | `Tabela(decisoes)` | `pd.DataFrame(decisoes)` |
+| uma linha, um caso | `tabela.linhas[0]` | `processos.loc[0]` |
+| uma coluna, uma variável | não tinha | `processos["reu"]` |
+| o tamanho | `tabela.shape` | `processos.shape` |
+| espiar o começo | `tabela.head()` | `processos.head()` |
+| contar por valor | `tabela.contar("reu")` | `processos["reu"].value_counts()` |
+
+::: {.notes}
+Aqui está o mapa da aula, elemento por elemento.
+
+Primeira linha: criar a base. Vocês faziam `Tabela`, abre parênteses, a lista de dicionários. No pandas é `pd.DataFrame`, abre parênteses, a mesma lista. É a mesma operação: chamar a classe para criar um objeto.
+
+Segunda: uma linha. Na classe Tabela era `tabela.linhas`, colchete, zero, porque `linhas` era uma lista comum. No pandas é `processos.loc`, colchete, zero. Guardem o `loc`, que a gente volta nele quando falar de índice.
+
+Terceira linha, e essa é importante: **uma coluna**. A `Tabela` não tinha isso. Ali os dados eram uma lista de dicionários, e para pegar todos os réus seria preciso percorrer a lista inteira com um `for`. No pandas, a coluna é uma coisa que existe por si só: `processos`, colchete, aspas, `reu`. Essa é a maior diferença estrutural entre as duas, e é ela que faz tudo o que vem hoje ser possível.
+
+Quarta: o tamanho. `shape` nos dois, com o mesmo significado, linhas e colunas nessa ordem. Vocês calcularam esse atributo à mão no `__init__`, com dois `len`.
+
+Quinta: espiar. `head` nos dois, com o mesmo valor padrão de cinco.
+
+Sexta: contar. A `contar` foi escrita com um `for`, um `if` e um dicionário que crescia. No pandas ela se chama `value_counts`, e repare **onde** ela mora: depois da coluna, não depois da tabela. Isso não é detalhe de digitação, é o próximo slide.
+:::
+
+## É outra coisa, ou é a mesma coisa maior?
+
+O `DataFrame` não é uma coisa nova: é a mesma ideia da classe `Tabela`, muito mais acabada.
+
+::: {.tabela-miuda}
+|  | A classe `Tabela` | O `DataFrame` do pandas |
+|:--|:--|:--|
+| **O que é** | Um objeto criado por uma classe de quarenta linhas, escrita no Encontro 4. | Um objeto criado por uma classe enorme, escrita e testada por muita gente há mais de quinze anos. |
+| **De onde vem** | Do arquivo onde ela foi escrita. Só existe naquele notebook. | De um pacote que se instala uma vez e se importa: `import pandas as pd` |
+| **O que sabe fazer** | Três coisas: `shape`, `head()` e `contar()` — o que deu tempo de escrever. | Dezenas de operações prontas: filtrar, agrupar, ordenar, juntar, converter tipo. |
+| **A coluna** | Não existia. A coluna era uma chave repetida dentro de cada dicionário. | Existe e tem nome: `processos["reu"]` devolve uma `Series`, com tipo próprio. |
+:::
+
+[A gramática é a mesma: objeto, atributo sem parênteses, método com parênteses. O `DataFrame` é essa mesma ideia, crescida.]{.destaque}
+
+::: {.notes}
+Essa pergunta aparece toda vez, e é a pergunta certa: se eu já escrevi uma Tabela, o DataFrame é outra coisa? Não é. É a mesma ideia.
+
+Linha de cima: os dois são objetos, criados por uma classe. A diferença é o tamanho da classe. A classe Tabela tem quarenta linhas e foi escrita numa tarde. A do pandas é enorme, foi escrita por muita gente e vem sendo corrigida e testada há mais de quinze anos. Quando vocês usam o DataFrame, estão usando o trabalho dessas pessoas todas.
+
+Segunda linha: de onde vem. A classe Tabela existe só no notebook em que foi escrita; se vocês abrirem outro notebook, ela não está lá. O pandas é um pacote: instala uma vez, importa, e está disponível em qualquer lugar. Foi isso que vocês viram no Encontro 4 com o juscraper.
+
+Terceira: o que cada uma sabe fazer. Três métodos contra dezenas. E as operações de hoje — filtrar, agrupar, ordenar, juntar — estão todas do lado direito.
+
+Quarta linha, e é a mais importante: a coluna. Na classe Tabela a coluna não existia como coisa; era uma chave que se repetia dentro de cada dicionário, e para olhar uma coluna inteira era preciso um for. No DataFrame a coluna é um objeto com nome e com tipo. É isso que permite pedir a média de uma coluna sem escrever nenhum for — e é isso que a gente vai fazer a tarde inteira.
+
+Fecho pela frase do rodapé: nada do que vocês aprenderam vira lixo. A gramática é idêntica. Vocês vão só trocar uma classe pequena, que vocês conhecem por dentro, por uma classe grande, que vocês vão conhecer por fora.
+:::
+
+## O pandas por fora: a biblioteca e o DataFrame
+
+O pandas é uma **biblioteca**: uma caixa de ferramentas já montada, e o `DataFrame` é a principal delas.
+
+::: {.columns}
+::: {.column width="58%"}
+**`pandas`** — a biblioteca. Instala uma vez, importa em todo notebook: `import pandas as pd`
+
+::: {.grade .grade-2 .compacto}
+::: {.cartao}
+[**funções da biblioteca**]{.titulo}
+Chamadas pelo `pd`, sem precisar de nenhum objeto.
+
+`pd.read_csv("processos.csv")`
+:::
+::: {.cartao}
+[**`DataFrame`**]{.titulo}
+A classe que mora dentro da biblioteca — o molde da tabela.
+
+`processos = pd.DataFrame(dados)`
+
+**atributos** `.shape` `.columns` · **métodos** `.head()` `.query()`
+:::
+:::
+:::
+::: {.column width="42%"}
+**E na classe `Tabela`?**
+
+- **Atributos** existiam: `linhas` e `shape`.
+- **Métodos** existiam, e eram dois: `head()` e `contar()`.
+- **Funções de biblioteca** não existiam. Só as de Python, como `len()`.
+:::
+:::
+
+[`pd.alguma_coisa()` é função da biblioteca. `processos.alguma_coisa()` é método do objeto.]{.destaque}
+
+::: {.notes}
+Esse slide existe para desfazer uma confusão que atrapalha muito no começo: pandas, DataFrame e método não são a mesma coisa.
+
+Comecem pela caixa grande. O pandas é uma biblioteca — em inglês, library; vocês também vão ouvir chamarem de pacote. É um monte de código que outras pessoas escreveram, organizaram e deixaram disponível: uma estante de ferramentas prontas, e a gente pega da estante a que precisa. Vocês já fizeram isso no Encontro 4 com o juscraper: instala uma vez, importa, e as ferramentas aparecem. O apelido pd é só para escrever menos.
+
+Dentro da biblioteca tem duas coisas diferentes, e é aqui que mora a confusão.
+
+A primeira caixa branca: funções da biblioteca. Elas são elementos da própria biblioteca: a gente chama pelo apelido pd, sem precisar de nenhum objeto. pd.read_csv é a mais importante de hoje: é ela que vai buscar o arquivo e devolver a tabela. Repare que o que ela usa — o nome do arquivo — vai dentro dos parênteses, que é o desenho da função.
+
+A segunda caixa branca: DataFrame. Isso não é uma função, é uma classe — o molde da tabela, exatamente como a Tabela do Encontro 4 era um molde. Quando eu escrevo pd.DataFrame de alguma coisa, eu recebo um objeto. E aí, dentro desse objeto, estão os atributos e os métodos: atributos sem parênteses, métodos com parênteses.
+
+A coluna da direita responde a pergunta que costuma vir junto. Método não é novidade: a classe Tabela já tinha dois, head e contar. Atributo também não: tinha linhas e shape. O que não existia era função de biblioteca — ali só havia as funções que já vêm com o Python, como o len. Então a diferença não é de ideia; é de quantidade e de acabamento.
+
+A frase do rodapé é a régua para a aula inteira. Se está escrito pd ponto alguma coisa, é função da biblioteca. Se está escrito o nome da tabela ponto alguma coisa, é método do objeto. Quando der erro hoje, leiam a linha e perguntem: isso é pd ponto, ou é processos ponto?
+:::
+
+## {background-image="bibliotecas-do-encontro-4.png" background-size="contain" background-color="#FFFFFF"}
+
+## O que tem dentro da biblioteca pandas
+
+::: {.grade .grade-4 .compacto}
+::: {.cartao .aqui}
+[`DataFrame`]{.titulo}
+[a tabela]{.sub}
+`pd.DataFrame(dados)`
+
+A tabela inteira: linhas, colunas e índice.
+:::
+::: {.cartao}
+[Tabela cruzada]{.titulo}
+[dupla entrada]{.sub}
+`pd.crosstab(col1, col2)`
+
+Resultado por tribunal numa tabela de duas entradas.
+:::
+::: {.cartao}
+[Gráfico]{.titulo}
+[direto da tabela]{.sub}
+`processos.plot(kind="bar")`
+
+A tabela vira barra, linha ou pizza.
+:::
+::: {.cartao}
+[Outras fontes]{.titulo}
+[além do CSV]{.sub}
+`pd.read_html(url)` · `pd.read_sql(...)`
+
+Tabela de uma página da internet ou de um banco de dados.
+:::
+::: {.cartao}
+[Amostra e repetidos]{.titulo}
+[antes de ler à mão]{.sub}
+`processos.sample(20)` · `drop_duplicates()`
+
+Sortear sentenças para leitura manual; achar processo duplicado.
+:::
+::: {.cartao}
+[Faixas]{.titulo}
+[número vira categoria]{.sub}
+`pd.cut(valor, faixas)`
+
+Condenação até 5 mil, de 5 a 20 mil, acima disso.
+:::
+::: {.cartao}
+[Reformatar]{.titulo}
+[larga ou longa]{.sub}
+`pd.melt(processos)`
+
+Muda o desenho da tabela sem mudar a informação.
+:::
+::: {.cartao}
+[Exportar formatado]{.titulo}
+[para o texto final]{.sub}
+`processos.to_latex()` · `processos.style`
+
+Tabela pronta para colar no artigo ou no relatório.
+:::
+:::
+
+::: {.notes}
+Aqui é só para vocês verem o tamanho da caixa. Eu vou passar rápido e ninguém precisa anotar.
+
+A caixinha circulada em vermelho é a única que a gente abre hoje: o DataFrame, a tabela. Todo o resto desta página existe no pandas e não entra nesta aula.
+
+A tabela cruzada é a que mais aparece em pesquisa empírica: resultado por tribunal, em dupla entrada, do jeito que vai para o artigo.
+
+Gráfico: a tabela vira barra ou linha numa linha de código.
+
+Outras fontes: read_html lê tabela direto de uma página da internet; read_sql lê de um banco de dados.
+
+Amostra e repetidos: sample sorteia, por exemplo, vinte sentenças para alguém ler à mão — é assim que se valida uma classificação. E drop_duplicates acha o processo que entrou duas vezes.
+
+Faixas: transforma número em categoria, que é o que permite falar de pequenas condenações sem inventar o corte na mão.
+
+Reformatar: muda o desenho da tabela sem mudar a informação — de larga para longa e de volta.
+
+E a última, para quem escreve artigo: a tabela sai formatada, pronta para colar no texto.
+
+O recado do slide é um só: ninguém sabe a biblioteca inteira. O que se aprende é procurar dentro dela.
+:::
+
+## Hoje vamos aprender 5 verbos que estão dentro do `DataFrame`
+
+::: {.tabela-grande}
+| Verbo | O que faz | No pandas |
+|:------|:----------|:----------|
+| **filter** | escolher **linhas** | `df[df["ano"] == 2023]` ou `df.query("ano == 2023")` |
+| **select** | escolher **colunas** | `df[["tribunal", "ano"]]` |
+| **mutate** | criar ou alterar coluna | `df.assign(...)` |
+| **arrange** | ordenar | `df.sort_values("ano")` |
+| **summarise** | resumir em um número | `df["valor"].mean()`, `.agg(...)` |
+:::
+
+## Por que pandas?
+
+É um pacote seguro e confiável, que já foi testado por várias pesquisadoras.
+
+<span class="espaco"></span>
+
+A estrutura do `DataFrame`, em que as variáveis de cada observação seguem o mesmo esquema de tipos, permite manipulações muito mais eficientes dos dados.
+
+## Hoje a base tem 7.000 sentenças
+
+São sentenças de primeiro grau de 24 tribunais estaduais, reunidas em um projeto de pesquisa real.
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**7.000 linhas**]{.titulo}
+Uma por processo. Não cabem numa célula, não cabem na tela, não cabem na cabeça.
+:::
+::: {.cartao}
+[**11 colunas**]{.titulo}
+Tribunal, ano, comarca, tipo de autor, réu, setor econômico, resultado, valor da condenação.
+:::
+::: {.cartao}
+[**Perguntas de pesquisa**]{.titulo}
+Quem mais é processado? O autor ganha mais contra quem? O autor ganha mais quando é pessoa física ou empresa?
+:::
+:::
+
+::: {.notes}
+A base de hoje não é fictícia. São sete mil sentenças de primeiro grau, de vinte e quatro tribunais estaduais, que vieram de um projeto de pesquisa real.
+
+Eu extraí do inteiro teor de cada sentença um conjunto de colunas, todas com informação objetiva do processo: o tribunal, o ano, a comarca, se o autor é pessoa física ou jurídica, quem é o réu, de que setor econômico esse réu é, qual foi o resultado, e quanto foi a condenação quando houve.
+
+E eu quero que vocês guardem três perguntas, porque são elas que a gente vai responder hoje, e elas não são perguntas de programação, são perguntas de pesquisa: quem é mais processado nessa base? Contra quem o autor ganha mais? E o autor ganha mais quando é pessoa física ou quando é empresa?
+
+Nenhuma dessas perguntas se responde lendo sentença por sentença. É por isso que a gente precisa de uma ferramenta nova.
+:::
+
+# No notebook {.secao background-color="#023A78"}
+
+Abra o notebook do Encontro 5 no Colab e suba a base: clique no ícone de pasta, à esquerda, e arraste `processos.csv` e `dispositivos.csv` para dentro.
+
+::: {.notes}
+Vamos para o notebook. Abram pelo link da página do curso, e a primeira coisa, antes de qualquer outra: Arquivo, salvar uma cópia no Drive. Senão tudo o que vocês escreverem hoje some quando fecharem a aba.
+
+Eu vou esperar todo mundo. Levantem a mão quando o notebook estiver aberto e com o nome "Cópia de" no título.
+
+A primeira célula lê os dois arquivos que vocês acabaram de subir. Rodem e me digam o que apareceu: tem que ser (7000, 11).
+:::
+
+## O que vamos fazer lá
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Conhecer a base**]{.titulo}
+A Seção 0 já vem pronta: `shape`, `head`, `dtypes` e o que está faltando em cada coluna.
+:::
+::: {.cartao}
+[**Os cinco verbos**]{.titulo}
+Uma seção para cada um, do exercício mais simples ao mais completo. O código está no enunciado, e o resultado esperado também.
+:::
+::: {.cartao}
+[**Juntar duas tabelas**]{.titulo}
+No fim, o `merge`: colar a tabela dos dispositivos e conferir se não perdi linha nem ficou alguém sem par.
+:::
+::: {.cartao}
+[**Responder três perguntas de pesquisa**]{.titulo}
+Quem é mais processado, contra quem se ganha mais, e se o autor ganha mais quando é pessoa física ou empresa.
+:::
+:::
+
+::: {.notes}
+O roteiro do notebook é esse.
+
+Primeiro a gente conhece a base: quantas linhas, quais colunas, de que tipo, e o que está faltando. Isso é o que se faz com qualquer base nova, antes de qualquer análise, sempre.
+
+Depois os cinco verbos, um de cada vez, e no fim o join. Cada seção tem até quatro exercícios, do mais simples ao mais completo, com o código no enunciado. Eu vou dar tempo e vou passar nas dúvidas.
+
+
+E no fim, as três perguntas de pesquisa. Eu não vou dizer as respostas agora porque quero que vocês descubram. Adianto só que uma delas surpreende bastante.
+:::
+
+## As cinco operações de hoje
+
+::: {.tabela-grande}
+| O que eu quero | O verbo | No pandas |
+|:---------------|:--------|:----------|
+| Só algumas linhas | filter | `df.query("ano == 2022")` |
+| Só algumas colunas | select | `df[["tribunal", "ano"]]` |
+| Uma coluna nova | mutate | `df.assign(nova = ...)` |
+| Do maior para o menor | arrange | `df.sort_values("valor_condenacao")` |
+| Um número que resume | summarise | `df.groupby("setor")["x"].mean()` |
+| Juntar duas tabelas | *join* | `df.merge(dispositivos)` |
+:::
+
+::: {.notes}
+Esse slide é o mapa do notebook. Cinco verbos e o join: à esquerda, o que vocês querem; à direita, o nome disso no pandas.
+
+A coluna como objeto é a novidade estrutural de hoje, e é dela que saem todas as seis linhas da tabela: a `Tabela` guardava linhas, e para pegar todos os réus era preciso percorrer a lista.
+
+Olhem a penúltima, contar por grupo. A `contar` foi escrita com um `for`, um `if` e um dicionário que crescia. O `groupby` é ela, generalizada: não conta só, faz qualquer conta, e agrupa por mais de um campo ao mesmo tempo.
+
+E a última, juntar duas tabelas: com listas e dicionários, é um `for` dentro de outro. `merge` é uma linha.
+
+A ordem da tabela é a ordem do notebook. A gente vai de cima para baixo, e cada exercício usa o que veio antes.
+:::
+
+# A gramática do pandas {.secao background-color="#023A78"}
+
+## Atributo ou método?
+
+::: {.grade .grade-2}
+::: {.cartao}
+[`processos.shape`]{.titulo}
+**Atributo.** Sem parênteses. Um dado que o objeto já guarda: `(7000, 11)`.
+:::
+::: {.cartao}
+[`processos.head()`]{.titulo}
+**Método.** Com parênteses. Uma ação que o objeto executa quando você pede.
+:::
+::: {.cartao}
+[`processos.shape()`]{.titulo}
+`TypeError: 'tuple' object is not callable`. Você pôs parênteses num atributo: pediu para executar um dado.
+:::
+::: {.cartao}
+[`processos.str.lower()`]{.titulo}
+`AttributeError`. O `DataFrame` não tem `.str` — quem tem é a coluna: `processos["reu"].str.lower()`.
+:::
+:::
+
+::: {.notes}
+Essa é a notação do Encontro 4, e hoje ela deixa de ser teoria e passa a explicar as mensagens de erro que vocês vão ver na tela.
+
+Em cima: `processos` ponto `shape`, sem parênteses. É atributo. Um dado que o objeto já guarda, calculado quando a tabela foi criada. Devolve a dupla `(7000, 11)`.
+
+Embaixo: `processos` ponto `head`, com parênteses. É método. Uma ação que o objeto executa na hora em que você pede.
+
+E agora os dois erros que vão aparecer hoje, garantidamente, e que vocês vão saber diagnosticar sozinhos.
+
+O primeiro: alguém escreve `processos.shape` com parênteses, por hábito. A mensagem é `TypeError`, objeto do tipo tupla não é chamável. Tradução: você pôs parênteses num atributo. Pediu para executar um dado, e dado não se executa. Tire os parênteses.
+
+O segundo é mais interessante. Alguém escreve `processos.str.lower()`, direto na tabela, e leva um `AttributeError`. E a mensagem está certa: o `DataFrame` realmente não tem `.str`. Quem tem é a coluna.
+
+Isso é exatamente o `fundamentos.lower()` do Encontro 4: `"TJSP".lower()` funciona porque texto tem esse método, e a lista não tem. Aqui é a mesma gramática, com outros dois tipos. Quando aparecer `AttributeError`, a pergunta não é "escrevi errado?", é "**esse método é desse tipo?**".
+:::
+
+# Conceitos de banco de dados {.secao background-color="#023A78"}
+
+## A tabela: linhas e colunas
+
+::: {.tabela-miuda}
+| processo | ano | tribunal | resultado | valor_condenacao |
+|:---------|----:|:---------|:----------|-----------------:|
+| 0800312-51.2021.8.19.0011 | 2021 | TJRJ | PROCEDENTE | 3000.00 |
+| 0801277-92.2022.8.15.0131 | 2022 | TJPB | IMPROCEDENTE | |
+| 5007371-63.2021.8.08.0011 | 2021 | TJES | ACORDO HOMOLOGADO | |
+:::
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**A linha é um caso**]{.titulo}
+Uma linha, um processo. Tudo o que se sabe sobre aquele processo está naquela linha, e nada do que está ali é sobre outro processo.
+:::
+::: {.cartao}
+[**A coluna é uma variável**]{.titulo}
+Uma coluna, uma pergunta feita a todos os casos. `ano` é a mesma pergunta, respondida 7.000 vezes.
+:::
+:::
+
+::: {.notes}
+Aqui está a tabela. Vamos olhar com calma, porque tudo o que vem depois depende de entender esses dois eixos.
+
+A linha, destacada em amarelo, é um caso. Um processo. E tem duas afirmações fortes escondidas aí: primeiro, tudo o que a gente sabe sobre aquele processo está naquela linha; segundo, nada do que está naquela linha é sobre outro processo. Quando isso deixa de valer, a tabela está errada, e a gente vai ver daqui a pouco um exemplo de quando isso quebra.
+
+A coluna é uma variável. E eu gosto de pensar na coluna como uma pergunta feita a todo mundo: a coluna "ano" é a pergunta "em que ano isso foi ajuizado?", feita sete mil vezes, uma para cada processo. A coluna "resultado" é a pergunta "como isso terminou?", também sete mil vezes.
+
+Se vocês vieram do Encontro 3: a linha é o dicionário, e a coluna é a chave. O nome da chave virou o nome da coluna. É literalmente a mesma informação girada de lado.
+:::
+
+## A unidade de observação
+
+Antes de montar qualquer base, uma decisão: **o que é uma linha?**
+
+::: {.grade .grade-3}
+::: {.cartao}
+[**Um processo**]{.titulo}
+7.000 linhas. É a base de hoje. Serve para "quantos processos por tribunal".
+:::
+::: {.cartao}
+[**Uma parte**]{.titulo}
+Um processo com três réus vira três linhas. Serve para "quantas vezes o Bradesco foi réu".
+:::
+::: {.cartao}
+[**Uma movimentação**]{.titulo}
+Centenas de milhares de linhas. Serve para "quanto tempo entre citação e sentença".
+:::
+:::
+
+[A mesma pesquisa pode precisar das três. E `len(df)` significa coisas diferentes em cada uma.]{.destaque}
+
+::: {.notes}
+Essa é a decisão mais importante de qualquer base de dados, e é uma decisão de pesquisa, não de programação. Ela se chama unidade de observação, e a pergunta é simples: o que é uma linha?
+
+Olhem os três cartões. Se a linha é um processo, a base de hoje tem sete mil linhas. Se a linha é uma parte, um processo com três réus vira três linhas, e a base fica maior. Se a linha é uma movimentação processual, um único processo pode ter cinquenta linhas, e a base vai para centenas de milhares.
+
+Nenhuma das três está certa ou errada. Cada uma serve para uma pergunta. Com processo por linha, eu respondo quantos processos por tribunal. Com parte por linha, eu respondo quantas vezes o Bradesco apareceu como réu, o que eu não consigo responder direito na primeira. Com movimentação por linha, eu respondo quanto tempo demorou entre a citação e a sentença.
+
+E a frase de baixo é a que eu quero que vocês guardem: a mesma pesquisa pode precisar das três tabelas. E o número de linhas significa coisas diferentes em cada uma. Quando alguém disser "a minha base tem trinta mil", a primeira pergunta é: trinta mil o quê?
+
+Eu vou dizer isso de novo hoje, porque na hora do groupby esse conceito volta.
+:::
+
+## O tipo é da coluna inteira
+
+::: {.tabela-miuda}
+| processo | ano | valor_condenacao | resultado |
+|:---------|----:|-----------------:|:----------|
+| 0800312-51.2021.8.19.0011 | 2021 | 3000.00 | PROCEDENTE |
+| 0801277-92.2022.8.15.0131 | 2022 | 1500.00 | IMPROCEDENTE |
+| **str** | **int64** | **float64** | **str** |
+:::
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**No dicionário, o tipo era de cada valor**]{.titulo}
+Nada impedia `valor_causa` ser `float` numa decisão e `str` em outra. O loop quebrava lá na frente.
+:::
+::: {.cartao}
+[**Na tabela, o tipo é da coluna**]{.titulo}
+A coluna inteira é `float64`, ou nenhuma delas é. Isso é uma garantia, e é o que permite somar 7.000 valores de uma vez.
+:::
+:::
+
+::: {.notes}
+Aqui está uma diferença sutil e que muda tudo.
+
+No Encontro 3, o tipo era de cada valor. Uma decisão podia ter valor da causa como número e a decisão seguinte podia ter o mesmo campo como texto, porque alguém digitou com cifrão. Nada impedia. O Python aceitava, e o problema só aparecia lá na frente, quando o for tentasse somar e desse TypeError.
+
+Na tabela, o tipo é da coluna inteira. A coluna valor_condenacao é float, ponto flutuante, número com casas decimais, e ela é isso para as sete mil linhas ou para nenhuma. A coluna ano é int, inteiro. A coluna resultado é texto.
+
+E isso não é burocracia: é essa garantia que permite ao pandas somar sete mil valores de uma vez, sem escrever loop, porque ele sabe de antemão que são todos números.
+
+Reparem na última linha da tabela. Quando vocês rodarem df.dtypes no notebook, é isso que vai aparecer. E quando uma coluna que deveria ser número aparecer como "object", que é como o pandas chama texto, isso é um aviso: tem sujeira na coluna. Geralmente é um cifrão, um ponto de milhar ou uma célula escrita "não informado".
+:::
+
+## O esquema, que é o codebook
+
+O esquema é o contrato da tabela: quais colunas existem, de que tipo, e o que cada uma significa.
+
+::: {.tabela-grande}
+| Coluna | Tipo | O que é |
+|:-------|:-----|:--------|
+| `processo` | str | número CNJ, identificador único |
+| `ano` | int | ano do ajuizamento |
+| `tribunal` | str | sigla, conjunto fechado de 24 |
+| `resultado` | str | conjunto fechado de 5 |
+| `valor_condenacao` | float | reais, ausente quando não houve |
+:::
+
+::: {.notes}
+O esquema de uma tabela é a lista de quais colunas existem, de que tipo cada uma é, e o que cada uma significa. Em banco de dados isso se chama esquema; em pesquisa empírica, vocês conhecem pelo nome de codebook. É a mesma coisa.
+
+E eu quero insistir num ponto: a terceira coluna dessa tabela, "o que é", não é decoração. Ela é a parte mais importante e é a única que o computador não consegue inferir sozinho.
+
+Vou dar o exemplo que importa para hoje. A coluna resultado tem cinco valores possíveis, e um deles é "ACORDO HOMOLOGADO". A pergunta de codebook é: acordo conta como vitória do autor? Não existe resposta técnica para isso. É uma decisão de pesquisa, tomada uma vez, escrita no codebook, e depois aplicada às sete mil linhas.
+
+Na base de hoje eu tomei uma decisão que vocês podem discordar: acordo não é nem vitória nem derrota, ficou como ausente. Eu vou explicar por quê daqui a dois slides, e vocês podem mudar isso no notebook se acharem que eu errei.
+:::
+
+## A chave primária
+
+```python
+processos["processo"].duplicated().sum()     # 0
+```
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**O que é**]{.titulo}
+A coluna que identifica a linha sem ambiguidade. Aqui, o número CNJ: cada um aparece uma única vez, e não existe linha sem ele.
+:::
+::: {.cartao}
+[**Para que serve**]{.titulo}
+Para não contar o mesmo processo duas vezes, e para ligar esta tabela a outra que fale dos mesmos processos.
+:::
+:::
+
+[Nome não serve como chave: existe mais de uma Maria Silva, e a mesma empresa aparece como BANCO BRADESCO S.A., BANCO BRADESCO SA e BANCO BRADESCO S/A.]{.destaque}
+
+::: {.notes}
+Chave primária é a coluna que identifica cada linha sem ambiguidade. Duas exigências: nunca se repete, e nunca falta.
+
+Na base de hoje, a chave primária é o número CNJ. Eu conferi: os sete mil são distintos, nenhum repetido, nenhum vazio.
+
+Para que isso serve, na prática? Duas coisas. Primeiro, para não contar o mesmo processo duas vezes, que é o erro mais comum e mais silencioso em pesquisa empírica: você junta duas planilhas, algumas linhas se repetem, e a sua taxa de procedência muda sem que ninguém perceba.
+
+Segundo, para ligar esta tabela a outra. É o que a gente vai fazer no fim da aula com o join.
+
+E a frase de baixo é um aviso que vale para o trabalho de vocês. Nome não serve como chave. Existe mais de uma Maria Silva no Brasil. E, do lado das empresas, o problema é ainda pior: nessa base o Bradesco aparecia escrito de três jeitos diferentes, com ponto, sem ponto, com barra. São a mesma empresa e o computador achava que eram três. Eu já limpei isso para vocês, mas na base de vocês ninguém vai limpar.
+:::
+
+## O índice
+
+::: {.grade .grade-2 .compacto}
+::: {.cartao}
+[**O que é índice no pandas?**]{.titulo}
+O rótulo de cada linha. Por padrão, 0, 1, 2, 3… É o que aparece na coluna sem nome, à esquerda, quando você dá `head()`.
+:::
+::: {.cartao}
+[**O que ele não é**]{.titulo}
+Não é uma coluna. `processos["ano"]` funciona; `processos[0]` não. Quando você filtra linhas, o índice vem junto e fica com buracos.
+:::
+:::
+
+**Para que serve** — pedir uma linha pelo rótulo (`processos.loc[0]`); ver o que sobrou de um filtro, em que ele vem com buracos (759, 761, 768…); guardar os grupos do `groupby`; alinhar duas tabelas pelo rótulo, e não pela ordem; virar coluna de novo, com `reset_index()`.
+
+[Em banco de dados, "índice" é outra coisa: uma estrutura que torna a busca rápida, como o índice remissivo de um livro.]{.destaque}
+
+::: {.notes}
+Índice é a palavra mais confusa da aula, porque ela significa duas coisas, e vocês vão encontrar as duas.
+
+No pandas, o índice é o rótulo de cada linha. Quando vocês rodarem head, vai aparecer uma coluna à esquerda, sem nome, com zero, um, dois, três. Aquilo é o índice, e não é uma coluna: ele não aparece em df.columns e não some se você selecionar outras colunas.
+
+O detalhe que confunde na prática é este: quando você filtra linhas, o índice vem junto. Se você filtrar só os processos do TJSP, a primeira linha do resultado pode ter índice quatro mil e doze. O índice não é recontado. Isso assusta na primeira vez e é completamente normal.
+
+O segundo sentido da palavra é o de banco de dados, e eu menciono porque vocês vão ler isso em algum lugar: ali, índice é uma estrutura que o banco monta para achar uma linha rápido, exatamente como o índice remissivo no fim de um livro. Sem índice, o banco lê a tabela inteira; com índice, ele vai direto. Para hoje vocês não precisam usar isso, só não confundir com o outro.
+:::
+
+## Onde o dado mora
+
+::: {.tabela-grande}
+| Formato | O que é | Quando |
+|:--------|:--------|:-------|
+| `.csv` | texto puro, uma linha por linha, vírgulas entre colunas | troca, publicação, aula |
+| `.xlsx` | planilha do Excel, com fórmulas e formatação | quando veio assim |
+| `.parquet` | binário, comprimido, guarda os tipos | bases grandes |
+| banco SQL | servidor que responde a consultas | muita gente ao mesmo tempo |
+:::
+
+[Hoje: `.csv`, lido em uma linha do arquivo que vocês sobem para o Colab.]{.destaque}
+
+::: {.notes}
+Rapidinho, porque isso vocês aprendem usando: onde o dado mora.
+
+CSV quer dizer valores separados por vírgula. É um arquivo de texto puro: cada linha do arquivo é uma linha da tabela, e as colunas são separadas por vírgula. Vocês podem abrir num bloco de notas e ler. É o formato universal de troca, e é o que a gente usa hoje.
+
+Duas dores de cabeça clássicas do CSV, para vocês reconhecerem quando acontecer. A primeira é o separador: no Brasil, o Excel costuma salvar CSV com ponto e vírgula em vez de vírgula, porque a vírgula está ocupada sendo separador decimal. Quando o arquivo abre todo numa coluna só, é isso. A segunda é o encoding, que é a tabela que diz qual número corresponde a qual letra: quando o acento vira aquele símbolo estranho, é encoding errado.
+
+XLSX é o Excel. O pandas lê, com read_excel. A vantagem é que muita gente já tem o dado assim. A desvantagem é que planilha mistura dado com formatação e com fórmula, e é fácil alguém ter ordenado uma coluna sem as outras.
+
+Parquet é binário e comprimido, e guarda os tipos junto. A base de hoje em CSV tem três megabytes; em parquet teria menos de um. Vale quando a base é grande.
+
+Banco SQL é um servidor. Vocês vão encontrar em tribunal, em escritório grande. Não é assunto de hoje.
+:::
+
+# Filtrar linhas {.secao background-color="#023A78"}
+
+## Escolher linhas
+
+Duas formas de escrever a mesma coisa. A segunda lê melhor, e é a que a gente vai usar.
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**O colchete com a condição**]{.titulo}
+`processos[processos["ano"] == 2022]`
+
+A condição devolve uma coluna de verdadeiro/falso, e o colchete fica só com as linhas verdadeiras.
+:::
+::: {.cartao}
+[**O método `query`**]{.titulo}
+`processos.query('ano == 2022')`
+
+Dentro das aspas, o nome da coluna vai solto. Texto entre aspas duplas, número sem nada.
+:::
+:::
+
+[A tabela sai com menos linhas e as mesmas colunas.]{.destaque}
+
+# Selecionar colunas {.secao background-color="#023A78"}
+
+## Um colchete, dois colchetes
+
+::: {.grade .grade-2}
+::: {.cartao}
+[`processos["setor"]`]{.titulo}
+Devolve uma `Series`: a coluna sozinha.
+:::
+::: {.cartao}
+[`processos["setor"].value_counts()`]{.titulo}
+É onde moram `value_counts`, `mean`, `str.contains`.
+:::
+::: {.cartao}
+[`processos[["setor", "ano"]]`]{.titulo}
+Devolve um `DataFrame`: uma tabela, ainda que com uma coluna.
+:::
+::: {.cartao}
+[`processos[["setor", "ano"]].head()`]{.titulo}
+É onde moram `query`, `groupby`, `merge`.
+:::
+:::
+
+[Um colchete devolve coluna. Dois colchetes devolvem tabela.]{.destaque}
+
+::: {.notes}
+No Encontro 4 vocês viram que `dados`, colchete, `assunto`, devolve uma `Series`, e que `Series` é outra classe, com métodos próprios. Hoje isso vira uma regra prática de digitação.
+
+Um colchete e um nome devolve a coluna sozinha, que é uma `Series`. É nela que moram as operações de uma coluna só: contar valores, tirar média, procurar texto.
+
+Dois colchetes e uma lista de nomes devolve um `DataFrame`. Uma tabela — e continua sendo tabela mesmo que vocês peçam uma coluna só, com dois colchetes. É no `DataFrame` que moram as operações que envolvem mais de uma coluna: filtrar com `query`, agrupar, juntar com outra tabela.
+
+A frase destacada é a que eu quero que vocês repitam mentalmente hoje inteiro: um colchete devolve coluna, dois colchetes devolvem tabela.
+
+E ela tem uma consequência imediata, que fecha o slide anterior. Quando aparecer um `AttributeError` dizendo que `Series` não tem tal método, a primeira coisa a conferir não é a grafia: é quantos colchetes vocês usaram.
+:::
+
+# Criar colunas {.secao background-color="#023A78"}
+
+## Criar coluna
+
+A conta vale para a coluna inteira de uma vez. Não existe `for` aqui.
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**A coluna nova**]{.titulo}
+`processos.assign(idade = 2026 - processos["ano"])`
+
+O nome à esquerda do igual é o nome da coluna nova. À direita, a conta.
+:::
+::: {.cartao}
+[**Cuidado**]{.titulo}
+`com_idade = processos.assign(...)`
+
+`assign` não altera a tabela original: devolve uma cópia. Se quiser guardar, dê um nome ao resultado.
+:::
+:::
+
+[A tabela sai com as mesmas linhas e uma coluna a mais.]{.destaque}
+
+## A célula inteira, pedaço por pedaço
+
+```python
+processos.assign(idade = 2026 - processos["ano"])[["ano", "idade"]].head(3)
+```
+
+::: {.tabela-miuda}
+| Pedaço | O que acontece | O que sai |
+|:-------|:---------------|:----------|
+| `processos` | a tabela como está | 7.000 × 11 |
+| `.assign(idade = 2026 - processos["ano"])` | cria a coluna `idade`. O nome novo vai à esquerda do `=`, **sem aspas**; à direita, a conta, feita na coluna inteira de uma vez | 7.000 × 12 |
+| `[["ano", "idade"]]` | escolhe duas colunas dessa tabela nova. Dois colchetes, porque o que queremos é uma tabela | 7.000 × 2 |
+| `.head(3)` | mostra só as três primeiras linhas | 3 × 2 |
+:::
+
+# Ordenar {.secao background-color="#023A78"}
+
+## Ordenar
+
+Ordenar é o que responde "qual é o maior?" sem procurar com o olho.
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Crescente, que é o padrão**]{.titulo}
+`processos.sort_values("ano")`
+
+Do menor para o maior. Em texto, ordem alfabética.
+:::
+::: {.cartao}
+[**Decrescente**]{.titulo}
+`processos.sort_values("valor_condenacao", ascending=False)`
+
+Do maior para o menor. É assim que aparecem as maiores condenações.
+:::
+:::
+
+[Ordenar não tira nem acrescenta linha: só muda a ordem.]{.destaque}
+
+# Resumir {.secao background-color="#023A78"}
+
+## Resumir em um número
+
+Quem sabe tirar média é a **coluna**, não a tabela — por isso o ponto vem depois do colchete.
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Um número para a base toda**]{.titulo}
+`processos["valor_condenacao"].mean()`
+
+A média das 1.221 linhas preenchidas. As vazias ficam de fora sozinhas.
+:::
+::: {.cartao}
+[**Um número por grupo**]{.titulo}
+`processos.groupby("setor")["ganhou_autor"].mean()`
+
+`groupby` só separa em montinhos. Quem devolve o número é o que vem depois: `mean`, `size`, `count`.
+:::
+:::
+
+[A média de uma coluna de verdadeiro/falso é a proporção de verdadeiros: 0.579 é 57,9%.]{.destaque}
+
+## Vários resumos de uma vez: `agg`
+
+`agg` vem de *aggregate*, agregar. No lugar de pedir um resumo só, você passa a **lista** dos resumos que quer.
+
+::: {.columns}
+::: {.column width="56%"}
+::: {.grade .grade-2 .compacto}
+::: {.cartao}
+[**Um resumo**]{.titulo}
+`processos.groupby("setor")["ganhou_autor"].mean()`
+
+Volta um número por setor. Para saber também quantos casos entraram na conta, teria que rodar outra linha.
+:::
+::: {.cartao}
+[**Três de uma vez**]{.titulo}
+`.agg(["size", "count", "mean"])`
+
+Volta uma tabela: uma linha por setor e uma coluna para cada nome que estava dentro dos colchetes.
+:::
+:::
+:::
+::: {.column width="44%"}
+| setor | size | count | mean |
+|:------|-----:|------:|-----:|
+| Transporte aéreo | 271 | 195 | 0.579 |
+| Bureau de crédito | 51 | 42 | 0.095 |
+
+`size` quantas linhas o grupo tem · `count` quantas estão preenchidas · `mean` a média, aqui a proporção · e ainda `median`, `min`, `max`, `sum`, `std`.
+:::
+:::
+
+[Em transporte aéreo, `size` é 271 e `count` é 195: os 76 que somem são os acordos, em que o campo está vazio.]{.destaque}
+
+# Juntar tabelas {.secao background-color="#023A78"}
+
+## A chave: a coluna que existe nas duas
+
+::: {.columns}
+::: {.column width="48%"}
+**`processos`** — 7.000 linhas, 11 colunas
+
+::: {.tabela-miuda}
+| processo | tribunal | resultado |
+|:-------------|:---------|:----------|
+| 0000002-56… | TJPE | IMPROCEDENTE |
+| 0000010-25… | TJPI | IMPROCEDENTE |
+:::
+:::
+::: {.column width="52%"}
+**`dispositivos`** — 7.000 linhas, 4 colunas
+
+::: {.tabela-miuda}
+| processo | reu | dispositivo |
+|:-------------|:----|:------------|
+| 0000002-56… | BRADESCO SAUDE | Ante o exposto… |
+| 0000010-25… | BANCO DO BRASIL | Pelo exposto… |
+:::
+:::
+:::
+
+A coluna em comum é `processo` — o número CNJ, que identifica a linha nas duas tabelas.
+
+```python
+completa = processos.merge(
+    dispositivos[["processo", "dispositivo"]],
+    on="processo", how="left")
+```
+
+::: {.tabela-miuda}
+| processo | tribunal | resultado | dispositivo |
+|:-------------|:---------|:----------|:------------|
+| 0000002-56… | TJPE | IMPROCEDENTE | Ante o exposto… JULGO IMPROCEDENTE o pedido… |
+| 0000010-25… | TJPI | IMPROCEDENTE | Pelo exposto, com fundamento no art. 487, I… |
+:::
+
+[Cada linha de `processos` encontrou o seu par pelo número do processo. A última coluna veio da outra tabela.]{.destaque}
+
+# Fechamento {.secao background-color="#023A78"}
+
+## O que muda quando a base cresce
+
+::: {.comparacao}
+::: {.lado .lado-ruim}
+[Sem a tabela]{.titulo}
+
+Cada pergunta é um loop novo, escrito à mão, com um acumulador que pode nascer no lugar errado.
+
+Conferir é reler o código.
+:::
+::: {.lado .lado-bom}
+[Com a tabela]{.titulo}
+
+Cada pergunta é uma linha que diz o que você quer: agrupe por tribunal, conte, ordene.
+
+Conferir é olhar quantas linhas entraram e quantas sobraram.
+:::
+:::
+
+[O `for` não sumiu. Ele foi para dentro do pandas, e você continua responsável pelo critério.]{.destaque}
+
+::: {.notes}
+Fechando.
+
+Sem a tabela, cada pergunta é um loop novo, escrito à mão, com um acumulador que pode nascer dentro do laço em vez de fora, e a única forma de conferir é reler o código linha por linha.
+
+Com a tabela, cada pergunta é uma linha que diz o que você quer, e não como percorrer. E a forma de conferir muda: você olha quantas linhas entraram e quantas sobraram. Se você filtrou por um tribunal e sobraram sete mil, o filtro não pegou. Se sobraram zero, você escreveu a sigla errada.
+
+E a frase destacada é a moral da aula. O for não sumiu. Ele continua existindo, só que dentro do pandas, escrito por gente que fez isso muito bem. O que continua sendo seu é o critério: quais linhas interessam, o que conta como vitória, qual é a unidade de observação.
+
+O pandas não decide nada disso. Ele executa rápido o que você decidiu.
+:::
+
+## Pandas e IA
+
+::: {.comparacao}
+::: {.lado .lado-bom}
+[Bom uso]{.titulo}
+
+Pedir com as colunas nomeadas: "agrupe `processos` por `setor` e calcule a média de `ganhou_autor`, ignorando os nulos".
+
+Depois conferir: `shape` antes e depois, e uma linha na mão.
+:::
+::: {.lado .lado-ruim}
+[Uso arriscado]{.titulo}
+
+Pedir "analisa essa base e me diz o que tem de interessante" e aceitar o gráfico que voltar.
+
+Ninguém sabe quantas linhas entraram, nem o que virou zero no caminho.
+:::
+:::
+
+[O erro de pandas que a IA comete não dá mensagem de erro. Dá um número plausível.]{.destaque}
+
+::: {.notes}
+Duas palavras sobre IA, que é o tema do Encontro 6 mas que vocês já estão usando.
+
+Pandas é a área em que a IA acerta com mais frequência, porque é código muito repetido na internet. Pedir "agrupe por setor e calcule a média" quase sempre volta certo.
+
+O risco não está na sintaxe. Está em três lugares, e são os três que a gente viu hoje. Primeiro, o que fazer com o ausente: a IA vai preencher nulo com zero sem avisar, porque isso deixa o código mais limpo. Segundo, duplicatas: a IA não sabe qual é a sua chave primária. Terceiro, a unidade de observação: se o join multiplicar linhas, a IA não vai achar isso estranho.
+
+E a frase de baixo é a mais importante do slide. O erro de pandas que a IA comete quase nunca dá mensagem de erro. Ele dá um número plausível. Uma taxa de procedência de trinta e um por cento parece razoável, e você não tem como saber que deveria ser quarenta e quatro.
+
+Por isso o hábito que eu peço: shape antes, shape depois, e uma linha conferida na mão.
+:::
+
+## Até o próximo encontro
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**Para casa**]{.titulo}
+Faça a seção **Para casa** do notebook: é a mesma habilidade de hoje, com outras colunas, e o resultado esperado está em cada enunciado. O gabarito está no repositório, mas tente antes de abrir.
+:::
+::: {.cartao}
+[**Uma pergunta sua**]{.titulo}
+Escolha uma pergunta de pesquisa sua e escreva, em português, quais colunas ela precisa e qual é a unidade de observação. Sem código.
+:::
+:::
+
+::: {.notes}
+Para casa, quatro coisas.
+
+A primeira é a seção "Para casa" do notebook. São exercícios da mesma dificuldade dos de hoje, com outras colunas, e cada enunciado diz qual é o resultado esperado, então vocês conseguem se corrigir sozinhos. O gabarito está no repositório; tentem antes de abrir, porque olhar o gabarito dá uma sensação de ter entendido que não sobrevive à próxima aula.
+
+A segunda é a que eu mais quero. Peguem uma pergunta de pesquisa de vocês, de verdade, do TCC ou do trabalho, e escrevam em português duas coisas: quais colunas essa pergunta precisa, e qual é a unidade de observação. Sem código nenhum. Essa é a parte difícil, e não é a parte de programação.
+
+Terceira, commit e push, como sempre.
+
+Quarta, abram issue com qualquer erro que travou. Erro de encoding e erro de tipo de coluna são os mais prováveis, e são úteis para todo mundo ver.
+:::
+
+## {background-color="#023A78" .secao}
+
+::: {.centro}
+[Obrigada]{.enorme}
+:::
