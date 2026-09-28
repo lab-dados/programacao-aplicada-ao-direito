@@ -81,27 +81,6 @@ Guardem a última linha do slide, porque ela é a aula inteira: cada dicionário
 (Se a turma estiver sólida, vale perguntar: e se um dos dicionários não tivesse a chave "ano"? A resposta é o dado faltante, que volta no bloco de conceitos.)
 :::
 
-## A classe `Cachorro` em Python
-
-```python
-class Cachorro:
-    def __init__(self, nome, raca, idade):
-        self.nome = nome
-        self.raca = raca
-        self.idade = idade
-
-    def latir(self):
-        return self.nome + ": au au"
-
-
-rex = Cachorro("Rex", "vira-lata", 3)
-toto = Cachorro("Totó", "poodle", 7)
-
-rex.idade         # 3
-rex.latir()       # 'Rex: au au'
-toto.latir()      # 'Totó: au au'
-```
-
 ## De lista de dicionários para tabela
 
 A mesma informação, escrita de dois jeitos. O da direita é uma tabela.
@@ -153,6 +132,27 @@ Tem um detalhe que eu quero que vocês reparem, do lado esquerdo da tabela: a co
 
 A frase do rodapé é a que importa: nada se perde na passagem. A informação é a mesma. O que muda é que, virando tabela, eu consigo filtrar, agrupar, ordenar e juntar com outra tabela — e é isso que a lista de dicionários não deixava fazer sem um for enorme.
 :::
+
+## A classe `Cachorro` em Python
+
+```python
+class Cachorro:
+    def __init__(self, nome, raca, idade):
+        self.nome = nome
+        self.raca = raca
+        self.idade = idade
+
+    def latir(self):
+        return self.nome + ": au au"
+
+
+rex = Cachorro("Rex", "vira-lata", 3)
+toto = Cachorro("Totó", "poodle", 7)
+
+rex.idade         # 3
+rex.latir()       # 'Rex: au au'
+toto.latir()      # 'Totó: au au'
+```
 
 ## Onde a gente parou
 
