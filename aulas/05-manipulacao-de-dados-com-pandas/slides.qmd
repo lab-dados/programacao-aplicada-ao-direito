@@ -37,6 +37,30 @@ format:
         </style>
 ---
 
+# Apresentação {.secao background-color="#023A78"}
+
+## Roteiro e objetivos
+
+::: {.columns}
+::: {.column width="52%"}
+[**Roteiro de hoje**]{.titulo}
+
+1. Retomar o que foi visto nas aulas 3 e 4 sobre tipos de dados, classes, objetos, atributos, métodos
+2. Exploração inicial do `df`
+3. Filtrar linhas
+4. Selecionar coluna
+5. Criar novas colunas
+6. Ordenar
+7. Produzir estatísticas
+:::
+::: {.column width="48%"}
+[**Objetivos de aprendizagem**]{.titulo}
+
+- Relacionar conceitos de programação orientada a objeto a manipulações básicas de um banco de dados
+- Aplicar as 5 operações básicas de manipulação de dados no pandas
+:::
+:::
+
 ## Lista, dicionário, lista de dicionários
 
 No Encontro 3 vocês construíram os três. A base de hoje é o terceiro, repetido 7.000 vezes.
@@ -458,7 +482,7 @@ O recado do slide é um só: ninguém sabe a biblioteca inteira. O que se aprend
 ::: {.tabela-grande}
 | Verbo | O que faz | No pandas |
 |:------|:----------|:----------|
-| **filter** | escolher **linhas** | `df[df["ano"] == 2023]` ou `df.query("ano == 2023")` |
+| **filter** | filtrar **linhas** | `df[df["ano"] == 2023]` ou `df.query("ano == 2023")` |
 | **select** | escolher **colunas** | `df[["tribunal", "ano"]]` |
 | **mutate** | criar ou alterar coluna | `df.assign(...)` |
 | **arrange** | ordenar | `df.sort_values("ano")` |
@@ -820,7 +844,7 @@ Banco SQL é um servidor. Vocês vão encontrar em tribunal, em escritório gran
 
 # Filtrar linhas {.secao background-color="#023A78"}
 
-## Escolher linhas
+## Filtrar linhas
 
 Duas formas de escrever a mesma coisa. A segunda lê melhor, e é a que a gente vai usar.
 
