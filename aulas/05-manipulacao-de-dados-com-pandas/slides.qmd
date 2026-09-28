@@ -842,6 +842,30 @@ Parquet é binário e comprimido, e guarda os tipos junto. A base de hoje em CSV
 Banco SQL é um servidor. Vocês vão encontrar em tribunal, em escritório grande. Não é assunto de hoje.
 :::
 
+## Duas perguntas, sempre nesta ordem
+
+::: {.grade .grade-2}
+::: {.cartao}
+[**1. O que eu quero saber?**]{.titulo}
+A pergunta em português, do jeito que você faria a um colega. Nada de código ainda.
+:::
+::: {.cartao}
+[**2. Qual coluna responde?**]{.titulo}
+Onde, na tabela, está a informação que responde a isso — e o que é preciso fazer com ela.
+:::
+:::
+
+::: {.tabela-miuda}
+| O que eu quero saber | Qual coluna responde | O que faço com ela |
+|:---------------------|:---------------------|:-------------------|
+| Quantos processos são de 2022? | `ano` | escolho as linhas — **filtrar** |
+| Quem são os réus mais processados? | `reu` | conto por valor — **resumir** |
+| Há quantos anos cada processo corre? | `ano`, e a conta | **crio** uma coluna |
+| Contra que setor o autor mais ganha? | `setor` e `ganhou_autor` | agrupo e **resumo** |
+:::
+
+[O código é o último passo, e o menor deles. Estas duas perguntas guiam as cinco seções de hoje.]{.destaque}
+
 # Filtrar linhas {.secao background-color="#023A78"}
 
 ## Filtrar linhas
