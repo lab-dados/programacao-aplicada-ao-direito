@@ -1063,6 +1063,22 @@ completa = processos.merge(
 
 [Cada linha de `processos` encontrou o seu par pelo número do processo. A última coluna veio da outra tabela.]{.destaque}
 
+## O `how`: quais linhas sobrevivem
+
+O `how` não muda as colunas — muda **quantas linhas** ficam quando uma chave existe numa tabela e não na outra.
+
+::: {.tabela-miuda}
+| `how` | Fica com | Se 2 processos não tiverem par |
+|:------|:---------|:-------------------------------|
+| `left` | todas as linhas da **esquerda** | 7.000 linhas; os 2 ficam com `dispositivo` vazio |
+| `right` | todas as da **direita** | 6.998 linhas; os 2 processos somem |
+| `inner` *(o padrão)* | só as que têm par **nas duas** | 6.998 linhas; os 2 somem, **sem aviso** |
+| `outer` | tudo das duas | as 7.000 e mais o que só existe na direita |
+| `cross` | cada linha com cada linha | 7.000 × 6.998 = 49 milhões de linhas |
+:::
+
+[Por isso `how="left"`: a base de processos é o objeto da pesquisa e não pode encolher. O que falta vira célula vazia, que se conta — e não linha que some.]{.destaque}
+
 # Fechamento {.secao background-color="#023A78"}
 
 ## O que muda quando a base cresce
