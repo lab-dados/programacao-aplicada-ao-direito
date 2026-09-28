@@ -1083,20 +1083,32 @@ O `how` não muda as colunas — muda **quantas linhas** ficam quando uma chave 
 
 ## O que muda quando a base cresce
 
+*Quantos processos por réu?* — a mesma pergunta, nas duas gramáticas.
+
 ::: {.comparacao}
 ::: {.lado .lado-ruim}
-[Sem a tabela]{.titulo}
+[Sem a tabela — Encontro 3]{.titulo}
 
-Cada pergunta é um loop novo, escrito à mão, com um acumulador que pode nascer no lugar errado.
+```python
+contagem = {}
+for decisao in decisoes:
+    reu = decisao["reu"]
+    if reu in contagem:
+        contagem[reu] = contagem[reu] + 1
+    else:
+        contagem[reu] = 1
+```
 
-Conferir é reler o código.
+Um loop novo a cada pergunta, com um acumulador que pode nascer no lugar errado. Conferir é reler o código.
 :::
 ::: {.lado .lado-bom}
-[Com a tabela]{.titulo}
+[Com a tabela — hoje]{.titulo}
 
-Cada pergunta é uma linha que diz o que você quer: agrupe por tribunal, conte, ordene.
+```python
+processos["reu"].value_counts()
+```
 
-Conferir é olhar quantas linhas entraram e quantas sobraram.
+Uma linha que diz **o que** você quer, não **como** percorrer. Conferir é olhar quantas linhas entraram e quantas sobraram.
 :::
 :::
 
