@@ -30,6 +30,8 @@ website:
         href: aulas/04-objetos-e-classes/slides.qmd
       - text: "Slides do Encontro 5"
         href: aulas/05-manipulacao-de-dados-com-pandas/slides.qmd
+      - text: "Slides do Encontro 6"
+        href: aulas/06-ia-e-engenharia-de-contexto/slides.qmd
     right:
       - icon: github
         href: https://github.com/lab-dados/programacao-aplicada-ao-direito
